@@ -40,8 +40,20 @@ Let's look at an example:
 
 """)
 
+header_md("learning by looking at disassembled code", nesting=2)
+
+print_md("""
+We will now learn about the python bytecode, while looking at disassembled example functions
+""")
+
+header_md("learning about expression evaluation", nesting=3)
+
 run_and_quote("calc.py", command="python3", line_prefix="> ")
 
+header_md("learning about function calls", nesting=3)
+
 run_and_quote("fac_rec.py", command="python3", line_prefix="> ")
+
+header_md("learning about loops", nesting=3)
 
 run_and_quote("fac_iter.py", command="python3", line_prefix="> ")

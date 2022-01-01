@@ -1,6 +1,10 @@
 * [python bytecode explained](#s1)
   * [Introduction to bytecode](#s1-1)
   * [Disassembling of python code](#s1-2)
+  * [learning by looking at disassembled code](#s1-3)
+      * [learning about expression evaluation](#s1-3-1)
+      * [learning about function calls](#s1-3-2)
+      * [learning about loops](#s1-3-3)
 
 
 # <a id='s1' />python bytecode explained
@@ -38,6 +42,14 @@ I have written a disassembler that is producing a combined lising for a given py
 Let's look at an example:
 (There is one limitation, the tool can't be used, if running python code by means of the [exec](https://docs.python.org/3/library/functions.html#exec) built-in function) 
 
+
+
+## <a id='s1-3' />learning by looking at disassembled code
+
+We will now learn about the python bytecode, while looking at disassembled example functions
+
+
+### <a id='s1-3-1' />learning about expression evaluation
 
 
 __Source:__
@@ -136,6 +148,9 @@ __Result:__
 </pre>
 
 
+### <a id='s1-3-2' />learning about function calls
+
+
 __Source:__
 
 ```python
@@ -180,6 +195,9 @@ __Result:__
 >              26 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
 > prettydiasm.prettydis(fac, show_opcode_as_links=True): None
 </pre>
+
+
+### <a id='s1-3-3' />learning about loops
 
 
 __Source:__
