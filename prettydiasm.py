@@ -85,8 +85,18 @@ def _func_spec(spec):
 
     return ", ".join(arg_desc)
 
+
+# functions that are adorned with decorators: need to get the real function value!
+def _get_real_func(func):
+    while getattr(func,"___wrapped__") is not None:
+        func = getattr(func,"___wrapped__")
+
+    return func
+
 def prettydis(func, show_opcode_as_links=False):
     """dissassemble function and show source. Note, doesn't work with compile/exec built-in functions"""
+
+    func = _get_real_func(func)
 
     #code_obj = dis.get_code_object(func)
 
