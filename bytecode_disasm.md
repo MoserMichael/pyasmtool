@@ -43,7 +43,7 @@ A very important bytecode sequence is the function call sequence.
 - Next on the stack come the arguments of the function call
 - The next instruction is a function call opcode [CALL\_FUNCTION](https://docs.python.org/3/library/dis.html#opcode-CALL\_FUNCTION); This opcode comes with a parameter that specifies the number of parameters / number of stack entries that will be passed to the function call; these parameters will be poped off the stack, the return value of the function call will be pushed onto the stack.
 
-Here is a [reference](https://docs.python.org/3/library/dis.html#python-bytecode-instructions) of the instructions, as part of the [dis](https://docs.python.org/3/library/dis.html) module from the python standard library. I was suprised to learn, that many bytecode instructions changed in minor releases of the runtime! If you are upgrading the python interpreter, then you probably should also delete all \_\_pycache\_\_ folders, these folders hold the binary files that hold the compiled bytecode instructions, but you can't be sure that these will work after an upgrade!
+Here is a [reference](https://docs.python.org/3/library/dis.html#python-bytecode-instructions) of the instructions, as part of the [dis](https://docs.python.org/3/library/dis.html) module from the python standard library. I was suprised to learn, that many bytecode instructions changed in minor releases of the runtime! If you are upgrading or downgrading the python interpreter, then you probably should also delete all \_\_pycache\_\_ folders, these folders hold the binary files that hold the compiled bytecode instructions, but you can't be sure that these will work after a version change!
 
 
 
