@@ -29,8 +29,13 @@ Other bytecode instructions serve the purpose of evaluating expressions. These i
 - [BINARY_ADD](https://docs.python.org/3/library/dis.html#opcode-BINARY_ADD) pops two values off the stack, and pushes the sum of these values back to the stack.
 - [UNARY_NEGATE](https://docs.python.org/3/library/dis.html#opcode-UNARY_NEGATIVE) pops the top entry from the stack, and pushes the negated numeric value back to it.
 
+There are instructions used to implement control flow
+- [JUMP_ABSOLUTE](https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE) transfers control to a given bytecode instruction
+- [JUMP_IF_TRUE_OR_POP](https://docs.python.org/3/library/dis.html#opcode-JUMP_IF_TRUE_OR_POP) conditional jump if top of stack has True value, in this case the top element of the stack is left unchanged, if the top of the stack is False then pop the value off the stack.
+
 A very important bytecode sequence is the function call sequence.
 - Here the lowest position on the stack must be a function object, this is put onto the stack by the [LOAD_GLOBAL](https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL) opcode,
+
 - Next on the stack come the arguments of the function call
 - The next instruction is a function call opcode [CALL_FUNCTION](https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION); This opcode comes with a parameter that specifies the number of parameters / number of stack entries that will be passed to the function call; these parameters will be poped off the stack, the return value of the function call will be pushed onto the stack.
 
