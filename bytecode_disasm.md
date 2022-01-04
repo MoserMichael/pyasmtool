@@ -5,6 +5,7 @@
       * [learning about expression evaluation](#s1-3-1)
       * [learning about function calls](#s1-3-2)
       * [learning about loops](#s1-3-3)
+      * [learning about classes](#s1-3-4)
 
 
 # <a id='s1' />Python bytecode explained
@@ -278,6 +279,49 @@ __Result:__
 >   7     >>   28 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (res)
 >              30 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
 > prettydiasm.prettydis(fac, show_opcode_as_links=True): None
+</pre>
+
+
+### <a id='s1-3-4' />learning about classes
+
+
+__Source:__
+
+```python
+import prettydiasm
+
+class Hello:
+    def __init__(self, greeting):
+        self.greeting = greeting
+
+    def show(self):
+        print(self.greeting)
+
+
+hello_obj = Hello("hello world")
+hello_obj.show()
+print( "prettydiasm.prettydis(hello_obj.show, show_opcode_as_links=True):", prettydiasm.prettydis(hello_obj.show, show_opcode_as_links=True) )
+
+
+```
+
+__Result:__
+<pre>
+> hello world
+> File path: /Users/michaelmo/mystuff/pyasmtools/obj_call.py 
+> 
+> obj_call.py:7 def Hello.show(self):
+> 
+> obj_call.py:8 	        print(self.greeting)
+> 
+>   8           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (print)
+>               2 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (self)
+>               4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_ATTR">LOAD_ATTR</a>     1 (greeting)
+>               6 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     1
+>               8 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>              10 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
+>              12 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
+> prettydiasm.prettydis(hello_obj.show, show_opcode_as_links=True): None
 </pre>
 
 
