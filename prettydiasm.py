@@ -56,7 +56,7 @@ def _annotation(spec, argname, ret_val):
 
     return ""
 
-def _func_spec(spec):
+def func_spec(spec):
     #print(spec)
 
     arg_desc=[]
@@ -87,16 +87,24 @@ def _func_spec(spec):
 
 
 # functions that are adorned with decorators: need to get the real function value!
-def _get_real_func(func):
-    while getattr(func,"___wrapped__") is not None:
-        func = getattr(func,"___wrapped__")
+def get_real_func(func):
+    while getattr(func,"__wrapped__", None) is not None:
+        func = getattr(func,"__wrapped__")
 
     return func
+
+def get_func_obj_spec(func):
+    spec = inspect.getfullargspec(func)
+    param_specs = func_spec( spec )
+    return_spec = _annotation(spec, "return", True)
+    return f"def {func.__qualname__}({param_specs}){return_spec}:"
+
+
 
 def prettydis(func, show_opcode_as_links=False):
     """dissassemble function and show source. Note, doesn't work with compile/exec built-in functions"""
 
-    func = _get_real_func(func)
+    func = get_real_func(func)
 
     #code_obj = dis.get_code_object(func)
 
@@ -106,18 +114,21 @@ def prettydis(func, show_opcode_as_links=False):
     print("File path:", file_path,"\n")
     #print("File path:", inspect.getsourcefile(func),"\n")
 
-    first_line = 0
-    instr = dis.get_instructions( func )
-    for inst in instr:
-        if inst.starts_line is not None:
-            first_line = inst.starts_line
-            break
-    first_line -= 1
+#    first_line = 0
+#    instr = dis.get_instructions( func )
+#    for inst in instr:
+#        if inst.starts_line is not None:
+#            first_line = inst.starts_line
+#            break
+#    first_line -= 1
 
-    spec = inspect.getfullargspec(func)
-    param_specs = _func_spec( spec )
-    return_spec = _annotation(spec, "return", True)
-    print(f"{base_name}:{first_line} def {func.__qualname__}({param_specs}){return_spec}:")
+    first_line = func.__code__.co_firstlineno 
+
+#    spec = inspect.getfullargspec(func)
+#    param_specs = func_spec( spec )
+#    return_spec = _annotation(spec, "return", True)
+#    print(f"{base_name}:{first_line} def {func.__qualname__}({param_specs}){return_spec}:")
+    print(f"{base_name}:{first_line} {get_func_obj_spec(func)}")
 
     # don't remove the next line, please! It's a generator, and will continue after the first line...
     instr = dis.get_instructions( func )
