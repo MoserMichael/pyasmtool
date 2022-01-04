@@ -48,11 +48,11 @@ header_md("Disassembling of python code", nesting=2)
 print_md("""
 You can examine the pyhon bytecode of a function by means of a dissassembler, as part of the python standard library you have the [dis](https://docs.python.org/3/library/dis.html) package, that can show you the bytecode of a python function.
 
-I have written a disassembler that is producing a combined listing for a given python function, this means that you have a line of the python source code, followed by the python bytecode instructions that this source line translates into; I hope that this combined listing will make it much easier to comprehend, what the byte code instructions mean. I think that this will illustrate the concepts, that were explained in the previous section.
+I have written a disassembler that is producing a combined listing for a given python function, this means that you have a line of the python source code, followed by the python bytecode instructions that this source line translates into; I hope that this combined listing will make it much easier to comprehend the meaning of each lineof code and how it translates into the byte code instructions. I think that this will illustrate the concepts, that were explained in the previous section.
 
 Let's look at an example:
 
-(There is one limitation, the tool can't be used, if running python code compiled from a string by means of the [compile](https://docs.python.org/3/library/functions.html#compile) and [exec](https://docs.python.org/3/library/functions.html#exec) built-in functions, here it is impossible to find the source code of a line, while running the program)
+(Note: there is one limitation, the tool can't be used, if running python code compiled from a string by means of the [compile](https://docs.python.org/3/library/functions.html#compile) and [exec](https://docs.python.org/3/library/functions.html#exec) built-in functions, here it is impossible to find the source code of a line, while running the program)
 
 """)
 
@@ -64,9 +64,24 @@ We will now learn about the python bytecode, while looking at disassembled examp
 
 header_md("learning about expression evaluation", nesting=3)
 
+print_md("""
+The calc function receives the name of the operation and two argument numbers, it switches on the type of the requested operation and performs the requested arithmetic operation on the other two arguments. This is an example function that is evaluating some expression, and then returning a value back to the caller of the function.
+
+Note some difference betwen the python bytecode and the mnemonics of an assembly language - on most CPU's you have a stack that is shared between function calls performed for a given operating system thread. However the python interpreter works differently, you have a Frame object per function, this frame object has a seperate stack used to evaluating the bytecode of that function. The frame objects are chained together and form a seperate stack ordered by the sequence of calling each function. Note that the python bytecode is therefore closely related to how the cpython interpreter is working.
+
+Why should the python runtime maintain a separate stack, just for the purpose of evaluating an expression? One possible reason would be to simplify generators and asynchronous calls, here you need to switch often between co-routines, and it is easier to do so, if each activation record/frame has its own stack to begin with.
+
+Please examine the following example and bytecode listing; you can see the patterns exlained in the previous section: evaluation of an expression is loading the arguments to the evaluating stack, then performing an operation on the values in the stack, the result is moved back to main memory via a store instruction.
+""")        
 run_and_quote("calc.py", command="python3", line_prefix="> ")
 
 header_md("learning about function calls", nesting=3)
+
+print_md("""
+The next example has a recursive function with one positional argument, the function computes the factorial on the argument, recursively. 
+Note that first on the stack is variable of type Function that is to be invoked. Next the function parameter is computed and pushed onto the stack, finally the 
+<a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a> opocde is perfoming the call, this instruction also has the number of arguments of the call.
+""")
 
 run_and_quote("fac_rec.py", command="python3", line_prefix="> ")
 
