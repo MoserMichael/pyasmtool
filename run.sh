@@ -28,6 +28,8 @@ Generating tutorial text:
 EOF
 
 make_lesson ./bytecode_disasm.py
+make_lesson ./tracer.py
+
 
 ((NUM_PAGES=TOTAL_WORDS/WORDS_IN_PAGE))
 
