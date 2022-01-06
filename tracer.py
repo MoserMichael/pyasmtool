@@ -60,7 +60,7 @@ run_and_quote("./trace_fac_iter.py", command="", line_prefix="")
 print_md("""
 Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [MAP_ADD](https://docs.python.org/3.8/library/dis.html#opcode-MAP_ADD) that modify a given dictionary object.
 
-It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... 
+It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... But wait, it seems it is possible from python [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
 """)
 
 
