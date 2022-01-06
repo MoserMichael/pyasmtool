@@ -172,7 +172,9 @@ fac.py(5):         return arg_n
 Let's attemt to make a better trace facility for python.
 The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the exeuction of every opcode; here we could try and show all load and store instructions
 
-Let's trace the execution of a recursive factorial function in python
+Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function.
+
+The traced output is showing the file name, line numer and depth of the call stack, counting from the first call of the traced function.
 
 
 __Source:__
@@ -329,5 +331,9 @@ trace_fac_iter.py:9(1)     # load res 720
 trace_fac_iter.py:9(1) return=720
 fac_iter(7): 720
 </pre>
+
+Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [MAP\_ADD](https://docs.python.org/3.8/library/dis.html#opcode-MAP\_ADD) that modify a given dictionary object.
+
+It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... 
 
 
