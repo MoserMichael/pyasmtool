@@ -32,7 +32,7 @@ class TraceParam:
 def _add_opcode( op_name, op_map, op_func):
     if op_name in opcode.opmap:
         op_code = opcode.opmap[ op_name ]
-        print("adding",op_name,op_code)
+        #print("adding",op_name,op_code)
         op_map[op_code] = op_func
         
 # For reference; the frame level bytecode interter in cpython is implemented in function _PyEval_EvalFrameDefault

@@ -198,8 +198,6 @@ print( "fac(7):", fac(7))
 
 __Result:__
 <pre>
-adding LOAD_FAST 124
-adding STORE_FAST 125
 trace_fac_rec.py:6(1) def fac(arg_n):
 trace_fac_rec.py:6(1) # arg_n=7
 trace_fac_rec.py:7(1)     if arg_n == 1:
@@ -282,8 +280,6 @@ print( "fac_iter(7):", fac_iter(7))
 
 __Result:__
 <pre>
-adding LOAD_FAST 124
-adding STORE_FAST 125
 trace_fac_iter.py:5(1) def fac_iter(arg_n: int) -> int:
 trace_fac_iter.py:5(1) # arg_n=7
 trace_fac_iter.py:6(1)     res = 1
