@@ -268,7 +268,7 @@ import prettytrace
 
 def fac_iter(arg_n: int) -> int:
     res = 1
-    for cur_n in range(1,arg_n):
+    for cur_n in range(1,arg_n+1):
         res *= cur_n
     return res
 
@@ -284,48 +284,54 @@ trace_fac_iter.py:5(1) def fac_iter(arg_n: int) -> int:
 trace_fac_iter.py:5(1) # arg_n=7
 trace_fac_iter.py:6(1)     res = 1
 trace_fac_iter.py:7(1)     # store res 1
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:7(1)     # load arg_n 7
 trace_fac_iter.py:8(1)     # store cur_n 1
 trace_fac_iter.py:8(1)         res *= cur_n
 trace_fac_iter.py:8(1)         # load res 1
 trace_fac_iter.py:8(1)         # load cur_n 1
 trace_fac_iter.py:8(1)         # store res 1
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:8(1)     # store cur_n 2
 trace_fac_iter.py:8(1)         res *= cur_n
 trace_fac_iter.py:8(1)         # load res 1
 trace_fac_iter.py:8(1)         # load cur_n 2
 trace_fac_iter.py:8(1)         # store res 2
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:8(1)     # store cur_n 3
 trace_fac_iter.py:8(1)         res *= cur_n
 trace_fac_iter.py:8(1)         # load res 2
 trace_fac_iter.py:8(1)         # load cur_n 3
 trace_fac_iter.py:8(1)         # store res 6
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:8(1)     # store cur_n 4
 trace_fac_iter.py:8(1)         res *= cur_n
 trace_fac_iter.py:8(1)         # load res 6
 trace_fac_iter.py:8(1)         # load cur_n 4
 trace_fac_iter.py:8(1)         # store res 24
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:8(1)     # store cur_n 5
 trace_fac_iter.py:8(1)         res *= cur_n
 trace_fac_iter.py:8(1)         # load res 24
 trace_fac_iter.py:8(1)         # load cur_n 5
 trace_fac_iter.py:8(1)         # store res 120
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:8(1)     # store cur_n 6
 trace_fac_iter.py:8(1)         res *= cur_n
 trace_fac_iter.py:8(1)         # load res 120
 trace_fac_iter.py:8(1)         # load cur_n 6
 trace_fac_iter.py:8(1)         # store res 720
-trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n):
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
+trace_fac_iter.py:8(1)     # store cur_n 7
+trace_fac_iter.py:8(1)         res *= cur_n
+trace_fac_iter.py:8(1)         # load res 720
+trace_fac_iter.py:8(1)         # load cur_n 7
+trace_fac_iter.py:8(1)         # store res 5040
+trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
 trace_fac_iter.py:9(1)     return res
-trace_fac_iter.py:9(1)     # load res 720
-trace_fac_iter.py:9(1) return=720
-fac_iter(7): 720
+trace_fac_iter.py:9(1)     # load res 5040
+trace_fac_iter.py:9(1) return=5040
+fac_iter(7): 5040
 </pre>
 
 Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [MAP\_ADD](https://docs.python.org/3.8/library/dis.html#opcode-MAP\_ADD) that modify a given dictionary object.
