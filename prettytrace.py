@@ -55,13 +55,15 @@ def _show_load_fast(frame, instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ] 
     val = frame.f_locals[ varname ]
     prefix = ctx.get_line_prefix(frame, 1)
-    print(f"{prefix} # load {varname} {val}")
+    sval = ctx.show_val(val)
+    print(f"{prefix} # load {varname} {sval}")
 
 def _show_store_fast(frame, asm_instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ] 
     val = frame.f_locals[ varname ]
     prefix = ctx.get_line_prefix(frame, 1)
-    print(f"{prefix} # store {varname} {val}")
+    sval = ctx.show_val(val)
+    print(f"{prefix} # store {varname} {sval}")
 
 
 def _init_opcodes():
@@ -81,6 +83,13 @@ class ThreadTraceCtx:
         self.prev_instr_arg = None
         self.prefix_spaces = 0
 #       self.prev_line_entry = None
+
+    def show_val(self, val):
+        if self.params.show_obj == 0:
+            return str(val)
+        elif self.params.show_obj == 1:
+            return repr(val)
+        return pprint.pformat(val)
 
     def on_prepare(self, frame):
         self.filename = frame.f_code.co_filename
@@ -106,7 +115,8 @@ class ThreadTraceCtx:
         arg_info = inspect.getargvalues(frame)
         #print("arg_info:", arg_info)
         for arg in arg_info.args:
-            print(f"{self.get_line_prefix(frame, 1)} # {arg}={arg_info.locals[arg]}")
+            sval = self.show_val(arg_info.locals[arg]) 
+            print(f"{self.get_line_prefix(frame, 1)} # {arg}={sval}")
 
         #print(frame.f_code.co_filename, frame.f_code.co_name, "firstline:", firstline, "first-code-line:", linestarts[1])
 
@@ -172,7 +182,8 @@ class ThreadTraceCtx:
 
     def on_pop_frame(self, frame, arg):
         #print("on_pop_frame type(frame):", type(frame), frame.f_code.co_filename, frame.f_code.co_name)
-        print(f"{self.get_line_prefix(frame, 0)} return={arg}")
+        sval = self.show_val(arg)
+        print(f"{self.get_line_prefix(frame, 0)} return={sval}")
         self.nesting -= 1
 
 
@@ -263,7 +274,7 @@ def _check_eof_trace():
     
 class TraceMe:
 
-    def __init__(self, func,  trace_indent : bool = False, trace_loc : bool = True, show_obj : bool = True):
+    def __init__(self, func,  trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0):
         functools.update_wrapper(self, func)
         self.func = func
         self.trace_indent = trace_indent
