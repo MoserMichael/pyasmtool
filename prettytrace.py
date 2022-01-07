@@ -9,20 +9,12 @@ import functools
 import dis
 import opcode
 
-TRACE_INDENT=1
-TRACE_LOC=2
-TABS_TO_SPACES=4
-
+_TABS_TO_SPACES = 4
 _LOAD_OPCODES = {}
 _STORE_OPCODES = {}
 
 # weird tls in python... https://bugs.python.org/issue24020
 local_data_ = threading.local()
-
-#class LineEntry:
-#    def __init__(self):
-#        self.load_instr = []
-#        self.store_instr = []
 
 @dataclasses.dataclass
 class TraceParam: 
@@ -171,7 +163,7 @@ class ThreadTraceCtx:
                 spaces+=1
             elif line[pos] == '\t':
                 self.prefix_spaces = spaces + 1
-                spaces += TABS_TO_SPACES 
+                spaces += _TABS_TO_SPACES 
             else:
                 break
             pos += 1
@@ -190,40 +182,6 @@ class ThreadTraceCtx:
     # disassemble a  function, for each line establih a LineEntry - it holds two sets. 1) the set of load 2) set of store type instructions.
     # Fill the instr_cache with entries self.instr_cache[ module ][ functon_name ][ line_number ] = LineEntry()
 
-#    def disasm_func(self, func):
-#        code = func
-#        cache_entry = self.instr_cache.get( code.co_filename )
-#        if cache_entry is None:
-#            cache_entry = {}
-#            self.instr_cache[ code.co_filename ] = cache_entry
-#
-#        func_entry = cache_entry.get(code.co_name)
-#        if func_entry is not None:
-#            return
-#
-#        func_entry = {}
-#        cache_entry[code.co_name] = func_entry
-#
-#        instr = dis.get_instructions( func )
-#        for inst in instr:
-#            if inst.starts_line is not None:
-#                cur_instr = LineEntry()
-#                func_entry[ inst.starts_line ] = cur_instr
-#            if _is_load_instr(inst):
-#                cur_instr.load_instr.append(inst)
-#            if _is_store_instr(inst):
-#                cur_instr.store_instr.append(inst)
-
-#    def show_stores(self,frame):
-#        for instr in self.prev_line_entry.store_instr:
-#            func = _STORE_OPODES[instr.opcode]
-#            func(frame, instr)
-#
-#    def show_loads(self,frame):
-#        for instr in self.prev_line_entry.load_instr:
-#            func = _LOAD_OPCODES[instr.opcode]
-#            func(frame, instr)
-#
 
 def _line_tracer(frame, why, arg):
     ctx = getattr(local_data_,"trace_ctx")
