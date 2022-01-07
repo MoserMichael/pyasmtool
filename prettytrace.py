@@ -51,19 +51,18 @@ def _add_opcode( op_name, op_map, op_func):
 # lOAD_FAST gets the value from macro 
 # #define GETLOCAL(i)     (frame->localsplus[i])
 
-def _show_load_fast(frame, instr, argval, prefix):
+def _show_load_fast(frame, instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ] 
     val = frame.f_locals[ varname ]
+    prefix = ctx.get_line_prefix(frame, 1)
     print(f"{prefix} # load {varname} {val}")
 
-def _show_store_fast(frame, asm_instr, argval, prefix):
+def _show_store_fast(frame, asm_instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ] 
     val = frame.f_locals[ varname ]
+    prefix = ctx.get_line_prefix(frame, 1)
     print(f"{prefix} # store {varname} {val}")
 
-
-def _show_return_value(fame, asm_instr, argval):
-    pass
 
 def _init_opcodes():
     _add_opcode( "LOAD_FAST", _LOAD_OPCODES, _show_load_fast)
@@ -116,7 +115,7 @@ class ThreadTraceCtx:
             #print("prev_instr:", self.prev_instr)
             func = _STORE_OPCODES.get(self.prev_instr, None)
             if func is not None:
-                func(frame, self.prev_instr, self.prev_instr_arg, self.get_line_prefix(frame, 1))
+                func(frame, self.prev_instr, self.prev_instr_arg, self) #self.get_line_prefix(frame, 1))
                 self.prev_instr = None
 
  
@@ -129,7 +128,7 @@ class ThreadTraceCtx:
         func = _LOAD_OPCODES.get(instr, None)
         arg = frame.f_code.co_code[byte_index+1]
         if func is not None:
-            func(frame, instr, arg, self.get_line_prefix(frame, 1))
+            func(frame, instr, arg, self) #self.get_line_prefix(frame, 1))
 
         self.prev_instr = instr
         self.prev_instr_arg = arg
