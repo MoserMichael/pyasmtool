@@ -4,7 +4,7 @@ import prettytrace
 
 def fac_iter(arg_n: int) -> int:
     res = 1
-    for cur_n in range(1,arg_n):
+    for cur_n in range(1,arg_n+1):
         res *= cur_n
     return res
 

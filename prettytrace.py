@@ -28,6 +28,7 @@ local_data_ = threading.local()
 class TraceParam: 
     trace_indent: bool
     trace_loc: bool
+    show_obj: int
 
 def _add_opcode( op_name, op_map, op_func):
     if op_name in opcode.opmap:
@@ -74,7 +75,7 @@ class ThreadTraceCtx:
 
     def reinit(self, params : TraceParam):
         self.nesting = 0
-        self.paams = params
+        self.params = params
         self.in_trace = False
         self.instr_cache = {}
         self.prev_instr = None
@@ -135,7 +136,10 @@ class ThreadTraceCtx:
 
     def get_line_prefix(self, frame, add_prefix):
         lineno = frame.f_lineno
-        return f"{self.bname}:{lineno}({self.nesting})" + (" " * self.prefix_spaces * add_prefix)
+        ret = f"{self.bname}:{lineno}({self.nesting})" + (" " * self.prefix_spaces * add_prefix)
+        if self.params.trace_indent:
+            ret += ('.' * self.nesting)
+        return ret
 
 
     def on_line(self, frame):
@@ -260,18 +264,23 @@ def _check_eof_trace():
     
 class TraceMe:
 
-    def __init__(self, func,  trace_indent : bool = False, trace_loc : bool = True):
+    def __init__(self, func,  trace_indent : bool = False, trace_loc : bool = True, show_obj : bool = True):
         functools.update_wrapper(self, func)
         self.func = func
         self.trace_indent = trace_indent
         self.trace_loc = trace_loc
+        self.show_obj = show_obj
 
 
     def __call__(self, *args, **kwargs):
-        if _init_trace( TraceParam(trace_indent=self.trace_indent, trace_loc=self.trace_loc) ):
+
+        # first invocation sets up tracing hook
+        if _init_trace( TraceParam(trace_indent=self.trace_indent, trace_loc=self.trace_loc, show_obj=self.show_obj) ):
             sys.settrace( _func_tracer )
+
         ret_val = self.func(*args, **kwargs)
 
+        # clean up trace hook if finished tracing
         if _check_eof_trace():
             sys.settrace( None )
 
