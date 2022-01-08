@@ -7,6 +7,7 @@
       * [learning about loops](#s1-3-3)
       * [learning about classes](#s1-3-4)
       * [learning about dictionaries](#s1-3-5)
+      * [learning about lists](#s1-3-6)
 
 
 # <a id='s1' />Python bytecode explained
@@ -458,6 +459,120 @@ __Result:__
 >         >>  134 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
 >             136 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
 > prettydiasm.prettydis(compute_historgram, show_opcode_as_links=True): None
+</pre>
+
+
+### <a id='s1-3-6' />learning about lists
+
+
+__Source:__
+
+```python
+#!/usr/bin/env python3
+
+import random
+import prettydiasm
+
+
+def shuffle(arr_size):
+    arr=[]
+    for num in range(1,arr_size+1):
+        arr.append(num)
+
+    for nun in range(0, arr_size):
+        idx = random.randint(1,arr_size)
+        tmp = arr[0]
+        arr[0] = arr[idx]
+        arr[idx] = tmp
+
+    return arr
+
+#print(shuffle(7))        
+print( "prettydiasm.prettydis(shuffle, show_opcode_as_links=True):", prettydiasm.prettydis(shuffle, show_opcode_as_links=True) )
+
+
+```
+
+__Result:__
+<pre>
+> File path: /Users/michaelmo/mystuff/pyasmtools/shuffle.py 
+> 
+> shuffle.py:7 def shuffle(arr_size):
+> 
+> shuffle.py:8 	    arr=[]
+> 
+>   8           0 <a href="https://docs.python.org/3/library/dis.html#opcode-BUILD_LIST">BUILD_LIST</a>     0
+>               2 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     1 (arr)
+> 
+> shuffle.py:9 	    for num in range(1,arr_size+1):
+> 
+>   9           4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (range)
+>               6 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
+>               8 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arr_size)
+>              10 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
+>              12 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_ADD">BINARY_ADD</a>
+>              14 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
+>              16 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
+>         >>   18 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    14 (to 34)
+>              20 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     2 (num)
+> 
+> shuffle.py:10 	        arr.append(num)
+> 
+>  10          22 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
+>              24 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     1 (append)
+>              26 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (num)
+>              28 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     1
+>              30 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>              32 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    18
+> 
+> shuffle.py:12 	    for nun in range(0, arr_size):
+> 
+>  12     >>   34 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (range)
+>              36 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (0)
+>              38 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arr_size)
+>              40 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
+>              42 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
+>         >>   44 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    44 (to 90)
+>              46 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     3 (nun)
+> 
+> shuffle.py:13 	        idx = random.randint(1,arr_size)
+> 
+>  13          48 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     2 (random)
+>              50 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     3 (randint)
+>              52 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
+>              54 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arr_size)
+>              56 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     2
+>              58 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     4 (idx)
+> 
+> shuffle.py:14 	        tmp = arr[0]
+> 
+>  14          60 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
+>              62 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (0)
+>              64 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
+>              66 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     5 (tmp)
+> 
+> shuffle.py:15 	        arr[0] = arr[idx]
+> 
+>  15          68 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
+>              70 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (idx)
+>              72 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
+>              74 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
+>              76 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (0)
+>              78 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
+> 
+> shuffle.py:16 	        arr[idx] = tmp
+> 
+>  16          80 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     5 (tmp)
+>              82 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
+>              84 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (idx)
+>              86 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
+>              88 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    44
+> 
+> shuffle.py:18 	    return arr
+> 
+>  18     >>   90 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
+>              92 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
+> prettydiasm.prettydis(shuffle, show_opcode_as_links=True): None
 </pre>
 
 

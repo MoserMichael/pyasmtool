@@ -97,5 +97,10 @@ header_md("learning about dictionaries", nesting=3)
 
 run_and_quote("histo.py", command="python3", line_prefix="> ")
 
+header_md("learning about lists", nesting=3)
+
+run_and_quote("shuffle.py", command="python3", line_prefix="> ")
+
+
 
 
