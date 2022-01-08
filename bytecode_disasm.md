@@ -6,6 +6,7 @@
       * [learning about function calls](#s1-3-2)
       * [learning about loops](#s1-3-3)
       * [learning about classes](#s1-3-4)
+      * [learning about dictionaries](#s1-3-5)
 
 
 # <a id='s1' />Python bytecode explained
@@ -322,6 +323,141 @@ __Result:__
 >              10 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
 >              12 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
 > prettydiasm.prettydis(hello_obj.show, show_opcode_as_links=True): None
+</pre>
+
+
+### <a id='s1-3-5' />learning about dictionaries
+
+
+__Source:__
+
+```python
+#!/usr/bin/env python3
+
+import prettydiasm
+
+def compute_historgram(file_name):
+    with open(file_name,'r') as file:
+        text = file.read()
+
+        histo = {}
+        for ch in text:
+            if not ch in histo:
+                histo[ch] = 1
+            else:
+                histo[ch] += 1
+
+        for ch in histo.keys():
+            print("char:", repr(ch), "frequency:", histo[ch])
+
+#compute_historgram(__file__)
+print( "prettydiasm.prettydis(compute_historgram, show_opcode_as_links=True):", prettydiasm.prettydis(compute_historgram, show_opcode_as_links=True) )
+
+
+```
+
+__Result:__
+<pre>
+> File path: /Users/michaelmo/mystuff/pyasmtools/histo.py 
+> 
+> histo.py:5 def compute_historgram(file_name):
+> 
+> histo.py:6 	    with open(file_name,'r') as file:
+> 
+>   6           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (open)
+>               2 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (file_name)
+>               4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 ('r')
+>               6 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
+>               8 <a href="https://docs.python.org/3/library/dis.html#opcode-SETUP_WITH">SETUP_WITH</a>   108 (to 118)
+>              10 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     1 (file)
+> 
+> histo.py:7 	        text = file.read()
+> 
+>   7          12 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (file)
+>              14 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     1 (read)
+>              16 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     0
+>              18 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     2 (text)
+> 
+> histo.py:9 	        histo = {}
+> 
+>   9          20 <a href="https://docs.python.org/3/library/dis.html#opcode-BUILD_MAP">BUILD_MAP</a>     0
+>              22 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     3 (histo)
+> 
+> histo.py:10 	        for ch in text:
+> 
+>  10          24 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (text)
+>              26 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
+>         >>   28 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    38 (to 68)
+>              30 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     4 (ch)
+> 
+> histo.py:11 	            if not ch in histo:
+> 
+>  11          32 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
+>              34 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
+>              36 <a href="https://docs.python.org/3/library/dis.html#opcode-CONTAINS_OP">CONTAINS_OP</a>     1
+>              38 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    50
+> 
+> histo.py:12 	                histo[ch] = 1
+> 
+>  12          40 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (1)
+>              42 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
+>              44 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
+>              46 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
+>              48 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    28
+> 
+> histo.py:14 	                histo[ch] += 1
+> 
+>  14     >>   50 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
+>              52 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
+>              54 <a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP_TWO">DUP_TOP_TWO</a>
+>              56 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
+>              58 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (1)
+>              60 <a href="https://docs.python.org/3/library/dis.html#opcode-INPLACE_ADD">INPLACE_ADD</a>
+>              62 <a href="https://docs.python.org/3/library/dis.html#opcode-ROT_THREE">ROT_THREE</a>
+>              64 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
+>              66 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    28
+> 
+> histo.py:16 	        for ch in histo.keys():
+> 
+>  16     >>   68 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
+>              70 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     2 (keys)
+>              72 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     0
+>              74 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
+>         >>   76 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    26 (to 104)
+>              78 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     4 (ch)
+> 
+> histo.py:17 	            print("char:", repr(ch), "frequency:", histo[ch])
+> 
+>  17          80 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     3 (print)
+>              82 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     3 ('char:')
+>              84 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     4 (repr)
+>              86 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
+>              88 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     1
+>              90 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     4 ('frequency:')
+>              92 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
+>              94 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
+>              96 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
+>              98 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     4
+>             100 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>             102 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    76
+>         >>  104 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_BLOCK">POP_BLOCK</a>
+>             106 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
+>             108 <a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP">DUP_TOP</a>
+>             110 <a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP">DUP_TOP</a>
+>             112 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     3
+>             114 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>             116 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_FORWARD">JUMP_FORWARD</a>    16 (to 134)
+>         >>  118 <a href="https://docs.python.org/3/library/dis.html#opcode-WITH_EXCEPT_START">WITH_EXCEPT_START</a>
+>             120 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_TRUE">POP_JUMP_IF_TRUE</a>   124
+>             122 <a href="https://docs.python.org/3/library/dis.html#opcode-RERAISE">RERAISE</a>
+>         >>  124 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>             126 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>             128 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>             130 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_EXCEPT">POP_EXCEPT</a>
+>             132 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
+>         >>  134 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
+>             136 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
+> prettydiasm.prettydis(compute_historgram, show_opcode_as_links=True): None
 </pre>
 
 

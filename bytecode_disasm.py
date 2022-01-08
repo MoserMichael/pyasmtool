@@ -93,4 +93,9 @@ header_md("learning about classes", nesting=3)
 
 run_and_quote("obj_call.py", command="python3", line_prefix="> ")
 
+header_md("learning about dictionaries", nesting=3)
+
+run_and_quote("histo.py", command="python3", line_prefix="> ")
+
+
 
