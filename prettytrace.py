@@ -434,7 +434,6 @@ def _check_eof_trace():
     if thread_ctx is not None and thread_ctx.nesting == 0:
         setattr(local_data_,"trace_ctx", None)
         sys.settrace( None )
-        print("***eof trace***", getattr(local_data_, "trace_ctx"))
 
 
 
@@ -455,9 +454,6 @@ class TraceMe:
         # first invocation sets up tracing hook
         if _init_trace( TraceParam(trace_indent=self.trace_indent, trace_loc=self.trace_loc, show_obj=self.show_obj, ignore_stdlib=self.ignore_stdlib) ):
             sys.settrace( _func_tracer )
-            print("*** init trace ***")
-        else:
-            print("**** no-init trace ***")
 
         ret_val = self.func(*args, **kwargs)
 
@@ -467,4 +463,12 @@ class TraceMe:
         return ret_val
 
 # init at load time.
-    _init_opcodes()
+_init_opcodes()
+
+def disable_stack_access():
+    global _CTYPES_ENABLED
+
+    _CTYPES_ENABLED = -1
+   
+
+

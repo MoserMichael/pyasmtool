@@ -198,12 +198,14 @@ print( "fac(7):", fac(7))
 
 __Result:__
 <pre>
+ctypes enabled!
 trace_fac_rec.py:6(1) def fac(arg_n):
 trace_fac_rec.py:6(1) # arg_n=7
 trace_fac_rec.py:7(1)     if arg_n == 1:
 trace_fac_rec.py:7(1)     # load arg_n 7
 trace_fac_rec.py:9(1)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(1)     # load arg_n 7
+load_global: can't find  arg_n in any scope
 trace_fac_rec.py:9(1)     # load arg_n 7
 trace_fac_rec.py:6(2) def fac(arg_n):
 trace_fac_rec.py:6(2)     # arg_n=6
@@ -211,6 +213,7 @@ trace_fac_rec.py:7(2)     if arg_n == 1:
 trace_fac_rec.py:7(2)     # load arg_n 6
 trace_fac_rec.py:9(2)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(2)     # load arg_n 6
+load_global: can't find  arg_n in any scope
 trace_fac_rec.py:9(2)     # load arg_n 6
 trace_fac_rec.py:6(3) def fac(arg_n):
 trace_fac_rec.py:6(3)     # arg_n=5
@@ -218,6 +221,7 @@ trace_fac_rec.py:7(3)     if arg_n == 1:
 trace_fac_rec.py:7(3)     # load arg_n 5
 trace_fac_rec.py:9(3)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(3)     # load arg_n 5
+load_global: can't find  arg_n in any scope
 trace_fac_rec.py:9(3)     # load arg_n 5
 trace_fac_rec.py:6(4) def fac(arg_n):
 trace_fac_rec.py:6(4)     # arg_n=4
@@ -225,6 +229,7 @@ trace_fac_rec.py:7(4)     if arg_n == 1:
 trace_fac_rec.py:7(4)     # load arg_n 4
 trace_fac_rec.py:9(4)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(4)     # load arg_n 4
+load_global: can't find  arg_n in any scope
 trace_fac_rec.py:9(4)     # load arg_n 4
 trace_fac_rec.py:6(5) def fac(arg_n):
 trace_fac_rec.py:6(5)     # arg_n=3
@@ -232,6 +237,7 @@ trace_fac_rec.py:7(5)     if arg_n == 1:
 trace_fac_rec.py:7(5)     # load arg_n 3
 trace_fac_rec.py:9(5)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(5)     # load arg_n 3
+load_global: can't find  arg_n in any scope
 trace_fac_rec.py:9(5)     # load arg_n 3
 trace_fac_rec.py:6(6) def fac(arg_n):
 trace_fac_rec.py:6(6)     # arg_n=2
@@ -239,6 +245,7 @@ trace_fac_rec.py:7(6)     if arg_n == 1:
 trace_fac_rec.py:7(6)     # load arg_n 2
 trace_fac_rec.py:9(6)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(6)     # load arg_n 2
+load_global: can't find  arg_n in any scope
 trace_fac_rec.py:9(6)     # load arg_n 2
 trace_fac_rec.py:6(7) def fac(arg_n):
 trace_fac_rec.py:6(7)     # arg_n=1
@@ -280,11 +287,13 @@ print( "fac_iter(7):", fac_iter(7))
 
 __Result:__
 <pre>
+ctypes enabled!
 trace_fac_iter.py:5(1) def fac_iter(arg_n: int) -> int:
 trace_fac_iter.py:5(1) # arg_n=7
 trace_fac_iter.py:6(1)     res = 1
 trace_fac_iter.py:7(1)     # store res 1
 trace_fac_iter.py:7(1)     for cur_n in range(1,arg_n+1):
+load_global: can't find  arg_n in any scope
 trace_fac_iter.py:7(1)     # load arg_n 7
 trace_fac_iter.py:8(1)     # store cur_n 1
 trace_fac_iter.py:8(1)         res *= cur_n
@@ -337,5 +346,140 @@ fac_iter(7): 5040
 Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [MAP\_ADD](https://docs.python.org/3.8/library/dis.html#opcode-MAP\_ADD) that modify a given dictionary object.
 
 It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... But wait, it seems it is possible from python [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
+
+Here is an example of tracing list and map access.
+
+
+__Source:__
+
+```python
+#!/usr/bin/env python3
+
+import prettytrace
+import prettydiasm
+
+
+def swap_list(arg_list):
+    tmp = arg_list[0]
+    arg_list[0] = arg_list[1]
+    arg_list[1] = tmp
+
+def swap_dict(arg_dict):
+    tmp = arg_dict['first']
+    arg_dict['first'] = arg_dict['second']
+    arg_dict['second'] = tmp
+
+prettydiasm.prettydis(swap_list)
+prettydiasm.prettydis(swap_dict)
+
+swap_list = prettytrace.TraceMe(swap_list)
+swap_dict = prettytrace.TraceMe(swap_dict)
+    
+arg_list=[1,2]
+swap_list(arg_list)
+print(arg_list)
+
+arg_dict={ 'first': 'a',
+           'second': 'b' }
+swap_dict(arg_dict)
+print(arg_dict)
+
+
+```
+
+__Result:__
+<pre>
+ctypes enabled!
+File path: /Users/michaelmo/mystuff/pyasmtools/./trace_lookup.py 
+
+trace_lookup.py:7 def swap_list(arg_list):
+
+trace_lookup.py:8 	    tmp = arg_list[0]
+
+  8           0 LOAD_FAST                0 (arg_list)
+              2 LOAD_CONST               1 (0)
+              4 BINARY_SUBSCR
+              6 STORE_FAST               1 (tmp)
+
+trace_lookup.py:9 	    arg_list[0] = arg_list[1]
+
+  9           8 LOAD_FAST                0 (arg_list)
+             10 LOAD_CONST               2 (1)
+             12 BINARY_SUBSCR
+             14 LOAD_FAST                0 (arg_list)
+             16 LOAD_CONST               1 (0)
+             18 STORE_SUBSCR
+
+trace_lookup.py:10 	    arg_list[1] = tmp
+
+ 10          20 LOAD_FAST                1 (tmp)
+             22 LOAD_FAST                0 (arg_list)
+             24 LOAD_CONST               2 (1)
+             26 STORE_SUBSCR
+             28 LOAD_CONST               0 (None)
+             30 RETURN_VALUE
+File path: /Users/michaelmo/mystuff/pyasmtools/./trace_lookup.py 
+
+trace_lookup.py:12 def swap_dict(arg_dict):
+
+trace_lookup.py:13 	    tmp = arg_dict['first']
+
+ 13           0 LOAD_FAST                0 (arg_dict)
+              2 LOAD_CONST               1 ('first')
+              4 BINARY_SUBSCR
+              6 STORE_FAST               1 (tmp)
+
+trace_lookup.py:14 	    arg_dict['first'] = arg_dict['second']
+
+ 14           8 LOAD_FAST                0 (arg_dict)
+             10 LOAD_CONST               2 ('second')
+             12 BINARY_SUBSCR
+             14 LOAD_FAST                0 (arg_dict)
+             16 LOAD_CONST               1 ('first')
+             18 STORE_SUBSCR
+
+trace_lookup.py:15 	    arg_dict['second'] = tmp
+
+ 15          20 LOAD_FAST                1 (tmp)
+             22 LOAD_FAST                0 (arg_dict)
+             24 LOAD_CONST               2 ('second')
+             26 STORE_SUBSCR
+             28 LOAD_CONST               0 (None)
+             30 RETURN_VALUE
+trace_lookup.py:7(1) def swap_list(arg_list):
+trace_lookup.py:7(1) # arg_list=[1, 2]
+trace_lookup.py:8(1)     tmp = arg_list[0]
+trace_lookup.py:8(1)     # load arg_list [1, 2]
+trace_lookup.py:8(1)     # binary_subscript arr[ 0 ]= 1
+trace_lookup.py:9(1)     # store tmp 1
+trace_lookup.py:9(1)     arg_list[0] = arg_list[1]
+trace_lookup.py:9(1)     # load arg_list [1, 2]
+trace_lookup.py:9(1)     # binary_subscript arr[ 1 ]= 2
+trace_lookup.py:9(1)     # load arg_list [1, 2]
+trace_lookup.py:9(1)     # store_subscript arr[ 0 ]= 2
+trace_lookup.py:10(1)     arg_list[1] = tmp
+trace_lookup.py:10(1)     # load tmp 1
+trace_lookup.py:10(1)     # load arg_list [2, 2]
+trace_lookup.py:10(1)     # store_subscript arr[ 1 ]= 1
+trace_lookup.py:10(1) return=None
+[2, 1]
+trace_lookup.py:12(1) def swap_dict(arg_dict):
+trace_lookup.py:12(1) # arg_dict={'first': 'a', 'second': 'b'}
+trace_lookup.py:13(1)     tmp = arg_dict['first']
+trace_lookup.py:13(1)     # load arg_dict {'first': 'a', 'second': 'b'}
+trace_lookup.py:13(1)     # binary_subscript arr[ 'first' ]= a
+trace_lookup.py:14(1)     # store tmp a
+trace_lookup.py:14(1)     arg_dict['first'] = arg_dict['second']
+trace_lookup.py:14(1)     # load arg_dict {'first': 'a', 'second': 'b'}
+trace_lookup.py:14(1)     # binary_subscript arr[ 'second' ]= b
+trace_lookup.py:14(1)     # load arg_dict {'first': 'a', 'second': 'b'}
+trace_lookup.py:14(1)     # store_subscript arr[ 'first' ]= b
+trace_lookup.py:15(1)     arg_dict['second'] = tmp
+trace_lookup.py:15(1)     # load tmp a
+trace_lookup.py:15(1)     # load arg_dict {'first': 'b', 'second': 'b'}
+trace_lookup.py:15(1)     # store_subscript arr[ 'second' ]= a
+trace_lookup.py:15(1) return=None
+{'first': 'b', 'second': 'a'}
+</pre>
 
 

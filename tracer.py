@@ -63,4 +63,10 @@ Unfortunately there is a limit to this approach: we cannot access the function e
 It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... But wait, it seems it is possible from python [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
 """)
 
+print_md("""
+Here is an example of tracing list and map access.
+""")
+run_and_quote("./trace_lookup.py", command="", line_prefix="")
+
+
 
