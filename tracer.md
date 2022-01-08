@@ -369,8 +369,8 @@ def swap_dict(arg_dict):
     arg_dict['first'] = arg_dict['second']
     arg_dict['second'] = tmp
 
-prettydiasm.prettydis(swap_list)
-prettydiasm.prettydis(swap_dict)
+#prettydiasm.prettydis(swap_list)
+#prettydiasm.prettydis(swap_dict)
 
 swap_list = prettytrace.TraceMe(swap_list)
 swap_dict = prettytrace.TraceMe(swap_dict)
@@ -390,62 +390,6 @@ print(arg_dict)
 __Result:__
 <pre>
 ctypes enabled!
-File path: /Users/michaelmo/mystuff/pyasmtools/./trace_lookup.py 
-
-trace_lookup.py:7 def swap_list(arg_list):
-
-trace_lookup.py:8 	    tmp = arg_list[0]
-
-  8           0 LOAD_FAST                0 (arg_list)
-              2 LOAD_CONST               1 (0)
-              4 BINARY_SUBSCR
-              6 STORE_FAST               1 (tmp)
-
-trace_lookup.py:9 	    arg_list[0] = arg_list[1]
-
-  9           8 LOAD_FAST                0 (arg_list)
-             10 LOAD_CONST               2 (1)
-             12 BINARY_SUBSCR
-             14 LOAD_FAST                0 (arg_list)
-             16 LOAD_CONST               1 (0)
-             18 STORE_SUBSCR
-
-trace_lookup.py:10 	    arg_list[1] = tmp
-
- 10          20 LOAD_FAST                1 (tmp)
-             22 LOAD_FAST                0 (arg_list)
-             24 LOAD_CONST               2 (1)
-             26 STORE_SUBSCR
-             28 LOAD_CONST               0 (None)
-             30 RETURN_VALUE
-File path: /Users/michaelmo/mystuff/pyasmtools/./trace_lookup.py 
-
-trace_lookup.py:12 def swap_dict(arg_dict):
-
-trace_lookup.py:13 	    tmp = arg_dict['first']
-
- 13           0 LOAD_FAST                0 (arg_dict)
-              2 LOAD_CONST               1 ('first')
-              4 BINARY_SUBSCR
-              6 STORE_FAST               1 (tmp)
-
-trace_lookup.py:14 	    arg_dict['first'] = arg_dict['second']
-
- 14           8 LOAD_FAST                0 (arg_dict)
-             10 LOAD_CONST               2 ('second')
-             12 BINARY_SUBSCR
-             14 LOAD_FAST                0 (arg_dict)
-             16 LOAD_CONST               1 ('first')
-             18 STORE_SUBSCR
-
-trace_lookup.py:15 	    arg_dict['second'] = tmp
-
- 15          20 LOAD_FAST                1 (tmp)
-             22 LOAD_FAST                0 (arg_dict)
-             24 LOAD_CONST               2 ('second')
-             26 STORE_SUBSCR
-             28 LOAD_CONST               0 (None)
-             30 RETURN_VALUE
 trace_lookup.py:7(1) def swap_list(arg_list):
 trace_lookup.py:7(1) # arg_list=[1, 2]
 trace_lookup.py:8(1)     tmp = arg_list[0]

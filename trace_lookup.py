@@ -14,8 +14,8 @@ def swap_dict(arg_dict):
     arg_dict['first'] = arg_dict['second']
     arg_dict['second'] = tmp
 
-prettydiasm.prettydis(swap_list)
-prettydiasm.prettydis(swap_dict)
+#prettydiasm.prettydis(swap_list)
+#prettydiasm.prettydis(swap_dict)
 
 swap_list = prettytrace.TraceMe(swap_list)
 swap_dict = prettytrace.TraceMe(swap_dict)
