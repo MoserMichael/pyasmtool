@@ -52,6 +52,13 @@ The traced output is showing the file name, line numer and depth of the call sta
 run_and_quote("./trace_fac_rec.py", command="", line_prefix="")
 
 print_md("""
+It is also possible to specify an indentation prefix that depends on the level of call nesting, just like in bash
+""")
+
+run_and_quote("./trace_fac_rec_indent.py", command="", line_prefix="")
+
+
+print_md("""
 Let's trace the execution of an iterative factorial function in python
 """)
 
@@ -68,5 +75,10 @@ Here is an example of tracing list and map access.
 """)
 run_and_quote("./trace_lookup.py", command="", line_prefix="")
 
+
+print_md("""
+Here is an example of accessing python objects..
+""")
+run_and_quote("./trace_obj.py", command="", line_prefix="")
 
 

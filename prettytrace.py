@@ -355,9 +355,11 @@ class ThreadTraceCtx:
 
     def get_line_prefix(self, frame, add_prefix):
         lineno = frame.f_lineno
-        ret = f"{self.bname}:{lineno}({self.nesting})" + (" " * self.prefix_spaces * add_prefix)
+        ret = f"{self.bname}:{lineno}({self.nesting})"  
         if self.params.trace_indent:
             ret += ('.' * self.nesting)
+        ret += (" " * self.prefix_spaces * add_prefix)
+
         return ret
 
 

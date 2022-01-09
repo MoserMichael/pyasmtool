@@ -198,7 +198,6 @@ print( "fac(7):", fac(7))
 
 __Result:__
 <pre>
-ctypes enabled!
 trace_fac_rec.py:6(1) def fac(arg_n):
 trace_fac_rec.py:6(1) # arg_n=7
 trace_fac_rec.py:7(1)     if arg_n == 1:
@@ -263,6 +262,94 @@ prettytrace.py:9(1) return=5040
 fac(7): 5040
 </pre>
 
+It is also possible to specify an indentation prefix that depends on the level of call nesting, just like in bash
+
+
+__Source:__
+
+```python
+#!/usr/bin/env python3
+
+import prettytrace
+
+
+def fac(arg_n):
+    if arg_n == 1:
+        return arg_n
+    return arg_n * fac(arg_n - 1)
+
+fac = prettytrace.TraceMe(fac, trace_indent=True)
+
+print( "fac(7):", fac(7))
+
+```
+
+__Result:__
+<pre>
+trace_fac_rec_indent.py:6(1). def fac(arg_n):
+trace_fac_rec_indent.py:6(1). # arg_n=7
+trace_fac_rec_indent.py:7(1).     if arg_n == 1:
+trace_fac_rec_indent.py:7(1).     # load arg_n 7
+trace_fac_rec_indent.py:9(1).     return arg_n * fac(arg_n - 1)
+trace_fac_rec_indent.py:9(1).     # load arg_n 7
+load_global: can't find  arg_n in any scope
+trace_fac_rec_indent.py:9(1).     # load arg_n 7
+trace_fac_rec_indent.py:6(2).. def fac(arg_n):
+trace_fac_rec_indent.py:6(2)..     # arg_n=6
+trace_fac_rec_indent.py:7(2)..     if arg_n == 1:
+trace_fac_rec_indent.py:7(2)..     # load arg_n 6
+trace_fac_rec_indent.py:9(2)..     return arg_n * fac(arg_n - 1)
+trace_fac_rec_indent.py:9(2)..     # load arg_n 6
+load_global: can't find  arg_n in any scope
+trace_fac_rec_indent.py:9(2)..     # load arg_n 6
+trace_fac_rec_indent.py:6(3)... def fac(arg_n):
+trace_fac_rec_indent.py:6(3)...     # arg_n=5
+trace_fac_rec_indent.py:7(3)...     if arg_n == 1:
+trace_fac_rec_indent.py:7(3)...     # load arg_n 5
+trace_fac_rec_indent.py:9(3)...     return arg_n * fac(arg_n - 1)
+trace_fac_rec_indent.py:9(3)...     # load arg_n 5
+load_global: can't find  arg_n in any scope
+trace_fac_rec_indent.py:9(3)...     # load arg_n 5
+trace_fac_rec_indent.py:6(4).... def fac(arg_n):
+trace_fac_rec_indent.py:6(4)....     # arg_n=4
+trace_fac_rec_indent.py:7(4)....     if arg_n == 1:
+trace_fac_rec_indent.py:7(4)....     # load arg_n 4
+trace_fac_rec_indent.py:9(4)....     return arg_n * fac(arg_n - 1)
+trace_fac_rec_indent.py:9(4)....     # load arg_n 4
+load_global: can't find  arg_n in any scope
+trace_fac_rec_indent.py:9(4)....     # load arg_n 4
+trace_fac_rec_indent.py:6(5)..... def fac(arg_n):
+trace_fac_rec_indent.py:6(5).....     # arg_n=3
+trace_fac_rec_indent.py:7(5).....     if arg_n == 1:
+trace_fac_rec_indent.py:7(5).....     # load arg_n 3
+trace_fac_rec_indent.py:9(5).....     return arg_n * fac(arg_n - 1)
+trace_fac_rec_indent.py:9(5).....     # load arg_n 3
+load_global: can't find  arg_n in any scope
+trace_fac_rec_indent.py:9(5).....     # load arg_n 3
+trace_fac_rec_indent.py:6(6)...... def fac(arg_n):
+trace_fac_rec_indent.py:6(6)......     # arg_n=2
+trace_fac_rec_indent.py:7(6)......     if arg_n == 1:
+trace_fac_rec_indent.py:7(6)......     # load arg_n 2
+trace_fac_rec_indent.py:9(6)......     return arg_n * fac(arg_n - 1)
+trace_fac_rec_indent.py:9(6)......     # load arg_n 2
+load_global: can't find  arg_n in any scope
+trace_fac_rec_indent.py:9(6)......     # load arg_n 2
+trace_fac_rec_indent.py:6(7)....... def fac(arg_n):
+trace_fac_rec_indent.py:6(7).......     # arg_n=1
+trace_fac_rec_indent.py:7(7).......     if arg_n == 1:
+trace_fac_rec_indent.py:7(7).......     # load arg_n 1
+trace_fac_rec_indent.py:8(7).......         return arg_n
+trace_fac_rec_indent.py:8(7).......         # load arg_n 1
+trace_fac_rec_indent.py:8(7)....... return=1
+prettytrace.py:9(6)...... return=2
+prettytrace.py:9(5)..... return=6
+prettytrace.py:9(4).... return=24
+prettytrace.py:9(3)... return=120
+prettytrace.py:9(2).. return=720
+prettytrace.py:9(1). return=5040
+fac(7): 5040
+</pre>
+
 Let's trace the execution of an iterative factorial function in python
 
 
@@ -287,7 +374,6 @@ print( "fac_iter(7):", fac_iter(7))
 
 __Result:__
 <pre>
-ctypes enabled!
 trace_fac_iter.py:5(1) def fac_iter(arg_n: int) -> int:
 trace_fac_iter.py:5(1) # arg_n=7
 trace_fac_iter.py:6(1)     res = 1
@@ -389,7 +475,6 @@ print(arg_dict)
 
 __Result:__
 <pre>
-ctypes enabled!
 trace_lookup.py:7(1) def swap_list(arg_list):
 trace_lookup.py:7(1) # arg_list=[1, 2]
 trace_lookup.py:8(1)     tmp = arg_list[0]
@@ -424,6 +509,135 @@ trace_lookup.py:15(1)     # load arg_dict {'first': 'b', 'second': 'b'}
 trace_lookup.py:15(1)     # store_subscript arr[ 'second' ]= a
 trace_lookup.py:15(1) return=None
 {'first': 'b', 'second': 'a'}
+</pre>
+
+Here is an example of accessing python objects..
+
+
+__Source:__
+
+```python
+#!/usr/bin/env python3
+
+import prettytrace
+
+
+class Complex(metaclass=prettytrace.TraceClass):
+    def __init__(self, re, im=0.0):
+        self.real = re
+        self.imag = im
+
+    def __add__(self, other):
+        return Complex(self.real + other.real, self.imag + other.imag)
+
+    def __sub__(self, other):
+        return Complex(self.real - other.real, self.imag - other.imag)
+
+    def __mul__(self, other):
+        return Complex((self.real * other.real) - (self.imag * other.imag),
+            (self.imag * other.real) + (self.real * other.imag))
+
+    def __truediv__(self, other):
+        r = (other.real**2 + other.imag**2)
+        return Complex((self.real*other.real - self.imag*other.imag)/r,
+            (self.imag*other.real + self.real*other.imag)/r)
+
+    def __abs__(self):
+        print('\nAbsolute Value:')
+        new = (self.real**2 + (self.imag**2)*-1)
+        return Complex(sqrt(new.real))
+
+    def __str__(self):
+        return f"real: {self.real} imaginary: {self.imag}"
+
+class Person:
+    def  __init__(self, first_name, last_name):
+        self.first_name  = first_name
+        self.last_name = last_name
+    def __str__(self):
+        return f"first_name: {self.first_name} last_name: {self.last_name}"
+
+class PersonWithTitle(Person, metaclass=prettytrace.TraceClass):
+    def __init__(self, first_name, last_name, title):
+        super().__init__(first_name, last_name)
+        self.title = title
+        #print(f"__init__ id: {id(self)} self.__dict__ {self.__dict__}")
+
+
+    def __str__(self):
+        #print(f"__str__ id: {id(self)} self.__dict__ {self.__dict__}")
+        return f"Title: {self.title} {super().__str__()}"
+
+num = Complex(2,3)
+print(num)
+
+per = PersonWithTitle("Pooh", "Bear", "Mr")
+print(per)
+print("eof")
+
+```
+
+__Result:__
+<pre>
+return <class '__main__.Complex'> 140191713063744
+return <class '__main__.PersonWithTitle'> 140191713066208
+trace_obj.py:7(1)     def __init__(self, re, im=0.0):
+trace_obj.py:7(1) # self=<object not initialised yet>
+trace_obj.py:7(1) # re=2
+trace_obj.py:7(1) # im=3
+trace_obj.py:8(1)         self.real = re
+trace_obj.py:8(1)         # load re 2
+trace_obj.py:8(1)         # load self <object not initialised yet>
+trace_obj.py:9(1)         self.imag = im
+trace_obj.py:9(1)         # load im 3
+trace_obj.py:9(1)         # load self <object not initialised yet>
+trace_obj.py:9(1) return=None
+trace_obj.py:31(1)     def __str__(self):
+trace_obj.py:31(1) # self=real: 2 imaginary: 3
+trace_obj.py:32(1)         return f"real: {self.real} imaginary: {self.imag}"
+trace_obj.py:32(1)         # load self real: 2 imaginary: 3
+trace_obj.py:32(1)         # load self real: 2 imaginary: 3
+trace_obj.py:32(1) return=real: 2 imaginary: 3
+real: 2 imaginary: 3
+trace_obj.py:42(1)     def __init__(self, first_name, last_name, title):
+trace_obj.py:42(1) # self=<object not initialised yet>
+trace_obj.py:42(1) # first_name=Pooh
+trace_obj.py:42(1) # last_name=Bear
+trace_obj.py:42(1) # title=Mr
+trace_obj.py:43(1)         super().__init__(first_name, last_name)
+load_global: can't find  self in any scope
+trace_obj.py:43(1)         # load first_name Pooh
+trace_obj.py:43(1)         # load last_name Bear
+trace_obj.py:35(2)     def  __init__(self, first_name, last_name):
+trace_obj.py:35(2)         # self=<object not initialised yet>
+trace_obj.py:35(2)         # first_name=Pooh
+trace_obj.py:35(2)         # last_name=Bear
+trace_obj.py:36(2)         self.first_name  = first_name
+trace_obj.py:36(2)         # load first_name Pooh
+trace_obj.py:36(2)         # load self <object not initialised yet>
+trace_obj.py:37(2)         self.last_name = last_name
+trace_obj.py:37(2)         # load last_name Bear
+trace_obj.py:37(2)         # load self <object not initialised yet>
+trace_obj.py:37(2) return=None
+trace_obj.py:44(1)         self.title = title
+trace_obj.py:44(1)         # load title Mr
+trace_obj.py:44(1)         # load self <object not initialised yet>
+trace_obj.py:44(1) return=None
+trace_obj.py:48(1)     def __str__(self):
+trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self.__dict__}")
+trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
+trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
+trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7f80ef685040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+trace_obj.py:38(2)     def __str__(self):
+trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
+trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
+trace_obj.py:39(2)         # load self Title: Mr first_name: Pooh last_name: Bear
+trace_obj.py:39(2)         # load self Title: Mr first_name: Pooh last_name: Bear
+trace_obj.py:39(2) return=first_name: Pooh last_name: Bear
+trace_obj.py:50(1) return=Title: Mr first_name: Pooh last_name: Bear
+Title: Mr first_name: Pooh last_name: Bear
+eof
 </pre>
 
 
