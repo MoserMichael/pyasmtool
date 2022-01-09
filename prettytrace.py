@@ -456,7 +456,7 @@ def _check_eof_trace():
 
 class TraceMe:
 
-    def __init__(self, func, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True):
+    def __init__(self, func, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 1, ignore_stdlib : bool = True):
         functools.update_wrapper(self, func)
         self.func = func
         self.trace_indent = trace_indent
