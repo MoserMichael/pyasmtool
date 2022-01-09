@@ -124,7 +124,7 @@ def _check_frame_ctypes(prev_frame):
 
 
 def _check_stack_access_sanity():
-    global _CTYPES_ENABLED 
+    global _CTYPES_ENABLED
     global _CTYPES_POINTER_SIZE
     global _CTYPES_ID_TYPE
 
@@ -146,7 +146,6 @@ def _check_stack_access_sanity():
         print("Can't find integral type for pointer size!!!")
         return False
 
-    print("ctypes enabled!")
     _CTYPES_ENABLED = 1
     return True
 
@@ -187,7 +186,12 @@ def _show_load_fast(frame, instr, argval, ctx):
     print(f"{prefix} # load {varname} {sval}")
 
 def _show_load_global(frame, instr, argval, ctx):
-    varname = frame.f_code.co_varnames[ argval ]
+
+    try:
+        varname = frame.f_code.co_varnames[ argval ]
+    except IndexError:
+        print(f"Error: can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}")
+        return
 
     if varname in frame.f_globals:
         val = frame.f_globals[ varname ]
@@ -221,7 +225,7 @@ def _show_store_global(frame, asm_instr, argval, ctx):
         val = globals()[ varname ]
     else:
         print("store_global: can't find ", varname, "in any scope")
-        return 
+        return
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
@@ -230,20 +234,20 @@ def _show_store_global(frame, asm_instr, argval, ctx):
 def _binary_subscr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
         return
-    
+
     # implements TOS = TOS1[TOS]
     vals = _access_frame_stack(frame, from_stack=2, num_entries=2)
 
     deref_val = vals[0][ vals[1] ]
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
- 
+
     print(f"{prefix} # binary_subscript arr[", repr(vals[1]), "]=", sval)
 
 def _store_subscr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
         return
-    
+
     # implements TOS1[TOS] = TOS2
     vals = _access_frame_stack(frame, from_stack=3, num_entries=3)
 
@@ -251,7 +255,7 @@ def _store_subscr(frame, asm_instr, argval, ctx):
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
- 
+
     print(f"{prefix} # store_subscript arr[", repr(vals[2]), "]=", sval)
 
 
@@ -278,11 +282,15 @@ class ThreadTraceCtx:
 #       self.prev_line_entry = None
 
     def show_val(self, val):
-        if self.params.show_obj == 0:
-            return str(val)
-        elif self.params.show_obj == 1:
-            return repr(val)
-        return pprint.pformat(val)
+        try:
+            if self.params.show_obj == 0:
+                return str(val)
+            elif self.params.show_obj == 1:
+                return repr(val)
+            return pprint.pformat(val)
+        except AttributeError:
+            return "<object not initialised yet>"
+
 
     def on_prepare(self, frame):
         self.filename = frame.f_code.co_filename
@@ -295,6 +303,7 @@ class ThreadTraceCtx:
         return True
 
     def on_push_frame(self, frame):
+
         self.nesting += 1
         #print("on_push_frame nesting:", id(self), self.nesting, "type(frame):", type(frame), frame.f_code.co_filename, frame.f_code.co_name)
         firstline = frame.f_code.co_firstlineno
@@ -307,7 +316,12 @@ class ThreadTraceCtx:
             line = linecache.getline(self.filename, firstline)
             print(f"{self.get_line_prefix(frame, 0)} {line}", end="")
             firstline += 1
-
+        
+        # if __init__ method, then don't show first param, self is not yet initialised.
+#        is_init_method = False
+#        if frame.f_code.co_name == "__init__":
+#            is_init_method = True
+#
         arg_info = inspect.getargvalues(frame)
         #print("arg_info:", arg_info)
         for arg in arg_info.args:
@@ -440,7 +454,7 @@ def _check_eof_trace():
 
 class TraceMe:
 
-    def __init__(self, func,  trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True):
+    def __init__(self, func, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True):
         functools.update_wrapper(self, func)
         self.func = func
         self.trace_indent = trace_indent
@@ -455,7 +469,8 @@ class TraceMe:
         if _init_trace( TraceParam(trace_indent=self.trace_indent, trace_loc=self.trace_loc, show_obj=self.show_obj, ignore_stdlib=self.ignore_stdlib) ):
             sys.settrace( _func_tracer )
 
-        ret_val = self.func(*args, **kwargs)
+        func_fwd = self.func
+        ret_val = func_fwd(*args, **kwargs)
 
         # clean up trace hook if finished tracing
         _check_eof_trace()
@@ -469,6 +484,52 @@ def disable_stack_access():
     global _CTYPES_ENABLED
 
     _CTYPES_ENABLED = -1
-   
 
+# metaclass, adds tracers to all methods of a class
+class TraceClass(type):
+    def __new__(meta_class, name, bases, cls_dict, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True):
+
+        #
+        # see trick here: https://stackoverflow.com/questions/11349183/how-to-wrap-every-method-of-a-class ]
+        # need to modify the cls_dict object in order to wrap each member function!
+        #
+        trace_param = TraceParam(trace_indent=trace_indent, trace_loc=trace_loc, show_obj=show_obj, ignore_stdlib=ignore_stdlib)
+        new_class_dict = {}
+        for entry,val_func in cls_dict.items():
+            if inspect.isfunction(val_func):
+                # hack - avoids looking at the same value of val_func !!! see https://stackoverflow.com/questions/8946868/is-there-a-pythonic-way-to-close-over-a-loop-variable
+                # the variable that the closure should remember is passed as argument, this makes a separate copy of the value in the called function frame?
+                # (what a language...)
+                def wrapper_factory(val_func):
+                    def wrapper_fun(*args, **kwargs):
+
+                        functools.wraps(val_func)
+
+                        if _init_trace( trace_param ):
+                            sys.settrace( _func_tracer )
+
+                        ret_val = val_func(*args, **kwargs)
+
+                        # clean up trace hook if finished tracing
+                        _check_eof_trace()
+
+                        return ret_val
+                    return wrapper_fun
+
+                val_func = wrapper_factory(val_func)
+            new_class_dict[entry] = val_func
+            
+
+        class_instance = super().__new__(meta_class, name, bases, new_class_dict)
+
+        print(f"return {class_instance} {id(class_instance)}")
+        return class_instance
+
+#    def __call__(cls, *args, **kwargs):
+#        instance = cls.__new__(cls)
+#        print(f"type: {type(instance)} instance: {instance}")
+#        print(f"cls: {cls} {id(cls)} args: {args} kwargs: {kwargs}")
+#        instance.__init__(*args, **kwargs)
+#
+#        return instance
 
