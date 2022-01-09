@@ -429,7 +429,7 @@ trace_fac_iter.py:9(1) return=5040
 fac_iter(7): 5040
 </pre>
 
-Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [MAP\_ADD](https://docs.python.org/3.8/library/dis.html#opcode-MAP\_ADD) that modify a given dictionary object.
+Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [STORE\_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-STORE\_SUBSCRIPT) and [LOAD\_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-LOAD\_SUBSCRIPT) bytecode instructions, that modify a given dictionary object.
 
 It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... But wait, it seems it is possible from python [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
 
@@ -579,8 +579,8 @@ print("eof")
 
 __Result:__
 <pre>
-return <class '__main__.Complex'> 140191713063744
-return <class '__main__.PersonWithTitle'> 140191713066208
+return <class '__main__.Complex'> 140254452570032
+return <class '__main__.PersonWithTitle'> 140254452571920
 trace_obj.py:7(1)     def __init__(self, re, im=0.0):
 trace_obj.py:7(1) # self=<object not initialised yet>
 trace_obj.py:7(1) # re=2
@@ -628,7 +628,7 @@ trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self._
 trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
 trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7f80ef685040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7f8f88e85040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
 trace_obj.py:38(2)     def __str__(self):
 trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
