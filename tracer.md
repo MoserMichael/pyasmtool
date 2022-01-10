@@ -71,7 +71,7 @@ For examle the start of the invocation looks as follow
 ```
 The bash shell is an interpreter, it translates the source code into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract\_syntax\_tree)
 
-The next step for the bash interpreter to evaluate the program, it does so by following the nodes of the abstract syntax tree.
+The next step for the bash interpreter to evaluate the program, it does so by following the nodes of the abstract syntax tree in [Post order (LRN)](https://en.wikipedia.org/wiki/Tree\_traversal#Post-order,\_LRN), first the left and the right subtree are evaluated, in order to get all the arguments for operator of the current tree node, then the current node is evaluated.
 This technique allows the bash interpreter to show an intuitive trace output for the function invocation and the test expression, it is all produced while evaluating the in memory representation / abstract syntax tree of the program.
 
 
@@ -643,7 +643,7 @@ trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self._
 trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
 trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fc62bd85040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fe04f585040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
 trace_obj.py:38(2)     def __str__(self):
 trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"

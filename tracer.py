@@ -26,7 +26,7 @@ For examle the start of the invocation looks as follow
 ```
 The bash shell is an interpreter, it translates the source code into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
 
-The next step for the bash interpreter to evaluate the program, it does so by following the nodes of the abstract syntax tree.
+The next step for the bash interpreter to evaluate the program, it does so by following the nodes of the abstract syntax tree in [Post order (LRN)](https://en.wikipedia.org/wiki/Tree_traversal#Post-order,_LRN), first the left and the right subtree are evaluated, in order to get all the arguments for operator of the current tree node, then the current node is evaluated.
 This technique allows the bash interpreter to show an intuitive trace output for the function invocation and the test expression, it is all produced while evaluating the in memory representation / abstract syntax tree of the program.
 
 """)
