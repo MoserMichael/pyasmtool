@@ -497,33 +497,33 @@ trace_lookup.py:7(1) def swap_list(arg_list):
 trace_lookup.py:7(1) # arg_list=[1, 2]
 trace_lookup.py:8(1)     tmp = arg_list[0]
 trace_lookup.py:8(1)     # load arg_list [1, 2]
-trace_lookup.py:8(1)     # binary_subscript arr[ 0 ]= 1
+trace_lookup.py:8(1)     # binary_subscript list-on-stack[0]=1
 trace_lookup.py:9(1)     # store tmp 1
 trace_lookup.py:9(1)     arg_list[0] = arg_list[1]
 trace_lookup.py:9(1)     # load arg_list [1, 2]
-trace_lookup.py:9(1)     # binary_subscript arr[ 1 ]= 2
+trace_lookup.py:9(1)     # binary_subscript list-on-stack[1]=2
 trace_lookup.py:9(1)     # load arg_list [1, 2]
-trace_lookup.py:9(1)     # store_subscript arr[ 0 ]= 2
+trace_lookup.py:9(1)     # store_subscript list-on-stack[0]=2
 trace_lookup.py:10(1)     arg_list[1] = tmp
 trace_lookup.py:10(1)     # load tmp 1
 trace_lookup.py:10(1)     # load arg_list [2, 2]
-trace_lookup.py:10(1)     # store_subscript arr[ 1 ]= 1
+trace_lookup.py:10(1)     # store_subscript list-on-stack[1]=1
 trace_lookup.py:10(1) return=None
 trace_lookup.py:12(1) def swap_dict(arg_dict):
 trace_lookup.py:12(1) # arg_dict={'first': 'a', 'second': 'b'}
 trace_lookup.py:13(1)     tmp = arg_dict['first']
 trace_lookup.py:13(1)     # load arg_dict {'first': 'a', 'second': 'b'}
-trace_lookup.py:13(1)     # binary_subscript arr[ 'first' ]= 'a'
+trace_lookup.py:13(1)     # binary_subscript dict-on-stack['first']='a'
 trace_lookup.py:14(1)     # store tmp 'a'
 trace_lookup.py:14(1)     arg_dict['first'] = arg_dict['second']
 trace_lookup.py:14(1)     # load arg_dict {'first': 'a', 'second': 'b'}
-trace_lookup.py:14(1)     # binary_subscript arr[ 'second' ]= 'b'
+trace_lookup.py:14(1)     # binary_subscript dict-on-stack['second']='b'
 trace_lookup.py:14(1)     # load arg_dict {'first': 'a', 'second': 'b'}
-trace_lookup.py:14(1)     # store_subscript arr[ 'first' ]= 'b'
+trace_lookup.py:14(1)     # store_subscript dict-on-stack['first']='b'
 trace_lookup.py:15(1)     arg_dict['second'] = tmp
 trace_lookup.py:15(1)     # load tmp 'a'
 trace_lookup.py:15(1)     # load arg_dict {'first': 'b', 'second': 'b'}
-trace_lookup.py:15(1)     # store_subscript arr[ 'second' ]= 'a'
+trace_lookup.py:15(1)     # store_subscript dict-on-stack['second']='a'
 trace_lookup.py:15(1) return=None
 [2, 1]
 {'first': 'b', 'second': 'a'}
@@ -604,59 +604,12 @@ trace_obj.py:7(1) # im=3
 trace_obj.py:8(1)         self.real = re
 trace_obj.py:8(1)         # load re 2
 trace_obj.py:8(1)         # load self <object not initialised yet>
-trace_obj.py:9(1)         self.imag = im
-trace_obj.py:9(1)         # load im 3
-trace_obj.py:9(1)         # load self <object not initialised yet>
-trace_obj.py:9(1) return=None
-trace_obj.py:31(1)     def __str__(self):
-trace_obj.py:31(1) # self=real: 2 imaginary: 3
-trace_obj.py:32(1)         return f"real: {self.real} imaginary: {self.imag}"
-trace_obj.py:32(1)         # load self real: 2 imaginary: 3
-trace_obj.py:32(1)         # load self real: 2 imaginary: 3
-trace_obj.py:32(1) return=real: 2 imaginary: 3
-trace_obj.py:42(1)     def __init__(self, first_name, last_name, title):
-trace_obj.py:42(1) # self=<object not initialised yet>
-trace_obj.py:42(1) # first_name=Pooh
-trace_obj.py:42(1) # last_name=Bear
-trace_obj.py:42(1) # title=Mr
-trace_obj.py:43(1)         super().__init__(first_name, last_name)
-load_global: can't find  self in any scope
-trace_obj.py:43(1)         # load first_name Pooh
-trace_obj.py:43(1)         # load last_name Bear
-trace_obj.py:35(2)     def  __init__(self, first_name, last_name):
-trace_obj.py:35(2)         # self=<object not initialised yet>
-trace_obj.py:35(2)         # first_name=Pooh
-trace_obj.py:35(2)         # last_name=Bear
-trace_obj.py:36(2)         self.first_name  = first_name
-trace_obj.py:36(2)         # load first_name Pooh
-trace_obj.py:36(2)         # load self <object not initialised yet>
-trace_obj.py:37(2)         self.last_name = last_name
-trace_obj.py:37(2)         # load last_name Bear
-trace_obj.py:37(2)         # load self <object not initialised yet>
-trace_obj.py:37(2) return=None
-trace_obj.py:44(1)         self.title = title
-trace_obj.py:44(1)         # load title Mr
-trace_obj.py:44(1)         # load self <object not initialised yet>
-trace_obj.py:44(1) return=None
-trace_obj.py:48(1)     def __str__(self):
-trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self.__dict__}")
-trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
-trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
-trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fd3ef485040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
-trace_obj.py:38(2)     def __str__(self):
-trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
-trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
-trace_obj.py:39(2)         # load self Title: Mr first_name: Pooh last_name: Bear
-trace_obj.py:39(2)         # load self Title: Mr first_name: Pooh last_name: Bear
-trace_obj.py:39(2) return=first_name: Pooh last_name: Bear
-trace_obj.py:50(1) return=Title: Mr first_name: Pooh last_name: Bear
 real: 2 imaginary: 3
 Title: Mr first_name: Pooh last_name: Bear
 eof
 </pre>
 
-Here is an example trace of a program, that number of occurances of each letter in its own text.
+Here is an example trace of a program, that number of occurances of each letter a given text file.
 
 
 __Source:__
@@ -736,7 +689,7 @@ trace_histo.py:16(1)             # load histo {}
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {}
 trace_histo.py:17(1)                 # load ch 'A'
-trace_histo.py:17(1)                 # store_subscript arr[ 'A' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['A']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 't'
 trace_histo.py:16(1)             if not ch in histo:
@@ -745,7 +698,7 @@ trace_histo.py:16(1)             # load histo {'A': 1}
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1}
 trace_histo.py:17(1)                 # load ch 't'
-trace_histo.py:17(1)                 # store_subscript arr[ 't' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['t']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 't'
 trace_histo.py:16(1)             if not ch in histo:
@@ -754,8 +707,8 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 1}
 trace_histo.py:19(1)                 histo[ch] += 1
 trace_histo.py:19(1)                 # load histo {'A': 1, 't': 1}
 trace_histo.py:19(1)                 # load ch 't'
-trace_histo.py:19(1)                 # binary_subscript arr[ 't' ]= 1
-trace_histo.py:19(1)                 # store_subscript arr[ 't' ]= 2
+trace_histo.py:19(1)                 # binary_subscript dict-on-stack['t']=1
+trace_histo.py:19(1)                 # store_subscript dict-on-stack['t']=2
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'a'
 trace_histo.py:16(1)             if not ch in histo:
@@ -764,7 +717,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 2}
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 2}
 trace_histo.py:17(1)                 # load ch 'a'
-trace_histo.py:17(1)                 # store_subscript arr[ 'a' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['a']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'c'
 trace_histo.py:16(1)             if not ch in histo:
@@ -773,7 +726,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 2, 'a': 1}
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 2, 'a': 1}
 trace_histo.py:17(1)                 # load ch 'c'
-trace_histo.py:17(1)                 # store_subscript arr[ 'c' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['c']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'k'
 trace_histo.py:16(1)             if not ch in histo:
@@ -782,7 +735,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1}
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1}
 trace_histo.py:17(1)                 # load ch 'k'
-trace_histo.py:17(1)                 # store_subscript arr[ 'k' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['k']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch ' '
 trace_histo.py:16(1)             if not ch in histo:
@@ -791,7 +744,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1, '
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1, 'k': 1}
 trace_histo.py:17(1)                 # load ch ' '
-trace_histo.py:17(1)                 # store_subscript arr[ ' ' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack[' ']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'a'
 trace_histo.py:16(1)             if not ch in histo:
@@ -800,8 +753,8 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1, '
 trace_histo.py:19(1)                 histo[ch] += 1
 trace_histo.py:19(1)                 # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1, 'k': 1, ' ': 1}
 trace_histo.py:19(1)                 # load ch 'a'
-trace_histo.py:19(1)                 # binary_subscript arr[ 'a' ]= 1
-trace_histo.py:19(1)                 # store_subscript arr[ 'a' ]= 2
+trace_histo.py:19(1)                 # binary_subscript dict-on-stack['a']=1
+trace_histo.py:19(1)                 # store_subscript dict-on-stack['a']=2
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 't'
 trace_histo.py:16(1)             if not ch in histo:
@@ -810,8 +763,8 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 2, 'a': 2, 'c': 1, '
 trace_histo.py:19(1)                 histo[ch] += 1
 trace_histo.py:19(1)                 # load histo {'A': 1, 't': 2, 'a': 2, 'c': 1, 'k': 1, ' ': 1}
 trace_histo.py:19(1)                 # load ch 't'
-trace_histo.py:19(1)                 # binary_subscript arr[ 't' ]= 2
-trace_histo.py:19(1)                 # store_subscript arr[ 't' ]= 3
+trace_histo.py:19(1)                 # binary_subscript dict-on-stack['t']=2
+trace_histo.py:19(1)                 # store_subscript dict-on-stack['t']=3
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch ' '
 trace_histo.py:16(1)             if not ch in histo:
@@ -820,8 +773,8 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, '
 trace_histo.py:19(1)                 histo[ch] += 1
 trace_histo.py:19(1)                 # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, 'k': 1, ' ': 1}
 trace_histo.py:19(1)                 # load ch ' '
-trace_histo.py:19(1)                 # binary_subscript arr[ ' ' ]= 1
-trace_histo.py:19(1)                 # store_subscript arr[ ' ' ]= 2
+trace_histo.py:19(1)                 # binary_subscript dict-on-stack[' ']=1
+trace_histo.py:19(1)                 # store_subscript dict-on-stack[' ']=2
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'd'
 trace_histo.py:16(1)             if not ch in histo:
@@ -830,7 +783,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, '
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, 'k': 1, ' ': 2}
 trace_histo.py:17(1)                 # load ch 'd'
-trace_histo.py:17(1)                 # store_subscript arr[ 'd' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['d']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'a'
 trace_histo.py:16(1)             if not ch in histo:
@@ -839,8 +792,8 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, '
 trace_histo.py:19(1)                 histo[ch] += 1
 trace_histo.py:19(1)                 # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, 'k': 1, ' ': 2, 'd': 1}
 trace_histo.py:19(1)                 # load ch 'a'
-trace_histo.py:19(1)                 # binary_subscript arr[ 'a' ]= 2
-trace_histo.py:19(1)                 # store_subscript arr[ 'a' ]= 3
+trace_histo.py:19(1)                 # binary_subscript dict-on-stack['a']=2
+trace_histo.py:19(1)                 # store_subscript dict-on-stack['a']=3
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'w'
 trace_histo.py:16(1)             if not ch in histo:
@@ -849,7 +802,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, '
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1}
 trace_histo.py:17(1)                 # load ch 'w'
-trace_histo.py:17(1)                 # store_subscript arr[ 'w' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['w']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch 'n'
 trace_histo.py:16(1)             if not ch in histo:
@@ -858,7 +811,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, '
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1}
 trace_histo.py:17(1)                 # load ch 'n'
-trace_histo.py:17(1)                 # store_subscript arr[ 'n' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['n']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch '!'
 trace_histo.py:16(1)             if not ch in histo:
@@ -867,7 +820,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, '
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1}
 trace_histo.py:17(1)                 # load ch '!'
-trace_histo.py:17(1)                 # store_subscript arr[ '!' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['!']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:16(1)         # store ch '\n'
 trace_histo.py:16(1)             if not ch in histo:
@@ -876,7 +829,7 @@ trace_histo.py:16(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, '
 trace_histo.py:17(1)                 histo[ch] = 1
 trace_histo.py:17(1)                 # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1}
 trace_histo.py:17(1)                 # load ch '\n'
-trace_histo.py:17(1)                 # store_subscript arr[ '\n' ]= 1
+trace_histo.py:17(1)                 # store_subscript dict-on-stack['\n']=1
 trace_histo.py:15(1)         for ch in text:
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:21(1)         # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
@@ -885,7 +838,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'A'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'A'
-trace_histo.py:22(1)             # binary_subscript arr[ 'A' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['A']=1
 char: 'A' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 't'
@@ -893,7 +846,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 't'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 't'
-trace_histo.py:22(1)             # binary_subscript arr[ 't' ]= 3
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['t']=3
 char: 't' frequency: 3
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 'a'
@@ -901,7 +854,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'a'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'a'
-trace_histo.py:22(1)             # binary_subscript arr[ 'a' ]= 3
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['a']=3
 char: 'a' frequency: 3
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 'c'
@@ -909,7 +862,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'c'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'c'
-trace_histo.py:22(1)             # binary_subscript arr[ 'c' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['c']=1
 char: 'c' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 'k'
@@ -917,7 +870,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'k'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'k'
-trace_histo.py:22(1)             # binary_subscript arr[ 'k' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['k']=1
 char: 'k' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch ' '
@@ -925,7 +878,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch ' '
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch ' '
-trace_histo.py:22(1)             # binary_subscript arr[ ' ' ]= 2
+trace_histo.py:22(1)             # binary_subscript dict-on-stack[' ']=2
 char: ' ' frequency: 2
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 'd'
@@ -933,7 +886,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'd'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'd'
-trace_histo.py:22(1)             # binary_subscript arr[ 'd' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['d']=1
 char: 'd' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 'w'
@@ -941,7 +894,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'w'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'w'
-trace_histo.py:22(1)             # binary_subscript arr[ 'w' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['w']=1
 char: 'w' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch 'n'
@@ -949,7 +902,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch 'n'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch 'n'
-trace_histo.py:22(1)             # binary_subscript arr[ 'n' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['n']=1
 char: 'n' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch '!'
@@ -957,7 +910,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch '!'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch '!'
-trace_histo.py:22(1)             # binary_subscript arr[ '!' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['!']=1
 char: '!' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:22(1)         # store ch '\n'
@@ -965,7 +918,7 @@ trace_histo.py:22(1)             print("char:", repr(ch), "frequency:", histo[ch
 trace_histo.py:22(1)             # load ch '\n'
 trace_histo.py:22(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:22(1)             # load ch '\n'
-trace_histo.py:22(1)             # binary_subscript arr[ '\n' ]= 1
+trace_histo.py:22(1)             # binary_subscript dict-on-stack['\n']=1
 char: '\n' frequency: 1
 trace_histo.py:21(1)         for ch in histo.keys():
 trace_histo.py:21(1) return=None

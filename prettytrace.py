@@ -4,6 +4,7 @@ import os
 import linecache
 import dataclasses
 import inspect
+import typing
 import ctypes
 import functools
 import dis
@@ -236,11 +237,20 @@ def _binary_subscr(frame, asm_instr, argval, ctx):
     # implements TOS = TOS1[TOS]
     vals = _access_frame_stack(frame, from_stack=2, num_entries=2)
 
-    deref_val = vals[0][ vals[1] ]
+    obj = vals[0]
+    key = vals[1]
+    deref_val = obj[ key ]
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
 
-    print(f"{prefix} # binary_subscript arr[", repr(vals[1]), "]=", sval, file=ctx.params.out)
+    if isinstance(obj, typing.Dict):
+        title="dict-on-stack"
+    elif isinstance(obj, typing.List):
+        title="list-on-stack"
+    else:
+        title=str(type(obj)) + "-on-stack"
+        
+    print(f"{prefix} # binary_subscript {title}[{repr(key)}]={sval}", file=ctx.params.out)
 
 
 def _store_subscr(frame, asm_instr, argval, ctx):
@@ -251,11 +261,52 @@ def _store_subscr(frame, asm_instr, argval, ctx):
     vals = _access_frame_stack(frame, from_stack=3, num_entries=3)
 
     deref_val = vals[0]
+    obj = vals[1]
+    key = vals[2]
 
+    if isinstance(obj, typing.Dict):
+        title="dict-on-stack"
+    elif isinstance(obj, typing.List):
+        title="list-on-stack"
+    else:
+        title=str(type(obj)) + "-on-stack"
+        
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
 
-    print(f"{prefix} # store_subscript arr[", repr(vals[2]), "]=", sval, file=ctx.params.out)
+    print(f"{prefix} # store_subscript {title}[{repr(key)}]={sval}", file=ctx.params.out)
+
+def _show_load_attr(frame, asm_instr, argval, ctx):
+    if _CTYPES_ENABLED != 1:
+        return
+
+    # Replaces TOS with getattr(TOS, co_names[ argval ]).
+    vals = _access_frame_stack(frame, from_stack=1, num_entries=1)
+    obj = vals[0]
+    title=str(type(obj))
+    name = frame.co_code.co_varnames[ argval ]
+    val=getattr(obj, name)
+
+    prefix = ctx.get_line_prefix(frame, 1)
+    sval = ctx.show_val(val)
+
+    print(f"{prefix} # load_attr {title}.{name}={sval}", file=ctx.params.out)
+
+
+def _show_store_attr(frame, asm_instr, argval, ctx):
+    if _CTYPES_ENABLED != 1:
+        return
+    #Implements TOS.name = TOS1, where argval is the index of name in co_names.
+    vals = _access_frame_stack(frame, from_stack=2, num_entries=2)
+    obj = vals[1]
+    title=str(type(obj))
+    val = vals[2]
+    name = frame.co_code.co_varnames[ argval ]
+
+    prefix = ctx.get_line_prefix(frame, 1)
+    sval = ctx.show_val(val)
+
+    print(f"{prefix} # store_attr {title}.{name}={sval}", file=ctx.params.out)
 
 
 def _init_opcodes():
@@ -265,6 +316,10 @@ def _init_opcodes():
 
     _add_opcode( "LOAD_GLOBAL", _LOAD_OPCODES, _show_load_global)
     _add_opcode( "STORE_FAST", _STORE_OPCODES, _show_store_fast)
+
+    _add_opcode( "LOAD_ATTR", _LOAD_OPCODES, _show_load_attr)
+    _add_opcode( "STORE_ATTR", _STORE_OPCODES, _show_store_attr)
+
 
     _check_stack_access_sanity()
 
