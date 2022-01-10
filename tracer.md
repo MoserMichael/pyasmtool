@@ -62,6 +62,17 @@ __Result:__
 120
 </pre>
 
+For examle the start of the invocation looks as follow
+
+```
++ factorial 5
++ '[' 5 -le 1 ']'
+```
+The bash scripting language translates into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract\_syntax\_tree)
+
+The python interpreter follows the nodes of this tree, while evaluating the expression, this allows it to show this intuitive trace output for the function invocation and the test expression.
+.
+
 The following example computes a factorial in an iterative way
 
 
@@ -117,7 +128,7 @@ __Result:__
 
 ## <a id='s1-2' />Execution trace in Python
 
-The python standard library has the [trace](https://docs.python.org/3/library/trace.html) module, one of its features is to print out the source lines of a program, as the program is executed. Unfortunately it does not show the variable values and does not show the modifications performed on these variables
+The python standard library has the [trace](https://docs.python.org/3/library/trace.html) module, one of its features is to print out the source lines of a program, as the program is executed. Unfortunately, it does not show the variable values and does not show the modifications performed on these variables
 
 (To be true, the trace module is a very versatile one, it can also be used to provides coverage analysis and can be used as a simle profiler)
 
@@ -170,9 +181,11 @@ fac.py(5):         return arg_n
 ## <a id='s1-3' />Let's make a better tracer!
 
 Let's attemt to make a better trace facility for python.
-The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the exeuction of every opcode; here we could try and show all load and store instructions
+The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the exeuction of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode\_disasm.md) 
 
-Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function.
+A more complete implementation could trace the whole stack, as an expression is being evaluated and reduced on the stack, however i am a bit afraid, that the process would be very slow and a bit impractical. 
+
+Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decortors in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md(
 
 The traced output is showing the file name, line numer and depth of the call stack, counting from the first call of the traced function.
 
@@ -429,11 +442,11 @@ trace_fac_iter.py:9(1) return=5040
 fac_iter(7): 5040
 </pre>
 
-Unfortunately there is a limit to this approach: we cannot access the function evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. It is therefore not possible to trace instructions like [STORE\_SUBSCR](https://docs.python.org/3.8/library/dis.html#opcode-STORE\_SUBSCR) and [BINARY\_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-LOAD\_SUBSCRIPT) bytecode instructions, that modify a given dictionary object.
+Unfortunately there is a limit to this approach: so far the program did not access the evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. I used a workaround, accessing the memory location referred to by the bytecode instruction before executing the [LOAD\_FAST](https://docs.python.org/3/library/dis.html#opcode-LOAD\_FAST) instruction, and accessing the modified location after running the [STORE\_FAST](https://docs.python.org/3/library/dis.html#opcode-STORE\_FAST) instruction, Hoever that trick is not feasible for the array and dictionary access instructions [STORE\_SUBSCR](https://docs.python.org/3.8/library/dis.html#opcode-STORE\_SUBSCR) and [BINARY\_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-LOAD\_SUBSCRIPT) bytecode instructions, here i would need to take a direct look at the evaluation stack.
 
-It would however be possbible to do this trick, if we were to write some extension in the C language, that would allow us to access these fields... But wait, it seems it is possible from python [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
+It would however be possbible to do this trick, from python with the [ctypes module](https://docs.python.org/3/library/ctypes.html), without any native code at all! [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
 
-Here is an example of tracing list and map access.
+Given this trick, here is an example of tracing list and map access.
 
 
 __Source:__
@@ -579,8 +592,8 @@ print("eof")
 
 __Result:__
 <pre>
-return <class '__main__.Complex'> 140236821760320
-return <class '__main__.PersonWithTitle'> 140236821762784
+return <class '__main__.Complex'> 140287833118832
+return <class '__main__.PersonWithTitle'> 140287833121296
 trace_obj.py:7(1)     def __init__(self, re, im=0.0):
 trace_obj.py:7(1) # self=<object not initialised yet>
 trace_obj.py:7(1) # re=2
@@ -628,7 +641,7 @@ trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self._
 trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
 trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7f8b6fd85040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7f9750485040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
 trace_obj.py:38(2)     def __str__(self):
 trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
