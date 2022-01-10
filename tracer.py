@@ -97,3 +97,10 @@ print_md("""
 Here is an example of accessing python objects. You can trace every method call of a class, here you need to define the class with the TraceClass metaclass. (You can learn more about metaclasses in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/python-obj-system.md)
 """)
 run_and_quote("./trace_obj.py", command="", line_prefix="")
+
+
+print_md("""
+Here is an example trace of a program, that number of occurances of each letter in its own text.
+""")
+
+run_and_quote("./trace_histo.py", command="", line_prefix="")

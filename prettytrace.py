@@ -100,11 +100,6 @@ class PyFrm(PyVarObject):
         ("f_trace",  ctypes.c_void_p)
       )
 
-class PyVoidPtr(ctypes.Structure):
-    _fields_ = (
-        ("ptr", ctypes.c_void_p),
-        )
-
 #def _access_stack(frame, num_entries):
 #    # id(frame) - is the pointer to the frame structure.
 #    # PyFrame.from_addr(id(frame)) - get ctypes wraper that points to the same address as the original frame object.
@@ -130,7 +125,7 @@ def _check_stack_access_sanity():
     global _CTYPES_ID_TYPE
 
     if not _check_frame_ctypes(sys._getframe()):
-        print("Can't access stack directly; limited ability to trace variables", out=sys.stderr)
+        print("Can't access stack directly; limited ability to trace variables", file=sys.stderr)
         _CTYPES_ENABLED = -1
         return False
 
@@ -297,13 +292,21 @@ class ThreadTraceCtx:
 
 
     def on_prepare(self, frame):
-        self.filename = frame.f_code.co_filename
-        self.bname = os.path.basename(self.filename)
-        self.dirname = os.path.dirname(self.filename)
-        if self.params.ignore_stdlib and self.dirname in sys.path:
+        filename = frame.f_code.co_filename
+        bname = os.path.basename(filename)
+        dirname = os.path.dirname(filename)
+
+        if self.params.ignore_stdlib and dirname in sys.path:
             return False
-        if self.bname == "prettytrace.py" or self.bname == "<string>":
+        if bname == "prettytrace.py" or bname == "<string>":
             return False
+
+#        if self.bname == "codecs.py":
+#        print(f"~~ {self.params.ignore_stdlib} :: {dirname} :: {sys.path} :: {dirname in sys.path}") 
+#            sys.exit(1)
+
+        self.filename = filename
+        self.bname = bname
         return True
 
     def on_push_frame(self, frame):
@@ -508,9 +511,9 @@ class TraceClass(type):
                 # the variable that the closure should remember is passed as argument, this makes a separate copy of the value in the called function frame?
                 # (what a language...)
                 def wrapper_factory(val_func):
-                    def wrapper_fun(*args, **kwargs):
+                    functools.wraps(val_func)
 
-                        functools.wraps(val_func)
+                    def wrapper_fun(*args, **kwargs):
 
                         if _init_trace( trace_param ):
                             sys.settrace( _func_tracer )
