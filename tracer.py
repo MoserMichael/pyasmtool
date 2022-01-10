@@ -24,10 +24,11 @@ For examle the start of the invocation looks as follow
 + factorial 5
 + '[' 5 -le 1 ']'
 ```
-The bash scripting language translates into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
+The bash shell is an interpreter, it translates the source code into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
 
-The python interpreter follows the nodes of this tree, while evaluating the test expression, this allows it to show this intuitive trace output for the function invocation and the test expression.
-.
+The next step for the bash interpreter to evaluate the program, it does so by following the nodes of the abstract syntax tree.
+This technique allows the bash interpreter to show an intuitive trace output for the function invocation and the test expression, it is all produced while evaluating the in memory representation / abstract syntax tree of the program.
+
 """)
 
 print_md("""
