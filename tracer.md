@@ -1,7 +1,8 @@
 * [Execution traces in Python](#s1)
   * [Execution traces in the bash shell](#s1-1)
   * [Execution trace in Python](#s1-2)
-  * [Let's make a better tracer!](#s1-3)
+  * [Let's make a better tracer for python!](#s1-3)
+      * [The python tracer in action](#s1-3-1)
 
 
 # <a id='s1' />Execution traces in Python
@@ -70,10 +71,10 @@ For examle the start of the invocation looks as follow
 ```
 The bash scripting language translates into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract\_syntax\_tree)
 
-The python interpreter follows the nodes of this tree, while evaluating the expression, this allows it to show this intuitive trace output for the function invocation and the test expression.
+The python interpreter follows the nodes of this tree, while evaluating the test expression, this allows it to show this intuitive trace output for the function invocation and the test expression.
 .
 
-The following example computes a factorial in an iterative way
+The following example computes a factorial in an iterative way, note that the arithmethic bash expressions are not traced with the same level of detail as in the case of the test expressions!
 
 
 __Source:__
@@ -178,12 +179,15 @@ fac.py(5):         return arg_n
 </pre>
 
 
-## <a id='s1-3' />Let's make a better tracer!
+## <a id='s1-3' />Let's make a better tracer for python!
 
 Let's attemt to make a better trace facility for python.
 The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the exeuction of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode\_disasm.md) 
 
 A more complete implementation could trace the whole stack, as an expression is being evaluated and reduced on the stack, however i am a bit afraid, that the process would be very slow and a bit impractical. 
+
+
+### <a id='s1-3-1' />The python tracer in action
 
 Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decortors in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md(
 
@@ -592,8 +596,8 @@ print("eof")
 
 __Result:__
 <pre>
-return <class '__main__.Complex'> 140287833118832
-return <class '__main__.PersonWithTitle'> 140287833121296
+return <class '__main__.Complex'> 140552171508784
+return <class '__main__.PersonWithTitle'> 140552171511248
 trace_obj.py:7(1)     def __init__(self, re, im=0.0):
 trace_obj.py:7(1) # self=<object not initialised yet>
 trace_obj.py:7(1) # re=2
@@ -641,7 +645,7 @@ trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self._
 trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
 trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7f9750485040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fd4dbd85040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
 trace_obj.py:38(2)     def __str__(self):
 trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
