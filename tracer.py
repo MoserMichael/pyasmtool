@@ -26,12 +26,12 @@ For examle the start of the invocation looks as follow
 ```
 The bash scripting language translates into an in memory tree representation that is called the [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
 
-The python interpreter follows the nodes of this tree, while evaluating the expression, this allows it to show this intuitive trace output for the function invocation and the test expression.
+The python interpreter follows the nodes of this tree, while evaluating the test expression, this allows it to show this intuitive trace output for the function invocation and the test expression.
 .
 """)
 
 print_md("""
-The following example computes a factorial in an iterative way
+The following example computes a factorial in an iterative way, note that the arithmethic bash expressions are not traced with the same level of detail as in the case of the test expressions!
 """)
 
 run_and_quote("./fac2.sh", command="", line_prefix="")
@@ -48,7 +48,7 @@ Let's get the trace of a factorial program with the trace module, by running the
 
 run_and_quote("./fac.py", command="python3 -m trace --trace", line_prefix="")
 
-header_md("Let's make a better tracer!", nesting=2)
+header_md("Let's make a better tracer for python!", nesting=2)
 
 print_md("""
 Let's attemt to make a better trace facility for python.
@@ -56,6 +56,8 @@ The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) func
 
 A more complete implementation could trace the whole stack, as an expression is being evaluated and reduced on the stack, however i am a bit afraid, that the process would be very slow and a bit impractical. 
 """)
+
+header_md("The python tracer in action", nesting=3)
 
 print_md("""
 Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decortors in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md(
