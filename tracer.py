@@ -100,7 +100,7 @@ run_and_quote("./trace_obj.py", command="", line_prefix="")
 
 
 print_md("""
-Here is an example trace of a program, that number of occurances of each letter a given text file.
+Here is an example trace of a program, that counts the number of occurrences of each letter in a given text file.
 """)
 
 run_and_quote("./trace_histo.py", command="", line_prefix="")

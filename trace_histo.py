@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
 import prettytrace
-
-#!/usr/bin/env python3
-
-import prettytrace
 import sys
 
 def compute_historgram(file_name):

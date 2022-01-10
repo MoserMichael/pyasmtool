@@ -182,29 +182,6 @@ def _show_load_fast(frame, instr, argval, ctx):
     sval = ctx.show_val(val)
     print(f"{prefix} # load {varname} {sval}", file=ctx.params.out)
 
-def _show_load_global(frame, instr, argval, ctx):
-
-    try:
-        varname = frame.f_code.co_varnames[ argval ]
-    except IndexError:
-        print(f"Error: can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}", file=sys.stderr) 
- 
-        return
-
-    if varname in frame.f_globals:
-        val = frame.f_globals[ varname ]
-    elif varname in frame.f_builtins:
-        val = frame.f_builtins[ varname ]
-    elif varname in globals():
-        val = globals()[ varname ]
-    else:
-        print("load_global: can't find ", varname, "in any scope", file=sys.stderr) 
-        return
-
-    prefix = ctx.get_line_prefix(frame, 1)
-    sval = ctx.show_val(val)
-    print(f"{prefix} # load_global {varname} {sval}", file=ctx.params.out)
-
 def _show_store_fast(frame, asm_instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ]
     val = frame.f_locals[ varname ]
@@ -213,22 +190,36 @@ def _show_store_fast(frame, asm_instr, argval, ctx):
     print(f"{prefix} # store {varname} {sval}", file=ctx.params.out)
 
 
-def _show_store_global(frame, asm_instr, argval, ctx):
-    varname = frame.f_code.co_varnames[ argval ]
+def _show_global_imp(frame, instr, argval, ctx, cmd_name):
+
+    try:
+        varname = frame.f_code.co_varnames[ argval ]
+    except IndexError:
+        print(f"Error: {cmd_name} can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}", file=sys.stderr) 
+        return
 
     if varname in frame.f_globals:
         val = frame.f_globals[ varname ]
     elif varname in frame.f_builtins:
         val = frame.f_builtins[ varname ]
+    elif varname in frame.f_locals:
+        val = frame.f_locals[ varname ]
     elif varname in globals():
         val = globals()[ varname ]
     else:
-        print("store_global: can't find ", varname, "in any scope", file=ctx.params.out)
+        print("{cmd_name}: can't find ", varname, "in any scope", file=sys.stderr) 
         return
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    print(f"{prefix} # store_global {varname} {sval}", file=ctx.params.out)
+    print(f"{prefix} # {cmd_name} {varname} {sval}", file=ctx.params.out)
+
+
+def _show_load_global(frame, instr, argval, ctx):
+    _show_global_imp(frame, instr, argval, ctx, 'load_global') 
+
+def _show_store_global(frame, asm_instr, argval, ctx):
+    _show_global_imp(frame, instr, argval, ctx, 'store_global') 
 
 def _binary_subscr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
