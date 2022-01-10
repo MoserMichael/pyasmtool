@@ -23,5 +23,5 @@ def compute_historgram(file_name):
 
 compute_historgram = prettytrace.TraceMe(compute_historgram, out=sys.stdout) # out=sys.stdout - redirects trace output to sys.stdout
 
-compute_historgram(__file__)
+compute_historgram("./example_text.txt")
 
