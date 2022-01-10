@@ -189,7 +189,7 @@ A more complete implementation could trace the whole stack, as an expression is 
 
 ### <a id='s1-3-1' />The python tracer in action
 
-Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decortors in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md)
+Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decorators in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md)
 
 The traced output is showing the file name, line numer and depth of the call stack, counting from the first call of the traced function.
 
@@ -528,7 +528,7 @@ trace_lookup.py:15(1) return=None
 {'first': 'b', 'second': 'a'}
 </pre>
 
-Here is an example of accessing python objects..
+Here is an example of accessing python objects. You can trace every method call of a class, here you need to define the class with the TraceClass metaclass. (You can learn more about metaclasses in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/python-obj-system.md)
 
 
 __Source:__
@@ -596,8 +596,8 @@ print("eof")
 
 __Result:__
 <pre>
-return <class '__main__.Complex'> 140331448363984
-return <class '__main__.PersonWithTitle'> 140331448366448
+return <class '__main__.Complex'> 140485242942736
+return <class '__main__.PersonWithTitle'> 140485242945200
 trace_obj.py:7(1)     def __init__(self, re, im=0.0):
 trace_obj.py:7(1) # self=<object not initialised yet>
 trace_obj.py:7(1) # re=2
@@ -645,7 +645,7 @@ trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self._
 trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
 trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fa176585040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fc545585040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
 trace_obj.py:38(2)     def __str__(self):
 trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
