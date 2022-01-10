@@ -60,7 +60,7 @@ A more complete implementation could trace the whole stack, as an expression is 
 header_md("The python tracer in action", nesting=3)
 
 print_md("""
-Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decortors in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md(
+Let's trace the execution of a recursive factorial function in python. Note that the tracer is defined as a decorator of the traced function. (You can learn more about decortors in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md)
 
 The traced output is showing the file name, line numer and depth of the call stack, counting from the first call of the traced function.
 """)
