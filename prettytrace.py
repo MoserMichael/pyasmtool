@@ -250,7 +250,7 @@ def _binary_subscr(frame, asm_instr, argval, ctx):
     else:
         title=str(type(obj)) + "-on-stack"
         
-    print(f"{prefix} # binary_subscript {title}[{repr(key)}]={sval}", file=ctx.params.out)
+    print(f"{prefix} # load {title}[{repr(key)}] {sval}", file=ctx.params.out)
 
 
 def _store_subscr(frame, asm_instr, argval, ctx):
@@ -274,7 +274,7 @@ def _store_subscr(frame, asm_instr, argval, ctx):
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
 
-    print(f"{prefix} # store_subscript {title}[{repr(key)}]={sval}", file=ctx.params.out)
+    print(f"{prefix} # store {title}[{repr(key)}]={sval}", file=ctx.params.out)
 
 def _show_load_attr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
