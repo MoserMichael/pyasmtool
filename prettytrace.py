@@ -45,6 +45,7 @@ class TraceParam:
     trace_loc: bool
     show_obj: int
     ignore_stdlib: bool
+    out: 'typing.any'
 
 # adding a handler for an opcode
 def _add_opcode( op_name, op_map, op_func):
@@ -53,7 +54,7 @@ def _add_opcode( op_name, op_map, op_func):
         #print("adding",op_name,op_code)
         op_map[op_code] = op_func
     else:
-        print("Can't handle op code:", op_name)
+        print("Can't handle op code:", op_name, file=sys.stderr)
 ###
 # Stack access hacks (required for showing stores to dicts/vectors)
 ###
@@ -129,7 +130,7 @@ def _check_stack_access_sanity():
     global _CTYPES_ID_TYPE
 
     if not _check_frame_ctypes(sys._getframe()):
-        print("Can't access stack directly; limited ability to trace variables")
+        print("Can't access stack directly; limited ability to trace variables", out=sys.stderr)
         _CTYPES_ENABLED = -1
         return False
 
@@ -143,7 +144,7 @@ def _check_stack_access_sanity():
     elif ctypes.sizeof(ctypes.c_uint) == _CTYPES_POINTER_SIZE:
         _CTYPES_ID_TYPE = ctypes.c_uint
     else:
-        print("Can't find integral type for pointer size!!!")
+        print("Can't find integral type for pointer size!!!", file=sys.stderr)
         return False
 
     _CTYPES_ENABLED = 1
@@ -183,14 +184,15 @@ def _show_load_fast(frame, instr, argval, ctx):
     val = frame.f_locals[ varname ]
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    print(f"{prefix} # load {varname} {sval}")
+    print(f"{prefix} # load {varname} {sval}", file=ctx.params.out)
 
 def _show_load_global(frame, instr, argval, ctx):
 
     try:
         varname = frame.f_code.co_varnames[ argval ]
     except IndexError:
-        print(f"Error: can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}")
+        print(f"Error: can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}", file=sys.stderr) 
+ 
         return
 
     if varname in frame.f_globals:
@@ -200,19 +202,20 @@ def _show_load_global(frame, instr, argval, ctx):
     elif varname in globals():
         val = globals()[ varname ]
     else:
-        print("load_global: can't find ", varname, "in any scope")
+        print("load_global: can't find ", varname, "in any scope", file=sys.stderr) 
         return
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    print(f"{prefix} # load_global {varname} {sval}")
+    print(f"{prefix} # load_global {varname} {sval}", file=ctx.params.out)
 
 def _show_store_fast(frame, asm_instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ]
     val = frame.f_locals[ varname ]
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    print(f"{prefix} # store {varname} {sval}")
+    print(f"{prefix} # store {varname} {sval}", file=ctx.params.out)
+
 
 def _show_store_global(frame, asm_instr, argval, ctx):
     varname = frame.f_code.co_varnames[ argval ]
@@ -224,12 +227,12 @@ def _show_store_global(frame, asm_instr, argval, ctx):
     elif varname in globals():
         val = globals()[ varname ]
     else:
-        print("store_global: can't find ", varname, "in any scope")
+        print("store_global: can't find ", varname, "in any scope", file=ctx.params.out)
         return
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    print(f"{prefix} # store_global {varname} {sval}")
+    print(f"{prefix} # store_global {varname} {sval}", file=ctx.params.out)
 
 def _binary_subscr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
@@ -242,7 +245,8 @@ def _binary_subscr(frame, asm_instr, argval, ctx):
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
 
-    print(f"{prefix} # binary_subscript arr[", repr(vals[1]), "]=", sval)
+    print(f"{prefix} # binary_subscript arr[", repr(vals[1]), "]=", sval, file=ctx.params.out)
+
 
 def _store_subscr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
@@ -256,7 +260,7 @@ def _store_subscr(frame, asm_instr, argval, ctx):
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
 
-    print(f"{prefix} # store_subscript arr[", repr(vals[2]), "]=", sval)
+    print(f"{prefix} # store_subscript arr[", repr(vals[2]), "]=", sval, file=ctx.params.out)
 
 
 def _init_opcodes():
@@ -314,7 +318,7 @@ class ThreadTraceCtx:
 
         while firstline < linestarts:
             line = linecache.getline(self.filename, firstline)
-            print(f"{self.get_line_prefix(frame, 0)} {line}", end="")
+            print(f"{self.get_line_prefix(frame, 0)} {line}", end="", file=self.params.out)
             firstline += 1
         
         # if __init__ method, then don't show first param, self is not yet initialised.
@@ -326,7 +330,7 @@ class ThreadTraceCtx:
         #print("arg_info:", arg_info)
         for arg in arg_info.args:
             sval = self.show_val(arg_info.locals[arg])
-            print(f"{self.get_line_prefix(frame, 1)} # {arg}={sval}")
+            print(f"{self.get_line_prefix(frame, 1)} # {arg}={sval}", file=self.params.out)
 
         #print(frame.f_code.co_filename, frame.f_code.co_name, "firstline:", firstline, "first-code-line:", linestarts[1])
 
@@ -371,7 +375,7 @@ class ThreadTraceCtx:
         self.on_prev_opcode(frame)
         lineno = frame.f_lineno
         line = linecache.getline(self.filename, lineno)
-        print(f"{self.get_line_prefix(frame, 0)} {line}", end='')
+        print(f"{self.get_line_prefix(frame, 0)} {line}", end='', file=self.params.out)
 
         # count prefix spaces.
         line_len = len(line)
@@ -395,7 +399,7 @@ class ThreadTraceCtx:
     def on_pop_frame(self, frame, arg):
         #print("on_pop_frame type(frame):", type(frame), frame.f_code.co_filename, frame.f_code.co_name)
         sval = self.show_val(arg)
-        print(f"{self.get_line_prefix(frame, 0)} return={sval}")
+        print(f"{self.get_line_prefix(frame, 0)} return={sval}", file=self.params.out)
         self.nesting -= 1
 
 
@@ -456,19 +460,20 @@ def _check_eof_trace():
 
 class TraceMe:
 
-    def __init__(self, func, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 1, ignore_stdlib : bool = True):
+    def __init__(self, func, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 1, ignore_stdlib : bool = True, out = sys.stderr):
         functools.update_wrapper(self, func)
         self.func = func
         self.trace_indent = trace_indent
         self.trace_loc = trace_loc
         self.show_obj = show_obj
         self.ignore_stdlib = ignore_stdlib
+        self.out = out
 
 
     def __call__(self, *args, **kwargs):
 
         # first invocation sets up tracing hook
-        if _init_trace( TraceParam(trace_indent=self.trace_indent, trace_loc=self.trace_loc, show_obj=self.show_obj, ignore_stdlib=self.ignore_stdlib) ):
+        if _init_trace( TraceParam(trace_indent=self.trace_indent, trace_loc=self.trace_loc, show_obj=self.show_obj, ignore_stdlib=self.ignore_stdlib, out=self.out) ):
             sys.settrace( _func_tracer )
 
         func_fwd = self.func
@@ -489,13 +494,13 @@ def disable_stack_access():
 
 # metaclass, adds tracers to all methods of a class
 class TraceClass(type):
-    def __new__(meta_class, name, bases, cls_dict, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True):
+    def __new__(meta_class, name, bases, cls_dict, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True, out = sys.stderr):
 
         #
         # see trick here: https://stackoverflow.com/questions/11349183/how-to-wrap-every-method-of-a-class ]
         # need to modify the cls_dict object in order to wrap each member function!
         #
-        trace_param = TraceParam(trace_indent=trace_indent, trace_loc=trace_loc, show_obj=show_obj, ignore_stdlib=ignore_stdlib)
+        trace_param = TraceParam(trace_indent=trace_indent, trace_loc=trace_loc, show_obj=show_obj, ignore_stdlib=ignore_stdlib, out=out)
         new_class_dict = {}
         for entry,val_func in cls_dict.items():
             if inspect.isfunction(val_func):
@@ -521,10 +526,8 @@ class TraceClass(type):
                 val_func = wrapper_factory(val_func)
             new_class_dict[entry] = val_func
             
-
         class_instance = super().__new__(meta_class, name, bases, new_class_dict)
 
-        print(f"return {class_instance} {id(class_instance)}")
         return class_instance
 
 #    def __call__(cls, *args, **kwargs):

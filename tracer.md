@@ -446,7 +446,7 @@ trace_fac_iter.py:9(1) return=5040
 fac_iter(7): 5040
 </pre>
 
-Unfortunately there is a limit to this approach: so far the program did not access the evaluation stack, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. I used a workaround, accessing the memory location referred to by the bytecode instruction before executing the [LOAD\_FAST](https://docs.python.org/3/library/dis.html#opcode-LOAD\_FAST) instruction, and accessing the modified location after running the [STORE\_FAST](https://docs.python.org/3/library/dis.html#opcode-STORE\_FAST) instruction, Hoever that trick is not feasible for the array and dictionary access instructions [STORE\_SUBSCR](https://docs.python.org/3.8/library/dis.html#opcode-STORE\_SUBSCR) and [BINARY\_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-LOAD\_SUBSCRIPT) bytecode instructions, here i would need to take a direct look at the evaluation stack.
+So far the trace program did not need to access the evaluation stack of the python interpreter, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. I used a workaround, accessing the memory location referred to by the bytecode instruction before executing the [LOAD\_FAST](https://docs.python.org/3/library/dis.html#opcode-LOAD\_FAST) instruction, and accessing the modified location after running the [STORE\_FAST](https://docs.python.org/3/library/dis.html#opcode-STORE\_FAST) instruction, Hoever that trick is not feasible for the array and dictionary access instructions [STORE\_SUBSCR](https://docs.python.org/3.8/library/dis.html#opcode-STORE\_SUBSCR) and [BINARY\_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-LOAD\_SUBSCRIPT) bytecode instructions, here i would need to take a direct look at the evaluation stack.
 
 It would however be possbible to do this trick, from python with the [ctypes module](https://docs.python.org/3/library/ctypes.html), without any native code at all! [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
 
@@ -508,7 +508,6 @@ trace_lookup.py:10(1)     # load tmp 1
 trace_lookup.py:10(1)     # load arg_list [2, 2]
 trace_lookup.py:10(1)     # store_subscript arr[ 1 ]= 1
 trace_lookup.py:10(1) return=None
-[2, 1]
 trace_lookup.py:12(1) def swap_dict(arg_dict):
 trace_lookup.py:12(1) # arg_dict={'first': 'a', 'second': 'b'}
 trace_lookup.py:13(1)     tmp = arg_dict['first']
@@ -525,6 +524,7 @@ trace_lookup.py:15(1)     # load tmp 'a'
 trace_lookup.py:15(1)     # load arg_dict {'first': 'b', 'second': 'b'}
 trace_lookup.py:15(1)     # store_subscript arr[ 'second' ]= 'a'
 trace_lookup.py:15(1) return=None
+[2, 1]
 {'first': 'b', 'second': 'a'}
 </pre>
 
@@ -596,8 +596,6 @@ print("eof")
 
 __Result:__
 <pre>
-return <class '__main__.Complex'> 140485242942736
-return <class '__main__.PersonWithTitle'> 140485242945200
 trace_obj.py:7(1)     def __init__(self, re, im=0.0):
 trace_obj.py:7(1) # self=<object not initialised yet>
 trace_obj.py:7(1) # re=2
@@ -615,7 +613,6 @@ trace_obj.py:32(1)         return f"real: {self.real} imaginary: {self.imag}"
 trace_obj.py:32(1)         # load self real: 2 imaginary: 3
 trace_obj.py:32(1)         # load self real: 2 imaginary: 3
 trace_obj.py:32(1) return=real: 2 imaginary: 3
-real: 2 imaginary: 3
 trace_obj.py:42(1)     def __init__(self, first_name, last_name, title):
 trace_obj.py:42(1) # self=<object not initialised yet>
 trace_obj.py:42(1) # first_name=Pooh
@@ -645,7 +642,7 @@ trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self._
 trace_obj.py:48(1) # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
 trace_obj.py:50(1)         # load self Title: Mr first_name: Pooh last_name: Bear
-Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fc545585040, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
+Error: can't resolve argval Instruction: 116 argval: 1, frame: <frame at 0x7fa075c7ee40, file '/Users/michaelmo/mystuff/pyasmtools/./trace_obj.py', line 50, code __str__>
 trace_obj.py:38(2)     def __str__(self):
 trace_obj.py:38(2)         # self=Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
@@ -653,6 +650,7 @@ trace_obj.py:39(2)         # load self Title: Mr first_name: Pooh last_name: Bea
 trace_obj.py:39(2)         # load self Title: Mr first_name: Pooh last_name: Bear
 trace_obj.py:39(2) return=first_name: Pooh last_name: Bear
 trace_obj.py:50(1) return=Title: Mr first_name: Pooh last_name: Bear
+real: 2 imaginary: 3
 Title: Mr first_name: Pooh last_name: Bear
 eof
 </pre>
