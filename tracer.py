@@ -112,11 +112,11 @@ Here is an example trace of a program, that counts the number of occurrences of 
 
 run_and_quote("./trace_histo.py", command="", line_prefix="", quote_lt_gt=True)
 
-header_md("Reference", nesting=2)
+header_md("tracer reference", nesting=3)
 
 print_md(""""
 
-Both the TraceMe function decorator class and the TraceClass metaclas accept the same set of argument, these are listed here:
+Both the TraceMe function decorator class and the TraceClass metaclass accept the same set of arguments, these are listed here:
 
 - trace_indent : bool = False  :: show a prefix of dots for each line (number of dots equals to call depth)
 - show_obj : int = 1           :: level of detail for values displayed (0 - str(val), 1 - repr(val), 2 - pprint.pformat(val))
