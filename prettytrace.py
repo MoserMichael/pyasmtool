@@ -335,7 +335,8 @@ class ThreadTraceCtx:
                 return repr(val)
             return pprint.pformat(val)
         except AttributeError:
-            return "<object not initialised yet>"
+            # object is not yet initialised
+            return None
 
 
     def on_prepare(self, frame):
@@ -380,7 +381,8 @@ class ThreadTraceCtx:
         #print("arg_info:", arg_info)
         for arg in arg_info.args:
             sval = self.show_val(arg_info.locals[arg])
-            print(f"{self.get_line_prefix(frame, 1)} # {arg}={sval}", file=self.params.out)
+            if sval is not None:
+                print(f"{self.get_line_prefix(frame, 1)} # {arg}={sval}", file=self.params.out)
 
         #print(frame.f_code.co_filename, frame.f_code.co_name, "firstline:", firstline, "first-code-line:", linestarts[1])
 
