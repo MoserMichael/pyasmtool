@@ -55,7 +55,7 @@ header_md("Let's make a better tracer for python!", nesting=2)
 
 print_md("""
 Let's attempt to make a better trace facility for python.
-The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the execution of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode_disasm.md) 
+The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the execution of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode_disasm.md) )
 
 I am not sure, that the opcode tracing capabilities of sys.setrace are equally supported in all python environments; For example [PyPy](https://www.pypy.org/) is implementation a just in time compilation mode, and I didn't check this trick for that environment.
 
@@ -69,7 +69,7 @@ You can install the library that includes the tracer with ```pip3 install pyasmt
 
 Note that the tracer is defined as a decorator of the traced function. (You can learn more about decorators in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/decorator.md)
 
-The traced output is showing the file name, line number and depth of the call stack, counting from the first call of the traced function.
+The trace output is showing the file name, line number and depth of the call stack, counting from the first call of the traced function. You also see some added comments that show the load operations of variables from memory to python evaluation stack, as well of store instructions (these move the stack values back to the memory location of the variables)
 """)
 
 run_and_quote("./trace_fac_rec.py", command="", line_prefix="", quote_lt_gt=True)
