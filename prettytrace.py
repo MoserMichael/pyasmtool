@@ -194,7 +194,7 @@ def _get_type_of_val(val):
     return repr(type(val)).replace("<","").replace(">","").replace("'","")
 
 def _get_type_and_id(val):
-    return f"{_get_type_of_val(val)}_at_{id(val)}"
+    return f"{_get_type_of_val(val)}_at_{hex(id(val))}"
 
 
 def _show_global_imp(frame, instr, argval, ctx, cmd_name):
@@ -202,7 +202,7 @@ def _show_global_imp(frame, instr, argval, ctx, cmd_name):
     try:
         varname = frame.f_code.co_names[ argval ]
     except IndexError:
-        print(f"Error: {cmd_name} can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}", file=sys.stderr) 
+        print(f"Error: {cmd_name} can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}", file=sys.stderr)
         return
 
     if varname in frame.f_globals:
@@ -214,7 +214,7 @@ def _show_global_imp(frame, instr, argval, ctx, cmd_name):
     elif varname in globals():
         val = globals()[ varname ]
     else:
-        print("{cmd_name}: can't find ", varname, "in any scope", file=sys.stderr) 
+        print("{cmd_name}: can't find ", varname, "in any scope", file=sys.stderr)
         return
 
     prefix = ctx.get_line_prefix(frame, 1)
@@ -224,10 +224,10 @@ def _show_global_imp(frame, instr, argval, ctx, cmd_name):
 
 
 def _show_load_global(frame, instr, argval, ctx):
-    _show_global_imp(frame, instr, argval, ctx, 'load_global') 
+    _show_global_imp(frame, instr, argval, ctx, 'load_global')
 
 def _show_store_global(frame, asm_instr, argval, ctx):
-    _show_global_imp(frame, instr, argval, ctx, 'store_global') 
+    _show_global_imp(frame, instr, argval, ctx, 'store_global')
 
 def _binary_subscr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
@@ -248,7 +248,7 @@ def _binary_subscr(frame, asm_instr, argval, ctx):
         title="list_on_stack"
     else:
         title=str(type(obj)) + "-on-stack"
-        
+
     print(f"{prefix} # load {title}[{repr(key)}] {sval}", file=ctx.params.out)
 
 
@@ -269,7 +269,7 @@ def _store_subscr(frame, asm_instr, argval, ctx):
         title="list-on-stack"
     else:
         title=str(type(obj)) + "-on-stack"
-        
+
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(deref_val)
 
@@ -281,6 +281,9 @@ def _show_load_attr(frame, asm_instr, argval, ctx):
 
     # Replaces TOS with getattr(TOS, co_names[ argval ]).
     vals = _access_frame_stack(frame, from_stack=1, num_entries=1)
+
+    #print(f"load_attr: vals[0] {hex(id(vals[0]))}", file=ctx.params.out)
+
     obj = vals[0]
     title=_get_type_and_id(obj)
     name = frame.f_code.co_names[ argval ]
@@ -289,20 +292,24 @@ def _show_load_attr(frame, asm_instr, argval, ctx):
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
 
-    print(f"{prefix} # load_attr {title}.{name}={sval}", file=ctx.params.out)
+    print(f"{prefix} # load_attr {title}.{name} {sval}", file=ctx.params.out)
 
 
 def _show_store_attr(frame, asm_instr, argval, ctx):
     if _CTYPES_ENABLED != 1:
         return
+    name = frame.f_code.co_names[ argval ]
+    prefix = ctx.get_line_prefix(frame, 1)
+
     #Implements TOS.name = TOS1, where argval is the index of name in co_names.
     vals = _access_frame_stack(frame, from_stack=2, num_entries=2)
-    obj = vals[1]
-    title=_get_type_and_id(obj)
-    val = vals[0]
-    name = frame.f_code.co_names[ argval ]
 
-    prefix = ctx.get_line_prefix(frame, 1)
+    val = vals[0]
+    obj = vals[1]
+
+    #print(f"store_attr: vals[0] {hex(id(vals[0]))} vals[1] {hex(id(vals[1]))}", file=ctx.params.out)
+
+    title = _get_type_and_id(obj)
     sval = ctx.show_val(val)
 
     print(f"{prefix} # store_attr {title}.{name}={sval}", file=ctx.params.out)
@@ -317,7 +324,7 @@ def _init_opcodes():
     _add_opcode( "STORE_FAST", _STORE_OPCODES, _show_store_fast)
 
     _add_opcode( "LOAD_ATTR", _LOAD_OPCODES, _show_load_attr)
-    _add_opcode( "STORE_ATTR", _STORE_OPCODES, _show_store_attr)
+    _add_opcode( "STORE_ATTR", _LOAD_OPCODES, _show_store_attr)
 
 
     _check_stack_access_sanity()
@@ -358,7 +365,7 @@ class ThreadTraceCtx:
             return False
 
 #        if self.bname == "codecs.py":
-#        print(f"~~ {self.params.ignore_stdlib} :: {dirname} :: {sys.path} :: {dirname in sys.path}") 
+#        print(f"~~ {self.params.ignore_stdlib} :: {dirname} :: {sys.path} :: {dirname in sys.path}")
 #            sys.exit(1)
 
         self.filename = filename
@@ -379,7 +386,7 @@ class ThreadTraceCtx:
             line = linecache.getline(self.filename, firstline)
             print(f"{self.get_line_prefix(frame, 0)} {line}", end="", file=self.params.out)
             firstline += 1
-        
+
         # if __init__ method, then don't show first param, self is not yet initialised.
 #        is_init_method = False
 #        if frame.f_code.co_name == "__init__":
@@ -419,7 +426,7 @@ class ThreadTraceCtx:
 
     def get_line_prefix(self, frame, add_prefix):
         lineno = frame.f_lineno
-        ret = f"{self.bname}:{lineno}({self.nesting})"  
+        ret = f"{self.bname}:{lineno}({self.nesting})"
         if self.params.trace_indent:
             ret += ('.' * self.nesting)
         ret += (" " * self.prefix_spaces * add_prefix)
@@ -587,7 +594,7 @@ class TraceClass(type):
                 val_func = val_func_new
 
             new_class_dict[entry] = val_func
-            
+
         class_instance = super().__new__(meta_class, name, bases, new_class_dict)
 
         return class_instance
