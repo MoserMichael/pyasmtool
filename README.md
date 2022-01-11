@@ -5,3 +5,7 @@ The pyasmtools library is made up of two parts
 - A tracer for python, that displays the source code of each executed line, along with the variables loaded and stored. See [Execution traces in Python](https://github.com/MoserMichael/pyasmtool/blob/master/tracer.md)
 
 Note that some of the goodness in this library is cpython specific, i don't expect it to work on every python based environment.
+
+## Installation
+
+You can install this library with ```pip3 install pyasmtools```. Instructions are in the above mentioned links.

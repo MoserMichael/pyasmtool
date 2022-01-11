@@ -12,7 +12,7 @@ print("install-requires:", install_requires)
 
 setuptools.setup(
     name = "pyasmtools",
-    version = "1.0.3",
+    version = "1.0.4",
     author = "Michael Moser",
     author_email = "moser.michael@gmail.com",
     description = ("a python bytecode disassembler and execution tracer, all done as decorators."),
