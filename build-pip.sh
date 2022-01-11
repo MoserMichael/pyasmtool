@@ -3,8 +3,11 @@
 set -ex
 
 # remove files not under git
-git clean -f -d
+#git clean -f -d
 
+if [[ -d staging_dir ]]; then
+    rm -rf staging_dir
+fi
 mkdir -p staging_dir/src/pyasmtools
 mkdir -p staging_dir/tests
 
