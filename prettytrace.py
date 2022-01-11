@@ -193,7 +193,7 @@ def _show_store_fast(frame, asm_instr, argval, ctx):
 def _show_global_imp(frame, instr, argval, ctx, cmd_name):
 
     try:
-        varname = frame.f_code.co_varnames[ argval ]
+        varname = frame.f_code.co_names[ argval ]
     except IndexError:
         print(f"Error: {cmd_name} can't resolve argval Instruction: {instr} argval: {argval}, frame: {frame}", file=sys.stderr) 
         return
@@ -212,7 +212,8 @@ def _show_global_imp(frame, instr, argval, ctx, cmd_name):
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    print(f"{prefix} # {cmd_name} {varname} {sval}", file=ctx.params.out)
+    type_name=repr(type(val)).replace("<","").replace(">","")
+    print(f"{prefix} # {cmd_name} {varname} {sval} (type: {type_name})", file=ctx.params.out)
 
 
 def _show_load_global(frame, instr, argval, ctx):
