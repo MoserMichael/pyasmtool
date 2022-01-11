@@ -190,6 +190,10 @@ def _show_store_fast(frame, asm_instr, argval, ctx):
     print(f"{prefix} # store {varname} {sval}", file=ctx.params.out)
 
 
+def _get_type_of_val(val):
+    return repr(type(val)).replace("<","").replace(">","").replace("'","")
+
+
 def _show_global_imp(frame, instr, argval, ctx, cmd_name):
 
     try:
@@ -212,7 +216,7 @@ def _show_global_imp(frame, instr, argval, ctx, cmd_name):
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
-    type_name=repr(type(val)).replace("<","").replace(">","")
+    type_name=_get_type_of_val(val)
     print(f"{prefix} # {cmd_name} {varname} {sval} (type: {type_name})", file=ctx.params.out)
 
 
@@ -275,8 +279,8 @@ def _show_load_attr(frame, asm_instr, argval, ctx):
     # Replaces TOS with getattr(TOS, co_names[ argval ]).
     vals = _access_frame_stack(frame, from_stack=1, num_entries=1)
     obj = vals[0]
-    title=str(type(obj))
-    name = frame.co_code.co_varnames[ argval ]
+    title=_get_type_of_val(obj)
+    name = frame.f_code.co_names[ argval ]
     val=getattr(obj, name)
 
     prefix = ctx.get_line_prefix(frame, 1)
@@ -291,9 +295,9 @@ def _show_store_attr(frame, asm_instr, argval, ctx):
     #Implements TOS.name = TOS1, where argval is the index of name in co_names.
     vals = _access_frame_stack(frame, from_stack=2, num_entries=2)
     obj = vals[1]
-    title=str(type(obj))
-    val = vals[2]
-    name = frame.co_code.co_varnames[ argval ]
+    title=_get_type_of_val(obj)
+    val = vals[0]
+    name = frame.f_code.co_names[ argval ]
 
     prefix = ctx.get_line_prefix(frame, 1)
     sval = ctx.show_val(val)
@@ -309,8 +313,8 @@ def _init_opcodes():
     _add_opcode( "LOAD_GLOBAL", _LOAD_OPCODES, _show_load_global)
     _add_opcode( "STORE_FAST", _STORE_OPCODES, _show_store_fast)
 
-    #_add_opcode( "LOAD_ATTR", _LOAD_OPCODES, _show_load_attr)
-    #_add_opcode( "STORE_ATTR", _STORE_OPCODES, _show_store_attr)
+    _add_opcode( "LOAD_ATTR", _LOAD_OPCODES, _show_load_attr)
+    _add_opcode( "STORE_ATTR", _STORE_OPCODES, _show_store_attr)
 
 
     _check_stack_access_sanity()
