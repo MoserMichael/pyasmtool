@@ -309,8 +309,8 @@ def _init_opcodes():
     _add_opcode( "LOAD_GLOBAL", _LOAD_OPCODES, _show_load_global)
     _add_opcode( "STORE_FAST", _STORE_OPCODES, _show_store_fast)
 
-    _add_opcode( "LOAD_ATTR", _LOAD_OPCODES, _show_load_attr)
-    _add_opcode( "STORE_ATTR", _STORE_OPCODES, _show_store_attr)
+    #_add_opcode( "LOAD_ATTR", _LOAD_OPCODES, _show_load_attr)
+    #_add_opcode( "STORE_ATTR", _STORE_OPCODES, _show_store_attr)
 
 
     _check_stack_access_sanity()
@@ -560,7 +560,6 @@ class TraceClass(type):
                 # the variable that the closure should remember is passed as argument, this makes a separate copy of the value in the called function frame?
                 # (what a language...)
                 def wrapper_factory(val_func):
-                    functools.wraps(val_func)
 
                     def wrapper_fun(*args, **kwargs):
 
@@ -575,7 +574,10 @@ class TraceClass(type):
                         return ret_val
                     return wrapper_fun
 
-                val_func = wrapper_factory(val_func)
+                val_func_new = wrapper_factory(val_func)
+                functools.update_wrapper(val_func_new, val_func)
+                val_func = val_func_new
+
             new_class_dict[entry] = val_func
             
         class_instance = super().__new__(meta_class, name, bases, new_class_dict)
