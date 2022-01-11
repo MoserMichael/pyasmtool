@@ -6,6 +6,8 @@ header_md("Execution traces in Python", nesting=1)
 
 print_md("""
 This section will examine, how to use our understanding of the Python bytecode, in order to write a better execution trace facility for Python.
+
+The tracer will be specific to the [cpython](https://github.com/python/cpython/) environment, I doubt that it will work on all python environments, reasons are explained below.
 """)
 
 header_md("Execution traces in the bash shell", nesting=2)
