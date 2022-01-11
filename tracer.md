@@ -222,7 +222,7 @@ trace_fac_rec.py:7(1)     if arg_n == 1:
 trace_fac_rec.py:7(1)     # load arg_n 7
 trace_fac_rec.py:9(1)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(1)     # load arg_n 7
-trace_fac_rec.py:9(1)     # load_global fac <prettytrace.TraceMe object at 0x7fe730d59040> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(1)     # load_global fac <prettytrace.TraceMe object at 0x7fbda5c5a040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(1)     # load arg_n 7
 trace_fac_rec.py:6(2) def fac(arg_n):
 trace_fac_rec.py:6(2)     # arg_n=6
@@ -230,7 +230,7 @@ trace_fac_rec.py:7(2)     if arg_n == 1:
 trace_fac_rec.py:7(2)     # load arg_n 6
 trace_fac_rec.py:9(2)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(2)     # load arg_n 6
-trace_fac_rec.py:9(2)     # load_global fac <prettytrace.TraceMe object at 0x7fe730d59040> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(2)     # load_global fac <prettytrace.TraceMe object at 0x7fbda5c5a040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(2)     # load arg_n 6
 trace_fac_rec.py:6(3) def fac(arg_n):
 trace_fac_rec.py:6(3)     # arg_n=5
@@ -238,7 +238,7 @@ trace_fac_rec.py:7(3)     if arg_n == 1:
 trace_fac_rec.py:7(3)     # load arg_n 5
 trace_fac_rec.py:9(3)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(3)     # load arg_n 5
-trace_fac_rec.py:9(3)     # load_global fac <prettytrace.TraceMe object at 0x7fe730d59040> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(3)     # load_global fac <prettytrace.TraceMe object at 0x7fbda5c5a040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(3)     # load arg_n 5
 trace_fac_rec.py:6(4) def fac(arg_n):
 trace_fac_rec.py:6(4)     # arg_n=4
@@ -246,7 +246,7 @@ trace_fac_rec.py:7(4)     if arg_n == 1:
 trace_fac_rec.py:7(4)     # load arg_n 4
 trace_fac_rec.py:9(4)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(4)     # load arg_n 4
-trace_fac_rec.py:9(4)     # load_global fac <prettytrace.TraceMe object at 0x7fe730d59040> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(4)     # load_global fac <prettytrace.TraceMe object at 0x7fbda5c5a040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(4)     # load arg_n 4
 trace_fac_rec.py:6(5) def fac(arg_n):
 trace_fac_rec.py:6(5)     # arg_n=3
@@ -254,7 +254,7 @@ trace_fac_rec.py:7(5)     if arg_n == 1:
 trace_fac_rec.py:7(5)     # load arg_n 3
 trace_fac_rec.py:9(5)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(5)     # load arg_n 3
-trace_fac_rec.py:9(5)     # load_global fac <prettytrace.TraceMe object at 0x7fe730d59040> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(5)     # load_global fac <prettytrace.TraceMe object at 0x7fbda5c5a040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(5)     # load arg_n 3
 trace_fac_rec.py:6(6) def fac(arg_n):
 trace_fac_rec.py:6(6)     # arg_n=2
@@ -262,7 +262,7 @@ trace_fac_rec.py:7(6)     if arg_n == 1:
 trace_fac_rec.py:7(6)     # load arg_n 2
 trace_fac_rec.py:9(6)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(6)     # load arg_n 2
-trace_fac_rec.py:9(6)     # load_global fac <prettytrace.TraceMe object at 0x7fe730d59040> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(6)     # load_global fac <prettytrace.TraceMe object at 0x7fbda5c5a040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(6)     # load arg_n 2
 trace_fac_rec.py:6(7) def fac(arg_n):
 trace_fac_rec.py:6(7)     # arg_n=1
@@ -310,7 +310,7 @@ trace_fac_rec_indent.py:7(1).     if arg_n == 1:
 trace_fac_rec_indent.py:7(1).     # load arg_n 7
 trace_fac_rec_indent.py:9(1).     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(1).     # load arg_n 7
-trace_fac_rec_indent.py:9(1).     # load_global fac <prettytrace.TraceMe object at 0x7faef2b46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(1).     # load_global fac <prettytrace.TraceMe object at 0x7ff302246280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(1).     # load arg_n 7
 trace_fac_rec_indent.py:6(2).. def fac(arg_n):
 trace_fac_rec_indent.py:6(2)..     # arg_n=6
@@ -318,7 +318,7 @@ trace_fac_rec_indent.py:7(2)..     if arg_n == 1:
 trace_fac_rec_indent.py:7(2)..     # load arg_n 6
 trace_fac_rec_indent.py:9(2)..     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(2)..     # load arg_n 6
-trace_fac_rec_indent.py:9(2)..     # load_global fac <prettytrace.TraceMe object at 0x7faef2b46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(2)..     # load_global fac <prettytrace.TraceMe object at 0x7ff302246280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(2)..     # load arg_n 6
 trace_fac_rec_indent.py:6(3)... def fac(arg_n):
 trace_fac_rec_indent.py:6(3)...     # arg_n=5
@@ -326,7 +326,7 @@ trace_fac_rec_indent.py:7(3)...     if arg_n == 1:
 trace_fac_rec_indent.py:7(3)...     # load arg_n 5
 trace_fac_rec_indent.py:9(3)...     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(3)...     # load arg_n 5
-trace_fac_rec_indent.py:9(3)...     # load_global fac <prettytrace.TraceMe object at 0x7faef2b46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(3)...     # load_global fac <prettytrace.TraceMe object at 0x7ff302246280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(3)...     # load arg_n 5
 trace_fac_rec_indent.py:6(4).... def fac(arg_n):
 trace_fac_rec_indent.py:6(4)....     # arg_n=4
@@ -334,7 +334,7 @@ trace_fac_rec_indent.py:7(4)....     if arg_n == 1:
 trace_fac_rec_indent.py:7(4)....     # load arg_n 4
 trace_fac_rec_indent.py:9(4)....     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(4)....     # load arg_n 4
-trace_fac_rec_indent.py:9(4)....     # load_global fac <prettytrace.TraceMe object at 0x7faef2b46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(4)....     # load_global fac <prettytrace.TraceMe object at 0x7ff302246280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(4)....     # load arg_n 4
 trace_fac_rec_indent.py:6(5)..... def fac(arg_n):
 trace_fac_rec_indent.py:6(5).....     # arg_n=3
@@ -342,7 +342,7 @@ trace_fac_rec_indent.py:7(5).....     if arg_n == 1:
 trace_fac_rec_indent.py:7(5).....     # load arg_n 3
 trace_fac_rec_indent.py:9(5).....     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(5).....     # load arg_n 3
-trace_fac_rec_indent.py:9(5).....     # load_global fac <prettytrace.TraceMe object at 0x7faef2b46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(5).....     # load_global fac <prettytrace.TraceMe object at 0x7ff302246280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(5).....     # load arg_n 3
 trace_fac_rec_indent.py:6(6)...... def fac(arg_n):
 trace_fac_rec_indent.py:6(6)......     # arg_n=2
@@ -350,7 +350,7 @@ trace_fac_rec_indent.py:7(6)......     if arg_n == 1:
 trace_fac_rec_indent.py:7(6)......     # load arg_n 2
 trace_fac_rec_indent.py:9(6)......     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(6)......     # load arg_n 2
-trace_fac_rec_indent.py:9(6)......     # load_global fac <prettytrace.TraceMe object at 0x7faef2b46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(6)......     # load_global fac <prettytrace.TraceMe object at 0x7ff302246280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(6)......     # load arg_n 2
 trace_fac_rec_indent.py:6(7)....... def fac(arg_n):
 trace_fac_rec_indent.py:6(7).......     # arg_n=1
