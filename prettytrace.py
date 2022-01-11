@@ -193,6 +193,9 @@ def _show_store_fast(frame, asm_instr, argval, ctx):
 def _get_type_of_val(val):
     return repr(type(val)).replace("<","").replace(">","").replace("'","")
 
+def _get_type_and_id(val):
+    return f"{_get_type_of_val(val)}_at_{id(val)}"
+
 
 def _show_global_imp(frame, instr, argval, ctx, cmd_name):
 
@@ -279,7 +282,7 @@ def _show_load_attr(frame, asm_instr, argval, ctx):
     # Replaces TOS with getattr(TOS, co_names[ argval ]).
     vals = _access_frame_stack(frame, from_stack=1, num_entries=1)
     obj = vals[0]
-    title=_get_type_of_val(obj)
+    title=_get_type_and_id(obj)
     name = frame.f_code.co_names[ argval ]
     val=getattr(obj, name)
 
@@ -295,7 +298,7 @@ def _show_store_attr(frame, asm_instr, argval, ctx):
     #Implements TOS.name = TOS1, where argval is the index of name in co_names.
     vals = _access_frame_stack(frame, from_stack=2, num_entries=2)
     obj = vals[1]
-    title=_get_type_of_val(obj)
+    title=_get_type_and_id(obj)
     val = vals[0]
     name = frame.f_code.co_names[ argval ]
 
