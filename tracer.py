@@ -43,18 +43,17 @@ header_md("The trace module in the standard library of Python", nesting=2)
 
 print_md("""The python standard library has the [trace](https://docs.python.org/3/library/trace.html) module, one of its features is to print out the source lines of a program, as the program is executed. Unfortunately, it does not show the variable values and does not show the modifications performed on these variables
 
-(To be true, the trace module is a very versatile one, it can also be used to provides coverage analysis and can be used as a simple profiler)
+To be true, the trace module is a very versatile one, it can also be used to provides coverage analysis and can be used as a simple profiler; also they make an effort to stick to functionality that is common to all python interpreters/runtime environments.
 
 Let's get the trace of a factorial program with the trace module, by running the following command ```python3 -m trace --trace fac.py```
-
 """)
 
 run_and_quote("./fac.py", command="python3 -m trace --trace", line_prefix="", quote_lt_gt=True)
 
-header_md("Let's make a better tracer for python!", nesting=2)
+header_md("Let's make a tracer for python!", nesting=2)
 
 print_md("""
-Let's attempt to make a better trace facility for python.
+Let's attempt to make a trace facility for python, that also shows the content of accessed variables.
 The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the execution of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode_disasm.md) )
 
 I am not sure, that the opcode tracing capabilities of sys.setrace are equally supported in all python environments; For example [PyPy](https://www.pypy.org/) is implementation a just in time compiler that is supposed to translate the bytecode instructions into native code, at some oint. I didn't check this trick for that environment.
