@@ -57,7 +57,7 @@ print_md("""
 Let's attempt to make a better trace facility for python.
 The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the execution of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode_disasm.md) )
 
-I am not sure, that the opcode tracing capabilities of sys.setrace are equally supported in all python environments; For example [PyPy](https://www.pypy.org/) is implementation a just in time compilation mode, and I didn't check this trick for that environment.
+I am not sure, that the opcode tracing capabilities of sys.setrace are equally supported in all python environments; For example [PyPy](https://www.pypy.org/) is implementation a just in time compiler that is supposed to translate the bytecode instructions into native code, at some oint. I didn't check this trick for that environment.
 
 A more complete implementation could trace the whole stack, as an expression is being evaluated and reduced on the stack, however i am a bit afraid, that the process would be very slow, in addition to being quite difficult to implement.
 """)
@@ -94,13 +94,14 @@ It would however be possible to do this trick, from python with the [ctypes modu
 """)
 
 print_md("""
-Given this trick, here is an example of tracing list and map access.
+Given this trick, here is an example of tracing list and map access. 
 """)
 run_and_quote("./trace_lookup.py", command="", line_prefix="", quote_lt_gt=True)
 
 
 print_md("""
 Here is an example of accessing python objects. You can trace every method call of a class, here you need to define the class with the TraceClass meta-class. (You can learn more about metaclasses in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/python-obj-system.md)
+The TraceClass metaclass will create a wrapper method for each method of the marked class, calling the method will result in tracing it.
 """)
 run_and_quote("./trace_obj.py", command="", line_prefix="", quote_lt_gt=True)
 
@@ -110,3 +111,24 @@ Here is an example trace of a program, that counts the number of occurrences of 
 """)
 
 run_and_quote("./trace_histo.py", command="", line_prefix="", quote_lt_gt=True)
+
+header_md("Reference", nesting=2)
+
+print_md(""""
+
+Both the TraceMe function decorator class and the TraceClass metaclas accept the same set of argument, these are listed here:
+
+- trace_indent : bool = False  :: show a prefix of dots for each line (number of dots equals to call depth)
+- show_obj : int = 1           :: level of detail for values displayed (0 - str(val), 1 - repr(val), 2 - pprint.pformat(val))
+- ignore_stdlib : bool = True  :: do not trace functions/objects in standard library
+- out = sys.stderr             :: destination stream of trace output
+
+""")
+
+header_md("Conclusion", nesting=2)
+
+print_md("""
+The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function is quite powerful. It gives us an insight into the working of the python interpreter, if combined with some knowledge of the python bytecode.
+""")
+
+

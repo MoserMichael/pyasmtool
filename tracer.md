@@ -3,6 +3,8 @@
   * [The trace module in the standard library of Python](#s1-2)
   * [Let's make a better tracer for python!](#s1-3)
       * [The python tracer in action](#s1-3-1)
+  * [Reference](#s1-4)
+  * [Conclusion](#s1-5)
 
 
 # <a id='s1' />Execution traces in Python
@@ -186,7 +188,7 @@ fac.py(3):         return arg_n
 Let's attempt to make a better trace facility for python.
 The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function installs a callback, that is being called to trace the execution of every line; Now this function can install a special trace function, that will get called upon the execution of every opcode; here we could try and show the effect of load and store bytecode instructions. You can learn more about the python bytecode instructions [in this lesson](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode\_disasm.md) )
 
-I am not sure, that the opcode tracing capabilities of sys.setrace are equally supported in all python environments; For example [PyPy](https://www.pypy.org/) is implementation a just in time compilation mode, and I didn't check this trick for that environment.
+I am not sure, that the opcode tracing capabilities of sys.setrace are equally supported in all python environments; For example [PyPy](https://www.pypy.org/) is implementation a just in time compiler that is supposed to translate the bytecode instructions into native code, at some oint. I didn't check this trick for that environment.
 
 A more complete implementation could trace the whole stack, as an expression is being evaluated and reduced on the stack, however i am a bit afraid, that the process would be very slow, in addition to being quite difficult to implement.
 
@@ -228,7 +230,7 @@ trace_fac_rec.py:7(1)     if arg_n == 1:
 trace_fac_rec.py:7(1)     # load arg_n 7
 trace_fac_rec.py:9(1)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(1)     # load arg_n 7
-trace_fac_rec.py:9(1)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fe9a9138f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec.py:9(1)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fc248238f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec.py:9(1)     # load arg_n 7
 trace_fac_rec.py:6(2) def fac(arg_n):
 trace_fac_rec.py:6(2)     # arg_n=6
@@ -236,7 +238,7 @@ trace_fac_rec.py:7(2)     if arg_n == 1:
 trace_fac_rec.py:7(2)     # load arg_n 6
 trace_fac_rec.py:9(2)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(2)     # load arg_n 6
-trace_fac_rec.py:9(2)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fe9a9138f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec.py:9(2)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fc248238f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec.py:9(2)     # load arg_n 6
 trace_fac_rec.py:6(3) def fac(arg_n):
 trace_fac_rec.py:6(3)     # arg_n=5
@@ -244,7 +246,7 @@ trace_fac_rec.py:7(3)     if arg_n == 1:
 trace_fac_rec.py:7(3)     # load arg_n 5
 trace_fac_rec.py:9(3)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(3)     # load arg_n 5
-trace_fac_rec.py:9(3)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fe9a9138f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec.py:9(3)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fc248238f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec.py:9(3)     # load arg_n 5
 trace_fac_rec.py:6(4) def fac(arg_n):
 trace_fac_rec.py:6(4)     # arg_n=4
@@ -252,7 +254,7 @@ trace_fac_rec.py:7(4)     if arg_n == 1:
 trace_fac_rec.py:7(4)     # load arg_n 4
 trace_fac_rec.py:9(4)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(4)     # load arg_n 4
-trace_fac_rec.py:9(4)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fe9a9138f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec.py:9(4)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fc248238f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec.py:9(4)     # load arg_n 4
 trace_fac_rec.py:6(5) def fac(arg_n):
 trace_fac_rec.py:6(5)     # arg_n=3
@@ -260,7 +262,7 @@ trace_fac_rec.py:7(5)     if arg_n == 1:
 trace_fac_rec.py:7(5)     # load arg_n 3
 trace_fac_rec.py:9(5)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(5)     # load arg_n 3
-trace_fac_rec.py:9(5)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fe9a9138f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec.py:9(5)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fc248238f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec.py:9(5)     # load arg_n 3
 trace_fac_rec.py:6(6) def fac(arg_n):
 trace_fac_rec.py:6(6)     # arg_n=2
@@ -268,7 +270,7 @@ trace_fac_rec.py:7(6)     if arg_n == 1:
 trace_fac_rec.py:7(6)     # load arg_n 2
 trace_fac_rec.py:9(6)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(6)     # load arg_n 2
-trace_fac_rec.py:9(6)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fe9a9138f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec.py:9(6)     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fc248238f10&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec.py:9(6)     # load arg_n 2
 trace_fac_rec.py:6(7) def fac(arg_n):
 trace_fac_rec.py:6(7)     # arg_n=1
@@ -316,7 +318,7 @@ trace_fac_rec_indent.py:7(1).     if arg_n == 1:
 trace_fac_rec_indent.py:7(1).     # load arg_n 7
 trace_fac_rec_indent.py:9(1).     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(1).     # load arg_n 7
-trace_fac_rec_indent.py:9(1).     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fde07d46280&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec_indent.py:9(1).     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fa833446280&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec_indent.py:9(1).     # load arg_n 7
 trace_fac_rec_indent.py:6(2).. def fac(arg_n):
 trace_fac_rec_indent.py:6(2)..     # arg_n=6
@@ -324,7 +326,7 @@ trace_fac_rec_indent.py:7(2)..     if arg_n == 1:
 trace_fac_rec_indent.py:7(2)..     # load arg_n 6
 trace_fac_rec_indent.py:9(2)..     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(2)..     # load arg_n 6
-trace_fac_rec_indent.py:9(2)..     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fde07d46280&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec_indent.py:9(2)..     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fa833446280&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec_indent.py:9(2)..     # load arg_n 6
 trace_fac_rec_indent.py:6(3)... def fac(arg_n):
 trace_fac_rec_indent.py:6(3)...     # arg_n=5
@@ -332,7 +334,7 @@ trace_fac_rec_indent.py:7(3)...     if arg_n == 1:
 trace_fac_rec_indent.py:7(3)...     # load arg_n 5
 trace_fac_rec_indent.py:9(3)...     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(3)...     # load arg_n 5
-trace_fac_rec_indent.py:9(3)...     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fde07d46280&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec_indent.py:9(3)...     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fa833446280&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec_indent.py:9(3)...     # load arg_n 5
 trace_fac_rec_indent.py:6(4).... def fac(arg_n):
 trace_fac_rec_indent.py:6(4)....     # arg_n=4
@@ -340,7 +342,7 @@ trace_fac_rec_indent.py:7(4)....     if arg_n == 1:
 trace_fac_rec_indent.py:7(4)....     # load arg_n 4
 trace_fac_rec_indent.py:9(4)....     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(4)....     # load arg_n 4
-trace_fac_rec_indent.py:9(4)....     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fde07d46280&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec_indent.py:9(4)....     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fa833446280&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec_indent.py:9(4)....     # load arg_n 4
 trace_fac_rec_indent.py:6(5)..... def fac(arg_n):
 trace_fac_rec_indent.py:6(5).....     # arg_n=3
@@ -348,7 +350,7 @@ trace_fac_rec_indent.py:7(5).....     if arg_n == 1:
 trace_fac_rec_indent.py:7(5).....     # load arg_n 3
 trace_fac_rec_indent.py:9(5).....     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(5).....     # load arg_n 3
-trace_fac_rec_indent.py:9(5).....     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fde07d46280&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec_indent.py:9(5).....     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fa833446280&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec_indent.py:9(5).....     # load arg_n 3
 trace_fac_rec_indent.py:6(6)...... def fac(arg_n):
 trace_fac_rec_indent.py:6(6)......     # arg_n=2
@@ -356,7 +358,7 @@ trace_fac_rec_indent.py:7(6)......     if arg_n == 1:
 trace_fac_rec_indent.py:7(6)......     # load arg_n 2
 trace_fac_rec_indent.py:9(6)......     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(6)......     # load arg_n 2
-trace_fac_rec_indent.py:9(6)......     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fde07d46280&gt; (type: class pyasmtools.prettytrace.TraceMe)
+trace_fac_rec_indent.py:9(6)......     # load_global fac &lt;pyasmtools.prettytrace.TraceMe object at 0x7fa833446280&gt; (type: class pyasmtools.prettytrace.TraceMe)
 trace_fac_rec_indent.py:9(6)......     # load arg_n 2
 trace_fac_rec_indent.py:6(7)....... def fac(arg_n):
 trace_fac_rec_indent.py:6(7).......     # arg_n=1
@@ -457,7 +459,7 @@ So far the trace program did not need to access the evaluation stack of the pyth
 
 It would however be possible to do this trick, from python with the [ctypes module](https://docs.python.org/3/library/ctypes.html), without any native code at all! [see this discussion](https://stackoverflow.com/questions/44346433/in-c-python-accessing-the-bytecode-evaluation-stack), so back to the drawing board!
 
-Given this trick, here is an example of tracing list and map access.
+Given this trick, here is an example of tracing list and map access. 
 
 
 __Source:__
@@ -535,6 +537,7 @@ trace_lookup.py:14(1)     return=None
 </pre>
 
 Here is an example of accessing python objects. You can trace every method call of a class, here you need to define the class with the TraceClass meta-class. (You can learn more about metaclasses in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/python-obj-system.md)
+The TraceClass metaclass will create a wrapper method for each method of the marked class, calling the method will result in tracing it.
 
 
 __Source:__
@@ -603,28 +606,28 @@ print("eof")
 __Result:__
 <pre>
 trace_obj.py:7(1)     def __init__(self, re, im=0.0):
-trace_obj.py:7(1) # self=&lt;__main__.Complex object at 0x7fd696d5a730&gt;
+trace_obj.py:7(1) # self=&lt;__main__.Complex object at 0x7fe67ee59730&gt;
 trace_obj.py:7(1) # re=2
 trace_obj.py:7(1) # im=3
 trace_obj.py:8(1)         self.real = re
 trace_obj.py:8(1)         # load re 2
-trace_obj.py:8(1)         # load self &lt;__main__.Complex object at 0x7fd696d5a730&gt;
-trace_obj.py:8(1)         # store_attr class __main__.Complex_at_0x7fd696d5a730.real=2
+trace_obj.py:8(1)         # load self &lt;__main__.Complex object at 0x7fe67ee59730&gt;
+trace_obj.py:8(1)         # store_attr class __main__.Complex_at_0x7fe67ee59730.real=2
 trace_obj.py:9(1)         self.imag = im
 trace_obj.py:9(1)         # load im 3
-trace_obj.py:9(1)         # load self &lt;__main__.Complex object at 0x7fd696d5a730&gt;
-trace_obj.py:9(1)         # store_attr class __main__.Complex_at_0x7fd696d5a730.imag=3
+trace_obj.py:9(1)         # load self &lt;__main__.Complex object at 0x7fe67ee59730&gt;
+trace_obj.py:9(1)         # store_attr class __main__.Complex_at_0x7fe67ee59730.imag=3
 trace_obj.py:9(1)         return=None
 trace_obj.py:31(1)     def __str__(self):
-trace_obj.py:31(1) # self=&lt;__main__.Complex object at 0x7fd696d5a730&gt;
+trace_obj.py:31(1) # self=&lt;__main__.Complex object at 0x7fe67ee59730&gt;
 trace_obj.py:32(1)         return f"real: {self.real} imaginary: {self.imag}"
-trace_obj.py:32(1)         # load self &lt;__main__.Complex object at 0x7fd696d5a730&gt;
-trace_obj.py:32(1)         # load_attr class __main__.Complex_at_0x7fd696d5a730.real 2
-trace_obj.py:32(1)         # load self &lt;__main__.Complex object at 0x7fd696d5a730&gt;
-trace_obj.py:32(1)         # load_attr class __main__.Complex_at_0x7fd696d5a730.imag 3
+trace_obj.py:32(1)         # load self &lt;__main__.Complex object at 0x7fe67ee59730&gt;
+trace_obj.py:32(1)         # load_attr class __main__.Complex_at_0x7fe67ee59730.real 2
+trace_obj.py:32(1)         # load self &lt;__main__.Complex object at 0x7fe67ee59730&gt;
+trace_obj.py:32(1)         # load_attr class __main__.Complex_at_0x7fe67ee59730.imag 3
 trace_obj.py:32(1)         return='real: 2 imaginary: 3'
 trace_obj.py:42(1)     def __init__(self, first_name, last_name, title):
-trace_obj.py:42(1) # self=&lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
+trace_obj.py:42(1) # self=&lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
 trace_obj.py:42(1) # first_name='Pooh'
 trace_obj.py:42(1) # last_name='Bear'
 trace_obj.py:42(1) # title='Mr'
@@ -633,37 +636,37 @@ trace_obj.py:43(1)         # load_global super &lt;class 'super'&gt; (type: clas
 trace_obj.py:43(1)         # load first_name 'Pooh'
 trace_obj.py:43(1)         # load last_name 'Bear'
 trace_obj.py:35(2)     def  __init__(self, first_name, last_name):
-trace_obj.py:35(2)         # self=&lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
+trace_obj.py:35(2)         # self=&lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
 trace_obj.py:35(2)         # first_name='Pooh'
 trace_obj.py:35(2)         # last_name='Bear'
 trace_obj.py:36(2)         self.first_name  = first_name
 trace_obj.py:36(2)         # load first_name 'Pooh'
-trace_obj.py:36(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
-trace_obj.py:36(2)         # store_attr class __main__.PersonWithTitle_at_0x7fd696d5aca0.first_name='Pooh'
+trace_obj.py:36(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
+trace_obj.py:36(2)         # store_attr class __main__.PersonWithTitle_at_0x7fe67ee59ca0.first_name='Pooh'
 trace_obj.py:37(2)         self.last_name = last_name
 trace_obj.py:37(2)         # load last_name 'Bear'
-trace_obj.py:37(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
-trace_obj.py:37(2)         # store_attr class __main__.PersonWithTitle_at_0x7fd696d5aca0.last_name='Bear'
+trace_obj.py:37(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
+trace_obj.py:37(2)         # store_attr class __main__.PersonWithTitle_at_0x7fe67ee59ca0.last_name='Bear'
 trace_obj.py:37(2)         return=None
 trace_obj.py:44(1)         self.title = title
 trace_obj.py:44(1)         # load title 'Mr'
-trace_obj.py:44(1)         # load self &lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
-trace_obj.py:44(1)         # store_attr class __main__.PersonWithTitle_at_0x7fd696d5aca0.title='Mr'
+trace_obj.py:44(1)         # load self &lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
+trace_obj.py:44(1)         # store_attr class __main__.PersonWithTitle_at_0x7fe67ee59ca0.title='Mr'
 trace_obj.py:44(1)         return=None
 trace_obj.py:48(1)     def __str__(self):
 trace_obj.py:48(1)         #print(f"__str__ id: {id(self)} self.__dict__ {self.__dict__}")
-trace_obj.py:48(1) # self=&lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
+trace_obj.py:48(1) # self=&lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
 trace_obj.py:50(1)         return f"Title: {self.title} {super().__str__()}"
-trace_obj.py:50(1)         # load self &lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
-trace_obj.py:50(1)         # load_attr class __main__.PersonWithTitle_at_0x7fd696d5aca0.title 'Mr'
+trace_obj.py:50(1)         # load self &lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
+trace_obj.py:50(1)         # load_attr class __main__.PersonWithTitle_at_0x7fe67ee59ca0.title 'Mr'
 trace_obj.py:50(1)         # load_global super &lt;class 'super'&gt; (type: class type)
 trace_obj.py:38(2)     def __str__(self):
-trace_obj.py:38(2)         # self=&lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
+trace_obj.py:38(2)         # self=&lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
 trace_obj.py:39(2)         return f"first_name: {self.first_name} last_name: {self.last_name}"
-trace_obj.py:39(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
-trace_obj.py:39(2)         # load_attr class __main__.PersonWithTitle_at_0x7fd696d5aca0.first_name 'Pooh'
-trace_obj.py:39(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fd696d5aca0&gt;
-trace_obj.py:39(2)         # load_attr class __main__.PersonWithTitle_at_0x7fd696d5aca0.last_name 'Bear'
+trace_obj.py:39(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
+trace_obj.py:39(2)         # load_attr class __main__.PersonWithTitle_at_0x7fe67ee59ca0.first_name 'Pooh'
+trace_obj.py:39(2)         # load self &lt;__main__.PersonWithTitle object at 0x7fe67ee59ca0&gt;
+trace_obj.py:39(2)         # load_attr class __main__.PersonWithTitle_at_0x7fe67ee59ca0.last_name 'Bear'
 trace_obj.py:39(2)         return='first_name: Pooh last_name: Bear'
 trace_obj.py:50(1)         return='Title: Mr first_name: Pooh last_name: Bear'
 real: 2 imaginary: 3
@@ -981,5 +984,23 @@ char: '\n' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:17(1)         return=None
 </pre>
+
+
+## <a id='s1-4' />Reference
+
+"
+
+Both the TraceMe function decorator class and the TraceClass metaclas accept the same set of argument, these are listed here:
+
+- trace\_indent : bool = False  :: show a prefix of dots for each line (number of dots equals to call depth)
+- show\_obj : int = 1           :: level of detail for values displayed (0 - str(val), 1 - repr(val), 2 - pprint.pformat(val))
+- ignore\_stdlib : bool = True  :: do not trace functions/objects in standard library
+- out = sys.stderr             :: destination stream of trace output
+
+
+
+## <a id='s1-5' />Conclusion
+
+The [sys.settrace](https://docs.python.org/3/library/sys.html#sys.settrace) function is quite powerful. It gives us an insight into the working of the python interpreter, if combined with some knowledge of the python bytecode.
 
 
