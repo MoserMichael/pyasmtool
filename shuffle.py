@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import random
-import prettydiasm
+import pyasmtools
 
 
 def shuffle(arr_size):
@@ -18,5 +18,5 @@ def shuffle(arr_size):
     return arr
 
 #print(shuffle(7))        
-print( "prettydiasm.prettydis(shuffle, show_opcode_as_links=True):", prettydiasm.prettydis(shuffle, show_opcode_as_links=True) )
+print( "pyasmtools.prettydis(shuffle, show_opcode_as_links=True):", pyasmtools.prettydis(shuffle, show_opcode_as_links=True) )
 

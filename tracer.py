@@ -18,7 +18,7 @@ I am a big fan of traces in the scripting language of the bash shell. The [set -
 The following example computes a factorial in a recursive way:
 """)
 
-run_and_quote("./fac.sh", command="", line_prefix="")
+run_and_quote("./fac.sh", command="", line_prefix="", quote_lt_gt=True)
 
 print_md("""
 For examle the start of the invocation looks as follow
@@ -37,7 +37,7 @@ print_md("""
 The following example computes a factorial in an iterative way, note that the arithmethic bash expressions are not traced with the same level of detail as in the case of the test expressions!
 """)
 
-run_and_quote("./fac2.sh", command="", line_prefix="")
+run_and_quote("./fac2.sh", command="", line_prefix="", quote_lt_gt=True)
 
 header_md("Execution trace in Python", nesting=2)
 
@@ -49,7 +49,7 @@ Let's get the trace of a factorial program with the trace module, by running the
 
 """)
 
-run_and_quote("./fac.py", command="python3 -m trace --trace", line_prefix="")
+run_and_quote("./fac.py", command="python3 -m trace --trace", line_prefix="", quote_lt_gt=True)
 
 header_md("Let's make a better tracer for python!", nesting=2)
 
@@ -68,20 +68,20 @@ Let's trace the execution of a recursive factorial function in python. Note that
 The traced output is showing the file name, line numer and depth of the call stack, counting from the first call of the traced function.
 """)
 
-run_and_quote("./trace_fac_rec.py", command="", line_prefix="")
+run_and_quote("./trace_fac_rec.py", command="", line_prefix="", quote_lt_gt=True)
 
 print_md("""
 It is also possible to specify an indentation prefix that depends on the level of call nesting, just like in bash
 """)
 
-run_and_quote("./trace_fac_rec_indent.py", command="", line_prefix="")
+run_and_quote("./trace_fac_rec_indent.py", command="", line_prefix="", quote_lt_gt=True)
 
 
 print_md("""
 Let's trace the execution of an iterative factorial function in python
 """)
 
-run_and_quote("./trace_fac_iter.py", command="", line_prefix="")
+run_and_quote("./trace_fac_iter.py", command="", line_prefix="", quote_lt_gt=True)
 
 print_md("""
 So far the trace program did not need to access the evaluation stack of the python interpreter, the evalutation stack is currently not exposed by the interpreter to python code, as there is no field in the built-in frame object for it. I used a workaround, accessing the memory location referred to by the bytecode instruction before executing the [LOAD_FAST](https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST) instruction, and accessing the modified location after running the [STORE_FAST](https://docs.python.org/3/library/dis.html#opcode-STORE_FAST) instruction, Hoever that trick is not feasible for the array and dictionary access instructions [STORE_SUBSCR](https://docs.python.org/3.8/library/dis.html#opcode-STORE_SUBSCR) and [BINARY_SUBSCRIPT](https://docs.python.org/3.8/library/dis.html#opcode-LOAD_SUBSCRIPT) bytecode instructions, here i would need to take a direct look at the evaluation stack.
@@ -92,17 +92,17 @@ It would however be possbible to do this trick, from python with the [ctypes mod
 print_md("""
 Given this trick, here is an example of tracing list and map access.
 """)
-run_and_quote("./trace_lookup.py", command="", line_prefix="")
+run_and_quote("./trace_lookup.py", command="", line_prefix="", quote_lt_gt=True)
 
 
 print_md("""
 Here is an example of accessing python objects. You can trace every method call of a class, here you need to define the class with the TraceClass metaclass. (You can learn more about metaclasses in [this lesson](https://github.com/MoserMichael/python-obj-system/blob/master/python-obj-system.md)
 """)
-run_and_quote("./trace_obj.py", command="", line_prefix="")
+run_and_quote("./trace_obj.py", command="", line_prefix="", quote_lt_gt=True)
 
 
 print_md("""
 Here is an example trace of a program, that counts the number of occurrences of each letter in a given text file.
 """)
 
-run_and_quote("./trace_histo.py", command="", line_prefix="")
+run_and_quote("./trace_histo.py", command="", line_prefix="", quote_lt_gt=True)

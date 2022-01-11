@@ -1,4 +1,4 @@
-import prettydiasm
+import pyasmtools
 
 def calculator(op, num_one, num_two):
     if op == 1:
@@ -12,5 +12,5 @@ def calculator(op, num_one, num_two):
     else:
         raise ValueError("Invalid operation")
 
-print( "prettydiasm.prettydis(calculator, show_opcode_as_links=True):", prettydiasm.prettydis(calculator, show_opcode_as_links=True) )
+print( "pyasmtools.prettydis(calculator, show_opcode_as_links=True):", pyasmtools.prettydis(calculator, show_opcode_as_links=True) )
 

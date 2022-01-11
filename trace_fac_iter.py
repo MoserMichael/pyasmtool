@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import prettytrace
+import pyasmtools
 
 def fac_iter(arg_n: int) -> int:
     res = 1
@@ -8,6 +8,6 @@ def fac_iter(arg_n: int) -> int:
         res *= cur_n
     return res
 
-fac_iter = prettytrace.TraceMe(fac_iter)
+fac_iter = pyasmtools.TraceMe(fac_iter)
 
 print( "fac_iter(7):", fac_iter(7))

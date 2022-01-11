@@ -1,4 +1,4 @@
-import prettydiasm
+import pyasmtools
 
 class Hello:
     def __init__(self, greeting):
@@ -10,5 +10,5 @@ class Hello:
 
 hello_obj = Hello("hello world")
 hello_obj.show()
-print( "prettydiasm.prettydis(hello_obj.show, show_opcode_as_links=True):", prettydiasm.prettydis(hello_obj.show, show_opcode_as_links=True) )
+print( "pyasmtools.prettydis(hello_obj.show, show_opcode_as_links=True):", pyasmtools.prettydis(hello_obj.show, show_opcode_as_links=True) )
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import prettydiasm
+import pyasmtools 
 
 def compute_historgram(file_name):
     with open(file_name,'r') as file:
@@ -17,5 +17,5 @@ def compute_historgram(file_name):
             print("char:", repr(ch), "frequency:", histo[ch])
 
 #compute_historgram(__file__)
-print( "prettydiasm.prettydis(compute_historgram, show_opcode_as_links=True):", prettydiasm.prettydis(compute_historgram, show_opcode_as_links=True) )
+print( "pyasmtools.prettydis(compute_historgram, show_opcode_as_links=True):", pyasmtools.prettydis(compute_historgram, show_opcode_as_links=True) )
 

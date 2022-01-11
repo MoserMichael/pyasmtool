@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import prettytrace
-import prettydiasm
+import pyasmtools
 
 
 def swap_list(arg_list):
@@ -14,11 +13,11 @@ def swap_dict(arg_dict):
     arg_dict['first'] = arg_dict['second']
     arg_dict['second'] = tmp
 
-#prettydiasm.prettydis(swap_list)
-#prettydiasm.prettydis(swap_dict)
+#pyasmtools.prettydis(swap_list)
+#pyasmtools.prettydis(swap_dict)
 
-swap_list = prettytrace.TraceMe(swap_list)
-swap_dict = prettytrace.TraceMe(swap_dict)
+swap_list = pyasmtools.TraceMe(swap_list)
+swap_dict = pyasmtools.TraceMe(swap_dict)
     
 arg_list=[1,2]
 swap_list(arg_list)

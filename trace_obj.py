@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import prettytrace
+import pyasmtools
 
 
-class Complex(metaclass=prettytrace.TraceClass):
+class Complex(metaclass=pyasmtools.TraceClass):
     def __init__(self, re, im=0.0):
         self.real = re
         self.imag = im
@@ -38,7 +38,7 @@ class Person:
     def __str__(self):
         return f"first_name: {self.first_name} last_name: {self.last_name}"
 
-class PersonWithTitle(Person, metaclass=prettytrace.TraceClass):
+class PersonWithTitle(Person, metaclass=pyasmtools.TraceClass):
     def __init__(self, first_name, last_name, title):
         super().__init__(first_name, last_name)
         self.title = title

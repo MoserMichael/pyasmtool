@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import prettytrace
+import pyasmtools
 import sys
 
 def compute_historgram(file_name):
@@ -17,7 +17,7 @@ def compute_historgram(file_name):
         for ch in histo.keys():
             print("char:", repr(ch), "frequency:", histo[ch])
 
-compute_historgram = prettytrace.TraceMe(compute_historgram, out=sys.stdout) # out=sys.stdout - redirects trace output to sys.stdout
+compute_historgram = pyasmtools.TraceMe(compute_historgram, out=sys.stdout) # out=sys.stdout - redirects trace output to sys.stdout
 
 compute_historgram("./example_text.txt")
 

@@ -1,4 +1,4 @@
-import prettydiasm
+import pyasmtools 
 
 def fac_iter(arg_n: int) -> int:
     res = 1
@@ -6,6 +6,6 @@ def fac_iter(arg_n: int) -> int:
         res *= cur_n
     return res
 
-print( "prettydiasm.prettydis(fac, show_opcode_as_links=True):", prettydiasm.prettydis(fac_iter, show_opcode_as_links=True) )
+print( "pyasmtools.prettydis(fac, show_opcode_as_links=True):", pyasmtools.prettydis(fac_iter, show_opcode_as_links=True) )
 
 
