@@ -332,6 +332,7 @@ class ThreadTraceCtx:
 #       self.prev_line_entry = None
 
     def show_val(self, val):
+        assert self.in_trace is True
         try:
             if self.params.show_obj == 0:
                 return str(val)
@@ -455,7 +456,7 @@ class ThreadTraceCtx:
     def on_pop_frame(self, frame, arg):
         #print("on_pop_frame type(frame):", type(frame), frame.f_code.co_filename, frame.f_code.co_name)
         sval = self.show_val(arg)
-        print(f"{self.get_line_prefix(frame, 0)} return={sval}", file=self.params.out)
+        print(f"{self.get_line_prefix(frame, 1)} return={sval}", file=self.params.out)
         self.nesting -= 1
 
 
@@ -550,7 +551,7 @@ def disable_stack_access():
 
 # metaclass, adds tracers to all methods of a class
 class TraceClass(type):
-    def __new__(meta_class, name, bases, cls_dict, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True, out = sys.stderr):
+    def __new__(meta_class, name, bases, cls_dict, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 1, ignore_stdlib : bool = True, out = sys.stderr):
 
         #
         # see trick here: https://stackoverflow.com/questions/11349183/how-to-wrap-every-method-of-a-class ]
