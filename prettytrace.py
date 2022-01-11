@@ -496,23 +496,14 @@ def _func_tracer(frame, why, arg):
 
 def _init_trace(trace_param : TraceParam):
 
-    if not hasattr(local_data_, "trace_ctx"): 
+    if not hasattr(local_data_, "trace_ctx") or getattr( local_data_, "trace_ctx") is None:
         setattr(local_data_, "trace_ctx", ThreadTraceCtx(trace_param))
-        print("_init_trace True")
         return True
- 
-    ctx = getattr( local_data_, "trace_ctx") 
-    if ctx is None or ctx.nesting == 0:
-        setattr(local_data_, "trace_ctx", ThreadTraceCtx(trace_param))
-        print("_init_trace True")
-        return True
- 
     return False
 
 def _check_eof_trace():
     thread_ctx = getattr(local_data_, "trace_ctx")
     if thread_ctx is not None and thread_ctx.nesting == 0:
-        print("***eof trace***")
         setattr(local_data_,"trace_ctx", None)
         sys.settrace( None )
 
@@ -556,6 +547,7 @@ def disable_stack_access():
 # metaclass, adds tracers to all methods of a class
 class TraceClass(type):
     def __new__(meta_class, name, bases, cls_dict, *, trace_indent : bool = False, trace_loc : bool = True, show_obj : int = 0, ignore_stdlib : bool = True, out = sys.stderr):
+
         #
         # see trick here: https://stackoverflow.com/questions/11349183/how-to-wrap-every-method-of-a-class ]
         # need to modify the cls_dict object in order to wrap each member function!
@@ -568,10 +560,9 @@ class TraceClass(type):
                 # the variable that the closure should remember is passed as argument, this makes a separate copy of the value in the called function frame?
                 # (what a language...)
                 def wrapper_factory(val_func):
-                    @functools.wraps(val_func)
-                    def wrapper_fun(*args, **kwargs):
+                    functools.wraps(val_func)
 
-                        #print(f"wrapper: {val_func} args: {args} kwargs: {kwargs}")
+                    def wrapper_fun(*args, **kwargs):
 
                         if _init_trace( trace_param ):
                             sys.settrace( _func_tracer )
@@ -587,8 +578,9 @@ class TraceClass(type):
                 val_func = wrapper_factory(val_func)
             new_class_dict[entry] = val_func
             
-        #print("TraceClass. __new__ ", cls_dict, new_class_dict)
-        return super().__new__(meta_class, name, bases, new_class_dict)
+        class_instance = super().__new__(meta_class, name, bases, new_class_dict)
+
+        return class_instance
 
 #    def __call__(cls, *args, **kwargs):
 #        instance = cls.__new__(cls)
