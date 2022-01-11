@@ -102,75 +102,75 @@ print( "pyasmtools.prettydis(calculator, show_opcode_as_links=True):", pyasmtool
 
 __Result:__
 <pre>
-> File path: /Users/michaelmo/mystuff/pyasmtools/calc.py 
-> 
-> calc.py:3 def calculator(op, num_one, num_two):
-> 
-> calc.py:4 	    if op == 1:
-> 
->   4           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (op)
->               2 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->               4 <a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP">COMPARE_OP</a>     2 (==)
->               6 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    16
-> 
-> calc.py:5 	        return num_one + num_two
-> 
->   5           8 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (num_one)
->              10 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (num_two)
->              12 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_ADD">BINARY_ADD</a>
->              14 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> 
-> calc.py:6 	    elif op == 2:
-> 
->   6     >>   16 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (op)
->              18 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (2)
->              20 <a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP">COMPARE_OP</a>     2 (==)
->              22 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    32
-> 
-> calc.py:7 	        return num_one - num_two
-> 
->   7          24 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (num_one)
->              26 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (num_two)
->              28 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBTRACT">BINARY_SUBTRACT</a>
->              30 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> 
-> calc.py:8 	    elif op == 3:
-> 
->   8     >>   32 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (op)
->              34 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     3 (3)
->              36 <a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP">COMPARE_OP</a>     2 (==)
->              38 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    48
-> 
-> calc.py:9 	        return num_one * num_two
-> 
->   9          40 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (num_one)
->              42 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (num_two)
->              44 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_MULTIPLY">BINARY_MULTIPLY</a>
->              46 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> 
-> calc.py:10 	    elif op == 4:
-> 
->  10     >>   48 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (op)
->              50 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     4 (4)
->              52 <a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP">COMPARE_OP</a>     2 (==)
->              54 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    64
-> 
-> calc.py:11 	        return num_one / num_two
-> 
->  11          56 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (num_one)
->              58 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (num_two)
->              60 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_TRUE_DIVIDE">BINARY_TRUE_DIVIDE</a>
->              62 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> 
-> calc.py:13 	        raise ValueError("Invalid operation")
-> 
->  13     >>   64 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (ValueError)
->              66 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     5 ('Invalid operation')
->              68 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     1
->              70 <a href="https://docs.python.org/3/library/dis.html#opcode-RAISE_VARARGS">RAISE_VARARGS</a>     1
->              72 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
->              74 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> pyasmtools.prettydis(calculator, show_opcode_as_links=True): None
+&gt; File path: /Users/michaelmo/mystuff/pyasmtools/calc.py 
+&gt; 
+&gt; calc.py:3 def calculator(op, num_one, num_two):
+&gt; 
+&gt; calc.py:4 	    if op == 1:
+&gt; 
+&gt;   4           0 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (op)
+&gt;               2 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;               4 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP"&gt;COMPARE_OP&lt;/a&gt;     2 (==)
+&gt;               6 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE"&gt;POP_JUMP_IF_FALSE&lt;/a&gt;    16
+&gt; 
+&gt; calc.py:5 	        return num_one + num_two
+&gt; 
+&gt;   5           8 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (num_one)
+&gt;              10 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (num_two)
+&gt;              12 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_ADD"&gt;BINARY_ADD&lt;/a&gt;
+&gt;              14 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; 
+&gt; calc.py:6 	    elif op == 2:
+&gt; 
+&gt;   6     &gt;&gt;   16 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (op)
+&gt;              18 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     2 (2)
+&gt;              20 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP"&gt;COMPARE_OP&lt;/a&gt;     2 (==)
+&gt;              22 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE"&gt;POP_JUMP_IF_FALSE&lt;/a&gt;    32
+&gt; 
+&gt; calc.py:7 	        return num_one - num_two
+&gt; 
+&gt;   7          24 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (num_one)
+&gt;              26 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (num_two)
+&gt;              28 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBTRACT"&gt;BINARY_SUBTRACT&lt;/a&gt;
+&gt;              30 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; 
+&gt; calc.py:8 	    elif op == 3:
+&gt; 
+&gt;   8     &gt;&gt;   32 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (op)
+&gt;              34 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     3 (3)
+&gt;              36 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP"&gt;COMPARE_OP&lt;/a&gt;     2 (==)
+&gt;              38 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE"&gt;POP_JUMP_IF_FALSE&lt;/a&gt;    48
+&gt; 
+&gt; calc.py:9 	        return num_one * num_two
+&gt; 
+&gt;   9          40 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (num_one)
+&gt;              42 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (num_two)
+&gt;              44 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_MULTIPLY"&gt;BINARY_MULTIPLY&lt;/a&gt;
+&gt;              46 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; 
+&gt; calc.py:10 	    elif op == 4:
+&gt; 
+&gt;  10     &gt;&gt;   48 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (op)
+&gt;              50 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     4 (4)
+&gt;              52 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP"&gt;COMPARE_OP&lt;/a&gt;     2 (==)
+&gt;              54 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE"&gt;POP_JUMP_IF_FALSE&lt;/a&gt;    64
+&gt; 
+&gt; calc.py:11 	        return num_one / num_two
+&gt; 
+&gt;  11          56 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (num_one)
+&gt;              58 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (num_two)
+&gt;              60 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_TRUE_DIVIDE"&gt;BINARY_TRUE_DIVIDE&lt;/a&gt;
+&gt;              62 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; 
+&gt; calc.py:13 	        raise ValueError("Invalid operation")
+&gt; 
+&gt;  13     &gt;&gt;   64 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (ValueError)
+&gt;              66 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     5 ('Invalid operation')
+&gt;              68 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     1
+&gt;              70 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RAISE_VARARGS"&gt;RAISE_VARARGS&lt;/a&gt;     1
+&gt;              72 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     0 (None)
+&gt;              74 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; pyasmtools.prettydis(calculator, show_opcode_as_links=True): None
 </pre>
 
 
@@ -197,33 +197,33 @@ print( "pyasmtools.prettydis(fac, show_opcode_as_links=True):", pyasmtools.prett
 
 __Result:__
 <pre>
-> File path: /Users/michaelmo/mystuff/pyasmtools/fac_rec.py 
-> 
-> fac_rec.py:3 def fac(arg_n = 7):
-> 
-> fac_rec.py:4 	    if arg_n == 1:
-> 
->   4           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arg_n)
->               2 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->               4 <a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP">COMPARE_OP</a>     2 (==)
->               6 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    12
-> 
-> fac_rec.py:5 	        return arg_n
-> 
->   5           8 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arg_n)
->              10 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> 
-> fac_rec.py:6 	    return arg_n * fac(arg_n - 1)
-> 
->   6     >>   12 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arg_n)
->              14 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (fac)
->              16 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arg_n)
->              18 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->              20 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBTRACT">BINARY_SUBTRACT</a>
->              22 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     1
->              24 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_MULTIPLY">BINARY_MULTIPLY</a>
->              26 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> pyasmtools.prettydis(fac, show_opcode_as_links=True): None
+&gt; File path: /Users/michaelmo/mystuff/pyasmtools/fac_rec.py 
+&gt; 
+&gt; fac_rec.py:3 def fac(arg_n = 7):
+&gt; 
+&gt; fac_rec.py:4 	    if arg_n == 1:
+&gt; 
+&gt;   4           0 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arg_n)
+&gt;               2 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;               4 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-COMPARE_OP"&gt;COMPARE_OP&lt;/a&gt;     2 (==)
+&gt;               6 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE"&gt;POP_JUMP_IF_FALSE&lt;/a&gt;    12
+&gt; 
+&gt; fac_rec.py:5 	        return arg_n
+&gt; 
+&gt;   5           8 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arg_n)
+&gt;              10 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; 
+&gt; fac_rec.py:6 	    return arg_n * fac(arg_n - 1)
+&gt; 
+&gt;   6     &gt;&gt;   12 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arg_n)
+&gt;              14 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (fac)
+&gt;              16 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arg_n)
+&gt;              18 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;              20 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBTRACT"&gt;BINARY_SUBTRACT&lt;/a&gt;
+&gt;              22 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     1
+&gt;              24 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_MULTIPLY"&gt;BINARY_MULTIPLY&lt;/a&gt;
+&gt;              26 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; pyasmtools.prettydis(fac, show_opcode_as_links=True): None
 </pre>
 
 
@@ -249,38 +249,38 @@ print( "pyasmtools.prettydis(fac, show_opcode_as_links=True):", pyasmtools.prett
 
 __Result:__
 <pre>
-> File path: /Users/michaelmo/mystuff/pyasmtools/fac_iter.py 
-> 
-> fac_iter.py:3 def fac_iter(arg_n: int) -> int:
-> 
-> fac_iter.py:4 	    res = 1
-> 
->   4           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->               2 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     1 (res)
-> 
-> fac_iter.py:5 	    for cur_n in range(1,arg_n):
-> 
->   5           4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (range)
->               6 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->               8 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arg_n)
->              10 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
->              12 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
->         >>   14 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    12 (to 28)
->              16 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     2 (cur_n)
-> 
-> fac_iter.py:6 	        res *= cur_n
-> 
->   6          18 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (res)
->              20 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (cur_n)
->              22 <a href="https://docs.python.org/3/library/dis.html#opcode-INPLACE_MULTIPLY">INPLACE_MULTIPLY</a>
->              24 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     1 (res)
->              26 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    14
-> 
-> fac_iter.py:7 	    return res
-> 
->   7     >>   28 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (res)
->              30 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> pyasmtools.prettydis(fac, show_opcode_as_links=True): None
+&gt; File path: /Users/michaelmo/mystuff/pyasmtools/fac_iter.py 
+&gt; 
+&gt; fac_iter.py:3 def fac_iter(arg_n: int) -&gt; int:
+&gt; 
+&gt; fac_iter.py:4 	    res = 1
+&gt; 
+&gt;   4           0 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;               2 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     1 (res)
+&gt; 
+&gt; fac_iter.py:5 	    for cur_n in range(1,arg_n):
+&gt; 
+&gt;   5           4 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (range)
+&gt;               6 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;               8 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arg_n)
+&gt;              10 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     2
+&gt;              12 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER"&gt;GET_ITER&lt;/a&gt;
+&gt;         &gt;&gt;   14 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER"&gt;FOR_ITER&lt;/a&gt;    12 (to 28)
+&gt;              16 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     2 (cur_n)
+&gt; 
+&gt; fac_iter.py:6 	        res *= cur_n
+&gt; 
+&gt;   6          18 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (res)
+&gt;              20 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (cur_n)
+&gt;              22 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-INPLACE_MULTIPLY"&gt;INPLACE_MULTIPLY&lt;/a&gt;
+&gt;              24 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     1 (res)
+&gt;              26 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE"&gt;JUMP_ABSOLUTE&lt;/a&gt;    14
+&gt; 
+&gt; fac_iter.py:7 	    return res
+&gt; 
+&gt;   7     &gt;&gt;   28 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (res)
+&gt;              30 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; pyasmtools.prettydis(fac, show_opcode_as_links=True): None
 </pre>
 
 
@@ -309,21 +309,21 @@ print( "pyasmtools.prettydis(hello_obj.show, show_opcode_as_links=True):", pyasm
 
 __Result:__
 <pre>
-> hello world
-> File path: /Users/michaelmo/mystuff/pyasmtools/obj_call.py 
-> 
-> obj_call.py:7 def Hello.show(self):
-> 
-> obj_call.py:8 	        print(self.greeting)
-> 
->   8           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (print)
->               2 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (self)
->               4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_ATTR">LOAD_ATTR</a>     1 (greeting)
->               6 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     1
->               8 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->              10 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
->              12 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> pyasmtools.prettydis(hello_obj.show, show_opcode_as_links=True): None
+&gt; hello world
+&gt; File path: /Users/michaelmo/mystuff/pyasmtools/obj_call.py 
+&gt; 
+&gt; obj_call.py:7 def Hello.show(self):
+&gt; 
+&gt; obj_call.py:8 	        print(self.greeting)
+&gt; 
+&gt;   8           0 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (print)
+&gt;               2 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (self)
+&gt;               4 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_ATTR"&gt;LOAD_ATTR&lt;/a&gt;     1 (greeting)
+&gt;               6 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     1
+&gt;               8 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;              10 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     0 (None)
+&gt;              12 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; pyasmtools.prettydis(hello_obj.show, show_opcode_as_links=True): None
 </pre>
 
 
@@ -359,106 +359,106 @@ print( "pyasmtools.prettydis(compute_historgram, show_opcode_as_links=True):", p
 
 __Result:__
 <pre>
-> File path: /Users/michaelmo/mystuff/pyasmtools/histo.py 
-> 
-> histo.py:5 def compute_historgram(file_name):
-> 
-> histo.py:6 	    with open(file_name,'r') as file:
-> 
->   6           0 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (open)
->               2 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (file_name)
->               4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 ('r')
->               6 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
->               8 <a href="https://docs.python.org/3/library/dis.html#opcode-SETUP_WITH">SETUP_WITH</a>   108 (to 118)
->              10 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     1 (file)
-> 
-> histo.py:7 	        text = file.read()
-> 
->   7          12 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (file)
->              14 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     1 (read)
->              16 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     0
->              18 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     2 (text)
-> 
-> histo.py:9 	        histo = {}
-> 
->   9          20 <a href="https://docs.python.org/3/library/dis.html#opcode-BUILD_MAP">BUILD_MAP</a>     0
->              22 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     3 (histo)
-> 
-> histo.py:10 	        for ch in text:
-> 
->  10          24 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (text)
->              26 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
->         >>   28 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    38 (to 68)
->              30 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     4 (ch)
-> 
-> histo.py:11 	            if not ch in histo:
-> 
->  11          32 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
->              34 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
->              36 <a href="https://docs.python.org/3/library/dis.html#opcode-CONTAINS_OP">CONTAINS_OP</a>     1
->              38 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE">POP_JUMP_IF_FALSE</a>    50
-> 
-> histo.py:12 	                histo[ch] = 1
-> 
->  12          40 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (1)
->              42 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
->              44 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
->              46 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
->              48 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    28
-> 
-> histo.py:14 	                histo[ch] += 1
-> 
->  14     >>   50 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
->              52 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
->              54 <a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP_TWO">DUP_TOP_TWO</a>
->              56 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
->              58 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (1)
->              60 <a href="https://docs.python.org/3/library/dis.html#opcode-INPLACE_ADD">INPLACE_ADD</a>
->              62 <a href="https://docs.python.org/3/library/dis.html#opcode-ROT_THREE">ROT_THREE</a>
->              64 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
->              66 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    28
-> 
-> histo.py:16 	        for ch in histo.keys():
-> 
->  16     >>   68 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
->              70 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     2 (keys)
->              72 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     0
->              74 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
->         >>   76 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    26 (to 104)
->              78 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     4 (ch)
-> 
-> histo.py:17 	            print("char:", repr(ch), "frequency:", histo[ch])
-> 
->  17          80 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     3 (print)
->              82 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     3 ('char:')
->              84 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     4 (repr)
->              86 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
->              88 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     1
->              90 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     4 ('frequency:')
->              92 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     3 (histo)
->              94 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (ch)
->              96 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
->              98 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     4
->             100 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->             102 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    76
->         >>  104 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_BLOCK">POP_BLOCK</a>
->             106 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
->             108 <a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP">DUP_TOP</a>
->             110 <a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP">DUP_TOP</a>
->             112 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     3
->             114 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->             116 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_FORWARD">JUMP_FORWARD</a>    16 (to 134)
->         >>  118 <a href="https://docs.python.org/3/library/dis.html#opcode-WITH_EXCEPT_START">WITH_EXCEPT_START</a>
->             120 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_TRUE">POP_JUMP_IF_TRUE</a>   124
->             122 <a href="https://docs.python.org/3/library/dis.html#opcode-RERAISE">RERAISE</a>
->         >>  124 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->             126 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->             128 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->             130 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_EXCEPT">POP_EXCEPT</a>
->             132 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->         >>  134 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     0 (None)
->             136 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> pyasmtools.prettydis(compute_historgram, show_opcode_as_links=True): None
+&gt; File path: /Users/michaelmo/mystuff/pyasmtools/histo.py 
+&gt; 
+&gt; histo.py:5 def compute_historgram(file_name):
+&gt; 
+&gt; histo.py:6 	    with open(file_name,'r') as file:
+&gt; 
+&gt;   6           0 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (open)
+&gt;               2 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (file_name)
+&gt;               4 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 ('r')
+&gt;               6 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     2
+&gt;               8 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-SETUP_WITH"&gt;SETUP_WITH&lt;/a&gt;   108 (to 118)
+&gt;              10 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     1 (file)
+&gt; 
+&gt; histo.py:7 	        text = file.read()
+&gt; 
+&gt;   7          12 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (file)
+&gt;              14 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD"&gt;LOAD_METHOD&lt;/a&gt;     1 (read)
+&gt;              16 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD"&gt;CALL_METHOD&lt;/a&gt;     0
+&gt;              18 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     2 (text)
+&gt; 
+&gt; histo.py:9 	        histo = {}
+&gt; 
+&gt;   9          20 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BUILD_MAP"&gt;BUILD_MAP&lt;/a&gt;     0
+&gt;              22 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     3 (histo)
+&gt; 
+&gt; histo.py:10 	        for ch in text:
+&gt; 
+&gt;  10          24 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (text)
+&gt;              26 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER"&gt;GET_ITER&lt;/a&gt;
+&gt;         &gt;&gt;   28 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER"&gt;FOR_ITER&lt;/a&gt;    38 (to 68)
+&gt;              30 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     4 (ch)
+&gt; 
+&gt; histo.py:11 	            if not ch in histo:
+&gt; 
+&gt;  11          32 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (ch)
+&gt;              34 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     3 (histo)
+&gt;              36 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CONTAINS_OP"&gt;CONTAINS_OP&lt;/a&gt;     1
+&gt;              38 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_FALSE"&gt;POP_JUMP_IF_FALSE&lt;/a&gt;    50
+&gt; 
+&gt; histo.py:12 	                histo[ch] = 1
+&gt; 
+&gt;  12          40 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     2 (1)
+&gt;              42 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     3 (histo)
+&gt;              44 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (ch)
+&gt;              46 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR"&gt;STORE_SUBSCR&lt;/a&gt;
+&gt;              48 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE"&gt;JUMP_ABSOLUTE&lt;/a&gt;    28
+&gt; 
+&gt; histo.py:14 	                histo[ch] += 1
+&gt; 
+&gt;  14     &gt;&gt;   50 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     3 (histo)
+&gt;              52 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (ch)
+&gt;              54 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP_TWO"&gt;DUP_TOP_TWO&lt;/a&gt;
+&gt;              56 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR"&gt;BINARY_SUBSCR&lt;/a&gt;
+&gt;              58 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     2 (1)
+&gt;              60 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-INPLACE_ADD"&gt;INPLACE_ADD&lt;/a&gt;
+&gt;              62 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-ROT_THREE"&gt;ROT_THREE&lt;/a&gt;
+&gt;              64 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR"&gt;STORE_SUBSCR&lt;/a&gt;
+&gt;              66 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE"&gt;JUMP_ABSOLUTE&lt;/a&gt;    28
+&gt; 
+&gt; histo.py:16 	        for ch in histo.keys():
+&gt; 
+&gt;  16     &gt;&gt;   68 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     3 (histo)
+&gt;              70 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD"&gt;LOAD_METHOD&lt;/a&gt;     2 (keys)
+&gt;              72 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD"&gt;CALL_METHOD&lt;/a&gt;     0
+&gt;              74 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER"&gt;GET_ITER&lt;/a&gt;
+&gt;         &gt;&gt;   76 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER"&gt;FOR_ITER&lt;/a&gt;    26 (to 104)
+&gt;              78 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     4 (ch)
+&gt; 
+&gt; histo.py:17 	            print("char:", repr(ch), "frequency:", histo[ch])
+&gt; 
+&gt;  17          80 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     3 (print)
+&gt;              82 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     3 ('char:')
+&gt;              84 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     4 (repr)
+&gt;              86 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (ch)
+&gt;              88 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     1
+&gt;              90 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     4 ('frequency:')
+&gt;              92 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     3 (histo)
+&gt;              94 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (ch)
+&gt;              96 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR"&gt;BINARY_SUBSCR&lt;/a&gt;
+&gt;              98 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     4
+&gt;             100 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;             102 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE"&gt;JUMP_ABSOLUTE&lt;/a&gt;    76
+&gt;         &gt;&gt;  104 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_BLOCK"&gt;POP_BLOCK&lt;/a&gt;
+&gt;             106 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     0 (None)
+&gt;             108 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP"&gt;DUP_TOP&lt;/a&gt;
+&gt;             110 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-DUP_TOP"&gt;DUP_TOP&lt;/a&gt;
+&gt;             112 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     3
+&gt;             114 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;             116 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_FORWARD"&gt;JUMP_FORWARD&lt;/a&gt;    16 (to 134)
+&gt;         &gt;&gt;  118 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-WITH_EXCEPT_START"&gt;WITH_EXCEPT_START&lt;/a&gt;
+&gt;             120 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_JUMP_IF_TRUE"&gt;POP_JUMP_IF_TRUE&lt;/a&gt;   124
+&gt;             122 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RERAISE"&gt;RERAISE&lt;/a&gt;
+&gt;         &gt;&gt;  124 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;             126 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;             128 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;             130 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_EXCEPT"&gt;POP_EXCEPT&lt;/a&gt;
+&gt;             132 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;         &gt;&gt;  134 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     0 (None)
+&gt;             136 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; pyasmtools.prettydis(compute_historgram, show_opcode_as_links=True): None
 </pre>
 
 
@@ -495,84 +495,84 @@ print( "pyasmtools.prettydis(shuffle, show_opcode_as_links=True):", pyasmtools.p
 
 __Result:__
 <pre>
-> File path: /Users/michaelmo/mystuff/pyasmtools/shuffle.py 
-> 
-> shuffle.py:7 def shuffle(arr_size):
-> 
-> shuffle.py:8 	    arr=[]
-> 
->   8           0 <a href="https://docs.python.org/3/library/dis.html#opcode-BUILD_LIST">BUILD_LIST</a>     0
->               2 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     1 (arr)
-> 
-> shuffle.py:9 	    for num in range(1,arr_size+1):
-> 
->   9           4 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (range)
->               6 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->               8 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arr_size)
->              10 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->              12 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_ADD">BINARY_ADD</a>
->              14 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
->              16 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
->         >>   18 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    14 (to 34)
->              20 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     2 (num)
-> 
-> shuffle.py:10 	        arr.append(num)
-> 
->  10          22 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
->              24 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     1 (append)
->              26 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     2 (num)
->              28 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     1
->              30 <a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP">POP_TOP</a>
->              32 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    18
-> 
-> shuffle.py:12 	    for nun in range(0, arr_size):
-> 
->  12     >>   34 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     0 (range)
->              36 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (0)
->              38 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arr_size)
->              40 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION">CALL_FUNCTION</a>     2
->              42 <a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER">GET_ITER</a>
->         >>   44 <a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER">FOR_ITER</a>    44 (to 90)
->              46 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     3 (nun)
-> 
-> shuffle.py:13 	        idx = random.randint(1,arr_size)
-> 
->  13          48 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL">LOAD_GLOBAL</a>     2 (random)
->              50 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD">LOAD_METHOD</a>     3 (randint)
->              52 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     1 (1)
->              54 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     0 (arr_size)
->              56 <a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD">CALL_METHOD</a>     2
->              58 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     4 (idx)
-> 
-> shuffle.py:14 	        tmp = arr[0]
-> 
->  14          60 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
->              62 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (0)
->              64 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
->              66 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST">STORE_FAST</a>     5 (tmp)
-> 
-> shuffle.py:15 	        arr[0] = arr[idx]
-> 
->  15          68 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
->              70 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (idx)
->              72 <a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR">BINARY_SUBSCR</a>
->              74 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
->              76 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST">LOAD_CONST</a>     2 (0)
->              78 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
-> 
-> shuffle.py:16 	        arr[idx] = tmp
-> 
->  16          80 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     5 (tmp)
->              82 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
->              84 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     4 (idx)
->              86 <a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR">STORE_SUBSCR</a>
->              88 <a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE">JUMP_ABSOLUTE</a>    44
-> 
-> shuffle.py:18 	    return arr
-> 
->  18     >>   90 <a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST">LOAD_FAST</a>     1 (arr)
->              92 <a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE">RETURN_VALUE</a>
-> pyasmtools.prettydis(shuffle, show_opcode_as_links=True): None
+&gt; File path: /Users/michaelmo/mystuff/pyasmtools/shuffle.py 
+&gt; 
+&gt; shuffle.py:7 def shuffle(arr_size):
+&gt; 
+&gt; shuffle.py:8 	    arr=[]
+&gt; 
+&gt;   8           0 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BUILD_LIST"&gt;BUILD_LIST&lt;/a&gt;     0
+&gt;               2 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     1 (arr)
+&gt; 
+&gt; shuffle.py:9 	    for num in range(1,arr_size+1):
+&gt; 
+&gt;   9           4 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (range)
+&gt;               6 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;               8 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arr_size)
+&gt;              10 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;              12 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_ADD"&gt;BINARY_ADD&lt;/a&gt;
+&gt;              14 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     2
+&gt;              16 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER"&gt;GET_ITER&lt;/a&gt;
+&gt;         &gt;&gt;   18 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER"&gt;FOR_ITER&lt;/a&gt;    14 (to 34)
+&gt;              20 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     2 (num)
+&gt; 
+&gt; shuffle.py:10 	        arr.append(num)
+&gt; 
+&gt;  10          22 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (arr)
+&gt;              24 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD"&gt;LOAD_METHOD&lt;/a&gt;     1 (append)
+&gt;              26 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     2 (num)
+&gt;              28 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD"&gt;CALL_METHOD&lt;/a&gt;     1
+&gt;              30 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-POP_TOP"&gt;POP_TOP&lt;/a&gt;
+&gt;              32 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE"&gt;JUMP_ABSOLUTE&lt;/a&gt;    18
+&gt; 
+&gt; shuffle.py:12 	    for nun in range(0, arr_size):
+&gt; 
+&gt;  12     &gt;&gt;   34 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     0 (range)
+&gt;              36 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     2 (0)
+&gt;              38 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arr_size)
+&gt;              40 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_FUNCTION"&gt;CALL_FUNCTION&lt;/a&gt;     2
+&gt;              42 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-GET_ITER"&gt;GET_ITER&lt;/a&gt;
+&gt;         &gt;&gt;   44 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-FOR_ITER"&gt;FOR_ITER&lt;/a&gt;    44 (to 90)
+&gt;              46 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     3 (nun)
+&gt; 
+&gt; shuffle.py:13 	        idx = random.randint(1,arr_size)
+&gt; 
+&gt;  13          48 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_GLOBAL"&gt;LOAD_GLOBAL&lt;/a&gt;     2 (random)
+&gt;              50 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_METHOD"&gt;LOAD_METHOD&lt;/a&gt;     3 (randint)
+&gt;              52 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     1 (1)
+&gt;              54 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     0 (arr_size)
+&gt;              56 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-CALL_METHOD"&gt;CALL_METHOD&lt;/a&gt;     2
+&gt;              58 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     4 (idx)
+&gt; 
+&gt; shuffle.py:14 	        tmp = arr[0]
+&gt; 
+&gt;  14          60 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (arr)
+&gt;              62 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     2 (0)
+&gt;              64 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR"&gt;BINARY_SUBSCR&lt;/a&gt;
+&gt;              66 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_FAST"&gt;STORE_FAST&lt;/a&gt;     5 (tmp)
+&gt; 
+&gt; shuffle.py:15 	        arr[0] = arr[idx]
+&gt; 
+&gt;  15          68 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (arr)
+&gt;              70 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (idx)
+&gt;              72 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-BINARY_SUBSCR"&gt;BINARY_SUBSCR&lt;/a&gt;
+&gt;              74 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (arr)
+&gt;              76 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_CONST"&gt;LOAD_CONST&lt;/a&gt;     2 (0)
+&gt;              78 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR"&gt;STORE_SUBSCR&lt;/a&gt;
+&gt; 
+&gt; shuffle.py:16 	        arr[idx] = tmp
+&gt; 
+&gt;  16          80 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     5 (tmp)
+&gt;              82 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (arr)
+&gt;              84 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     4 (idx)
+&gt;              86 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-STORE_SUBSCR"&gt;STORE_SUBSCR&lt;/a&gt;
+&gt;              88 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-JUMP_ABSOLUTE"&gt;JUMP_ABSOLUTE&lt;/a&gt;    44
+&gt; 
+&gt; shuffle.py:18 	    return arr
+&gt; 
+&gt;  18     &gt;&gt;   90 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-LOAD_FAST"&gt;LOAD_FAST&lt;/a&gt;     1 (arr)
+&gt;              92 &lt;a href="https://docs.python.org/3/library/dis.html#opcode-RETURN_VALUE"&gt;RETURN_VALUE&lt;/a&gt;
+&gt; pyasmtools.prettydis(shuffle, show_opcode_as_links=True): None
 </pre>
 
 
