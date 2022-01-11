@@ -222,7 +222,7 @@ trace_fac_rec.py:7(1)     if arg_n == 1:
 trace_fac_rec.py:7(1)     # load arg_n 7
 trace_fac_rec.py:9(1)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(1)     # load arg_n 7
-trace_fac_rec.py:9(1)     # load_global fac <prettytrace.TraceMe object at 0x7fabf7238f10> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(1)     # load_global fac <prettytrace.TraceMe object at 0x7ffe6e359040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(1)     # load arg_n 7
 trace_fac_rec.py:6(2) def fac(arg_n):
 trace_fac_rec.py:6(2)     # arg_n=6
@@ -230,7 +230,7 @@ trace_fac_rec.py:7(2)     if arg_n == 1:
 trace_fac_rec.py:7(2)     # load arg_n 6
 trace_fac_rec.py:9(2)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(2)     # load arg_n 6
-trace_fac_rec.py:9(2)     # load_global fac <prettytrace.TraceMe object at 0x7fabf7238f10> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(2)     # load_global fac <prettytrace.TraceMe object at 0x7ffe6e359040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(2)     # load arg_n 6
 trace_fac_rec.py:6(3) def fac(arg_n):
 trace_fac_rec.py:6(3)     # arg_n=5
@@ -238,7 +238,7 @@ trace_fac_rec.py:7(3)     if arg_n == 1:
 trace_fac_rec.py:7(3)     # load arg_n 5
 trace_fac_rec.py:9(3)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(3)     # load arg_n 5
-trace_fac_rec.py:9(3)     # load_global fac <prettytrace.TraceMe object at 0x7fabf7238f10> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(3)     # load_global fac <prettytrace.TraceMe object at 0x7ffe6e359040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(3)     # load arg_n 5
 trace_fac_rec.py:6(4) def fac(arg_n):
 trace_fac_rec.py:6(4)     # arg_n=4
@@ -246,7 +246,7 @@ trace_fac_rec.py:7(4)     if arg_n == 1:
 trace_fac_rec.py:7(4)     # load arg_n 4
 trace_fac_rec.py:9(4)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(4)     # load arg_n 4
-trace_fac_rec.py:9(4)     # load_global fac <prettytrace.TraceMe object at 0x7fabf7238f10> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(4)     # load_global fac <prettytrace.TraceMe object at 0x7ffe6e359040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(4)     # load arg_n 4
 trace_fac_rec.py:6(5) def fac(arg_n):
 trace_fac_rec.py:6(5)     # arg_n=3
@@ -254,7 +254,7 @@ trace_fac_rec.py:7(5)     if arg_n == 1:
 trace_fac_rec.py:7(5)     # load arg_n 3
 trace_fac_rec.py:9(5)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(5)     # load arg_n 3
-trace_fac_rec.py:9(5)     # load_global fac <prettytrace.TraceMe object at 0x7fabf7238f10> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(5)     # load_global fac <prettytrace.TraceMe object at 0x7ffe6e359040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(5)     # load arg_n 3
 trace_fac_rec.py:6(6) def fac(arg_n):
 trace_fac_rec.py:6(6)     # arg_n=2
@@ -262,7 +262,7 @@ trace_fac_rec.py:7(6)     if arg_n == 1:
 trace_fac_rec.py:7(6)     # load arg_n 2
 trace_fac_rec.py:9(6)     return arg_n * fac(arg_n - 1)
 trace_fac_rec.py:9(6)     # load arg_n 2
-trace_fac_rec.py:9(6)     # load_global fac <prettytrace.TraceMe object at 0x7fabf7238f10> (type: class 'prettytrace.TraceMe')
+trace_fac_rec.py:9(6)     # load_global fac <prettytrace.TraceMe object at 0x7ffe6e359040> (type: class 'prettytrace.TraceMe')
 trace_fac_rec.py:9(6)     # load arg_n 2
 trace_fac_rec.py:6(7) def fac(arg_n):
 trace_fac_rec.py:6(7)     # arg_n=1
@@ -310,7 +310,7 @@ trace_fac_rec_indent.py:7(1).     if arg_n == 1:
 trace_fac_rec_indent.py:7(1).     # load arg_n 7
 trace_fac_rec_indent.py:9(1).     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(1).     # load arg_n 7
-trace_fac_rec_indent.py:9(1).     # load_global fac <prettytrace.TraceMe object at 0x7f9215a46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(1).     # load_global fac <prettytrace.TraceMe object at 0x7fce16a46280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(1).     # load arg_n 7
 trace_fac_rec_indent.py:6(2).. def fac(arg_n):
 trace_fac_rec_indent.py:6(2)..     # arg_n=6
@@ -318,7 +318,7 @@ trace_fac_rec_indent.py:7(2)..     if arg_n == 1:
 trace_fac_rec_indent.py:7(2)..     # load arg_n 6
 trace_fac_rec_indent.py:9(2)..     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(2)..     # load arg_n 6
-trace_fac_rec_indent.py:9(2)..     # load_global fac <prettytrace.TraceMe object at 0x7f9215a46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(2)..     # load_global fac <prettytrace.TraceMe object at 0x7fce16a46280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(2)..     # load arg_n 6
 trace_fac_rec_indent.py:6(3)... def fac(arg_n):
 trace_fac_rec_indent.py:6(3)...     # arg_n=5
@@ -326,7 +326,7 @@ trace_fac_rec_indent.py:7(3)...     if arg_n == 1:
 trace_fac_rec_indent.py:7(3)...     # load arg_n 5
 trace_fac_rec_indent.py:9(3)...     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(3)...     # load arg_n 5
-trace_fac_rec_indent.py:9(3)...     # load_global fac <prettytrace.TraceMe object at 0x7f9215a46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(3)...     # load_global fac <prettytrace.TraceMe object at 0x7fce16a46280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(3)...     # load arg_n 5
 trace_fac_rec_indent.py:6(4).... def fac(arg_n):
 trace_fac_rec_indent.py:6(4)....     # arg_n=4
@@ -334,7 +334,7 @@ trace_fac_rec_indent.py:7(4)....     if arg_n == 1:
 trace_fac_rec_indent.py:7(4)....     # load arg_n 4
 trace_fac_rec_indent.py:9(4)....     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(4)....     # load arg_n 4
-trace_fac_rec_indent.py:9(4)....     # load_global fac <prettytrace.TraceMe object at 0x7f9215a46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(4)....     # load_global fac <prettytrace.TraceMe object at 0x7fce16a46280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(4)....     # load arg_n 4
 trace_fac_rec_indent.py:6(5)..... def fac(arg_n):
 trace_fac_rec_indent.py:6(5).....     # arg_n=3
@@ -342,7 +342,7 @@ trace_fac_rec_indent.py:7(5).....     if arg_n == 1:
 trace_fac_rec_indent.py:7(5).....     # load arg_n 3
 trace_fac_rec_indent.py:9(5).....     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(5).....     # load arg_n 3
-trace_fac_rec_indent.py:9(5).....     # load_global fac <prettytrace.TraceMe object at 0x7f9215a46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(5).....     # load_global fac <prettytrace.TraceMe object at 0x7fce16a46280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(5).....     # load arg_n 3
 trace_fac_rec_indent.py:6(6)...... def fac(arg_n):
 trace_fac_rec_indent.py:6(6)......     # arg_n=2
@@ -350,7 +350,7 @@ trace_fac_rec_indent.py:7(6)......     if arg_n == 1:
 trace_fac_rec_indent.py:7(6)......     # load arg_n 2
 trace_fac_rec_indent.py:9(6)......     return arg_n * fac(arg_n - 1)
 trace_fac_rec_indent.py:9(6)......     # load arg_n 2
-trace_fac_rec_indent.py:9(6)......     # load_global fac <prettytrace.TraceMe object at 0x7f9215a46280> (type: class 'prettytrace.TraceMe')
+trace_fac_rec_indent.py:9(6)......     # load_global fac <prettytrace.TraceMe object at 0x7fce16a46280> (type: class 'prettytrace.TraceMe')
 trace_fac_rec_indent.py:9(6)......     # load arg_n 2
 trace_fac_rec_indent.py:6(7)....... def fac(arg_n):
 trace_fac_rec_indent.py:6(7).......     # arg_n=1
@@ -497,11 +497,11 @@ trace_lookup.py:7(1) def swap_list(arg_list):
 trace_lookup.py:7(1) # arg_list=[1, 2]
 trace_lookup.py:8(1)     tmp = arg_list[0]
 trace_lookup.py:8(1)     # load arg_list [1, 2]
-trace_lookup.py:8(1)     # load list-on-stack[0] 1
+trace_lookup.py:8(1)     # load list_on_stack[0] 1
 trace_lookup.py:9(1)     # store tmp 1
 trace_lookup.py:9(1)     arg_list[0] = arg_list[1]
 trace_lookup.py:9(1)     # load arg_list [1, 2]
-trace_lookup.py:9(1)     # load list-on-stack[1] 2
+trace_lookup.py:9(1)     # load list_on_stack[1] 2
 trace_lookup.py:9(1)     # load arg_list [1, 2]
 trace_lookup.py:9(1)     # store list-on-stack[0]=2
 trace_lookup.py:10(1)     arg_list[1] = tmp
@@ -513,11 +513,11 @@ trace_lookup.py:12(1) def swap_dict(arg_dict):
 trace_lookup.py:12(1) # arg_dict={'first': 'a', 'second': 'b'}
 trace_lookup.py:13(1)     tmp = arg_dict['first']
 trace_lookup.py:13(1)     # load arg_dict {'first': 'a', 'second': 'b'}
-trace_lookup.py:13(1)     # load dict-on-stack['first'] 'a'
+trace_lookup.py:13(1)     # load dict_on_stack['first'] 'a'
 trace_lookup.py:14(1)     # store tmp 'a'
 trace_lookup.py:14(1)     arg_dict['first'] = arg_dict['second']
 trace_lookup.py:14(1)     # load arg_dict {'first': 'a', 'second': 'b'}
-trace_lookup.py:14(1)     # load dict-on-stack['second'] 'b'
+trace_lookup.py:14(1)     # load dict_on_stack['second'] 'b'
 trace_lookup.py:14(1)     # load arg_dict {'first': 'a', 'second': 'b'}
 trace_lookup.py:14(1)     # store dict-on-stack['first']='b'
 trace_lookup.py:15(1)     arg_dict['second'] = tmp
@@ -725,7 +725,7 @@ trace_histo.py:12(1)             # load histo {'A': 1, 't': 1}
 trace_histo.py:15(1)                 histo[ch] += 1
 trace_histo.py:15(1)                 # load histo {'A': 1, 't': 1}
 trace_histo.py:15(1)                 # load ch 't'
-trace_histo.py:15(1)                 # load dict-on-stack['t'] 1
+trace_histo.py:15(1)                 # load dict_on_stack['t'] 1
 trace_histo.py:15(1)                 # store dict-on-stack['t']=2
 trace_histo.py:11(1)         for ch in text:
 trace_histo.py:12(1)         # store ch 'a'
@@ -771,7 +771,7 @@ trace_histo.py:12(1)             # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1, '
 trace_histo.py:15(1)                 histo[ch] += 1
 trace_histo.py:15(1)                 # load histo {'A': 1, 't': 2, 'a': 1, 'c': 1, 'k': 1, ' ': 1}
 trace_histo.py:15(1)                 # load ch 'a'
-trace_histo.py:15(1)                 # load dict-on-stack['a'] 1
+trace_histo.py:15(1)                 # load dict_on_stack['a'] 1
 trace_histo.py:15(1)                 # store dict-on-stack['a']=2
 trace_histo.py:11(1)         for ch in text:
 trace_histo.py:12(1)         # store ch 't'
@@ -781,7 +781,7 @@ trace_histo.py:12(1)             # load histo {'A': 1, 't': 2, 'a': 2, 'c': 1, '
 trace_histo.py:15(1)                 histo[ch] += 1
 trace_histo.py:15(1)                 # load histo {'A': 1, 't': 2, 'a': 2, 'c': 1, 'k': 1, ' ': 1}
 trace_histo.py:15(1)                 # load ch 't'
-trace_histo.py:15(1)                 # load dict-on-stack['t'] 2
+trace_histo.py:15(1)                 # load dict_on_stack['t'] 2
 trace_histo.py:15(1)                 # store dict-on-stack['t']=3
 trace_histo.py:11(1)         for ch in text:
 trace_histo.py:12(1)         # store ch ' '
@@ -791,7 +791,7 @@ trace_histo.py:12(1)             # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, '
 trace_histo.py:15(1)                 histo[ch] += 1
 trace_histo.py:15(1)                 # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, 'k': 1, ' ': 1}
 trace_histo.py:15(1)                 # load ch ' '
-trace_histo.py:15(1)                 # load dict-on-stack[' '] 1
+trace_histo.py:15(1)                 # load dict_on_stack[' '] 1
 trace_histo.py:15(1)                 # store dict-on-stack[' ']=2
 trace_histo.py:11(1)         for ch in text:
 trace_histo.py:12(1)         # store ch 'd'
@@ -810,7 +810,7 @@ trace_histo.py:12(1)             # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, '
 trace_histo.py:15(1)                 histo[ch] += 1
 trace_histo.py:15(1)                 # load histo {'A': 1, 't': 3, 'a': 2, 'c': 1, 'k': 1, ' ': 2, 'd': 1}
 trace_histo.py:15(1)                 # load ch 'a'
-trace_histo.py:15(1)                 # load dict-on-stack['a'] 2
+trace_histo.py:15(1)                 # load dict_on_stack['a'] 2
 trace_histo.py:15(1)                 # store dict-on-stack['a']=3
 trace_histo.py:11(1)         for ch in text:
 trace_histo.py:12(1)         # store ch 'w'
@@ -858,7 +858,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'A'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'A'
-trace_histo.py:18(1)             # load dict-on-stack['A'] 1
+trace_histo.py:18(1)             # load dict_on_stack['A'] 1
 char: 'A' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 't'
@@ -868,7 +868,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 't'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 't'
-trace_histo.py:18(1)             # load dict-on-stack['t'] 3
+trace_histo.py:18(1)             # load dict_on_stack['t'] 3
 char: 't' frequency: 3
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 'a'
@@ -878,7 +878,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'a'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'a'
-trace_histo.py:18(1)             # load dict-on-stack['a'] 3
+trace_histo.py:18(1)             # load dict_on_stack['a'] 3
 char: 'a' frequency: 3
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 'c'
@@ -888,7 +888,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'c'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'c'
-trace_histo.py:18(1)             # load dict-on-stack['c'] 1
+trace_histo.py:18(1)             # load dict_on_stack['c'] 1
 char: 'c' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 'k'
@@ -898,7 +898,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'k'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'k'
-trace_histo.py:18(1)             # load dict-on-stack['k'] 1
+trace_histo.py:18(1)             # load dict_on_stack['k'] 1
 char: 'k' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch ' '
@@ -908,7 +908,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch ' '
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch ' '
-trace_histo.py:18(1)             # load dict-on-stack[' '] 2
+trace_histo.py:18(1)             # load dict_on_stack[' '] 2
 char: ' ' frequency: 2
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 'd'
@@ -918,7 +918,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'd'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'd'
-trace_histo.py:18(1)             # load dict-on-stack['d'] 1
+trace_histo.py:18(1)             # load dict_on_stack['d'] 1
 char: 'd' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 'w'
@@ -928,7 +928,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'w'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'w'
-trace_histo.py:18(1)             # load dict-on-stack['w'] 1
+trace_histo.py:18(1)             # load dict_on_stack['w'] 1
 char: 'w' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch 'n'
@@ -938,7 +938,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch 'n'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch 'n'
-trace_histo.py:18(1)             # load dict-on-stack['n'] 1
+trace_histo.py:18(1)             # load dict_on_stack['n'] 1
 char: 'n' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch '!'
@@ -948,7 +948,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch '!'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch '!'
-trace_histo.py:18(1)             # load dict-on-stack['!'] 1
+trace_histo.py:18(1)             # load dict_on_stack['!'] 1
 char: '!' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:18(1)         # store ch '\n'
@@ -958,7 +958,7 @@ trace_histo.py:18(1)             # load_global repr <built-in function repr> (ty
 trace_histo.py:18(1)             # load ch '\n'
 trace_histo.py:18(1)             # load histo {'A': 1, 't': 3, 'a': 3, 'c': 1, 'k': 1, ' ': 2, 'd': 1, 'w': 1, 'n': 1, '!': 1, '\n': 1}
 trace_histo.py:18(1)             # load ch '\n'
-trace_histo.py:18(1)             # load dict-on-stack['\n'] 1
+trace_histo.py:18(1)             # load dict_on_stack['\n'] 1
 char: '\n' frequency: 1
 trace_histo.py:17(1)         for ch in histo.keys():
 trace_histo.py:17(1) return=None

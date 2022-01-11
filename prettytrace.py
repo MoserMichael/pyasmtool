@@ -236,9 +236,9 @@ def _binary_subscr(frame, asm_instr, argval, ctx):
     sval = ctx.show_val(deref_val)
 
     if isinstance(obj, typing.Dict):
-        title="dict-on-stack"
+        title="dict_on_stack"
     elif isinstance(obj, typing.List):
-        title="list-on-stack"
+        title="list_on_stack"
     else:
         title=str(type(obj)) + "-on-stack"
         
